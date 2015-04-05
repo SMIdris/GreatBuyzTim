@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white" >
+
+    <include
+        android:id="@+id/registerHeader"
+        layout="@layout/header"
+        android:layout_alignParentTop="true">
+    </include>
+
+    <com.onmobile.utils.GreatBuyzTextView
+        android:id="@+id/txt_help_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
+        android:layout_marginTop="10dip"
+        android:layout_below="@+id/registerHeader"
+        android:textColor="#004C92"
+        android:textSize="22sp" />
+
+    <WebView
+        android:id="@+id/helpDetails"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="10dip"
+        android:layout_below="@+id/txt_help_title"
+        android:layout_above="@+id/btnClickHere"
+        android:background="#00000000"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollbars="vertical"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btnClickHere"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:background="@drawable/normal_btn"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:text="@string/btnNotifVisitText"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/white_color_text_size"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+</RelativeLayout>

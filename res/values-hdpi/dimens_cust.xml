@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+		<!--  Slide Drawer -->
+	<dimen name="left_drawer_width">430dip</dimen>
+
+</resources>

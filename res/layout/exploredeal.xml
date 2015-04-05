@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/EXPLOREDEALS"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:padding="10dip" >
+
+        <Spinner
+            android:id="@+id/sprExploreCategories"
+            android:layout_width="fill_parent"
+            android:layout_height="48dip"
+            android:layout_marginTop="10dip" >
+        </Spinner>
+
+        <EditText
+            android:id="@+id/edtLocation"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:background="@drawable/editbox_background_normal"
+            android:hint="@string/localityHintText"
+            android:inputType="text"
+            android:textColorHint="@color/darkgray"
+            android:textSize="@dimen/heading" >
+        </EditText>
+
+        <EditText
+            android:id="@+id/edtItemName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:background="@drawable/editbox_background_normal"
+            android:hint="@string/keywordHintText"
+            android:inputType="text"
+            android:textColorHint="@color/darkgray"
+            android:textSize="@dimen/heading" >
+        </EditText>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btnExploreSend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dip"
+                android:background="@drawable/normal_btn"
+                android:gravity="center"
+                android:paddingLeft="30dip"
+                android:paddingRight="30dip"
+                android:text="@string/btnSearchText"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/white_color_text_size"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

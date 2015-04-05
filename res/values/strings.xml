@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="black">#000000</color>
+
+    <string name="app_name">TIM Coupon</string>
+    <string name="ok">OK</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+    <string name="cancel">Annulla</string>
+    <string name="upgrade">Aggiorna</string>
+    <string name="expirydate">Scade il:</string>
+    <string name="expirytime">Scadenza Offerta</string>
+    <string name="expirydatetimeseperator"> alle </string>
+    <string name="expirydatetimeheading">Scadenza Offerta</string>
+    <string name="btnVisitText">DETTAGLI</string>
+    <string name="btnReadMore">Read More  ></string>
+    <string name="titleInfo">Informazioni</string>
+    <string name="btnNotifVisitText">Visita</string>
+    <string name="all">Tutti</string>
+    <string name="date">date:</string>
+
+    <!-- Menu names -->
+    <string name="menuAbout">Crediti</string>
+    <string name="menuTerms">T\u0026C / Info\u0026Costi</string>
+    <string name="menuFAQ">Faq</string>
+    <string name="menuSettings">Configura</string>
+    <string name="menuRefresh">Aggiornare</string>
+    <string name="menuHedding">Settings</string>
+    <string name="menuInfo">Info</string>
+
+    <!-- TAB names -->
+    <string name="resStrSpecial">SOLO PER TE</string>
+    <string name="dealsOfTheDay">Offerte del giorno</string>
+    <string name="surpriseMe">Sorprendimi</string>
+    <string name="dealsByCategories">CATEGORIE</string>
+    <string name="dealsYouMayLike">Offerte che possono piacerti</string>
+    <string name="dealsNearMe">VICINO A ME</string>
+    <string name="exploreDeals">Ricerca</string>
+    <string name="myDeals">I miei Bonus</string>
+
+    <!-- Deal item -->
+    <string name="value">Valore</string>
+    <string name="euro">€</string>
+    <string name="discount">Sconto</string>
+    <string name="percent">%</string>
+    <string name="pay">Prezzo</string>
+    <string name="contactDetailHeaderText">Contatto:</string>
+    <string name="offerHeaderText">Offerta:</string>
+    <string name="zeroDiscountText">0</string>
+
+    <!-- Messages -->
+    <string name="unableToConnect">Non e\" possibile connettersi al server, riprova piu\" tardi</string>
+    <string name="checkInternetConnection">Controlla la tua connessione ad internet</string>
+    <string name="loading">Caricamento..</string>
+    <string name="searching_best_deals">Cercando migliori offerte per te</string>
+    <string name="emptyDeal">Nessuna Offerta trovata</string>
+    <string name="networkProblemMessage">Non è possibile connettersi al server in questo momento, riprova piu\" tardi.</string>
+    <string name="emptyMyDealListMessage">Nessun acquisto e\" stato fatto. Inizia a comprare e ricevere subito i tuoi coupons.</string>
+    <string name="emptyViewBackButton">Usa il tasto \"Indietro\" sul tuo cellulare per tornare alla pagina precedente</string>
+    <string name="NullKeywordMessage">scrivi parola di ricerca</string>
+    <string name="NullFieldMessage">Campo obbligatorio</string>
+    <string name="exitMessage">Sei davvero sicuro che vuoi uscire dall App?</string>
+    <string name="inAppNotifyExitDialog">Gentile cliente, lei non ha un abbonamento attivo a TIM Coupon. Per ricevere tutte le Offerte ed usufruire degli Sconti esclusivi, deve iscriversi al servizio. Si prega di confermare l\'iscrizione.</string>
+    <string name="NoApplicationFound">La tua richiesta non puo\" essere completata</string>
+    <string name="registerMarketingTitle">Attiva il servizio TIM Coupon adesso!</string>
+    <string name="registerMarketingText">Avrai subito accesso a migliaia di Offerte messe a disposizione dai  migliori partner selezionati per te! Inizia subito lo shopping! Approfitta dello speciale *BONUS DI BENVENUTO*</string>
+    <string name="registerMarketingInfo">Servizio in abbonamento al costo di 0,98€ i.i. a settimana. La prima settimana èGratis! Cliccando sul tasto CLICCA e ABBONATI dichiari di essere maggiorenne</string>
+    <!-- Help screen -->
+    <string name="termsTitle">Termini e Condizioni</string>
+    <string name="infoTermsTitle">T&amp;C</string>
+    <string name="infoPrivacyTitle">Info Privacy</string>
+    <string name="infoCostiTitle">Info Costi</string>
+    <string name="faqTitle">FAQ</string>
+
+    <!-- Explore deals -->
+    <string name="btnSearchText">Cerca</string>
+    <string name="localityHintText">Tua Citta\"</string>
+    <string name="keywordHintText">Cerca specifico articolo</string>
+    <string name="failed_search_dialog_message">Nessun risultato, provare di nuovo la ricerca</string>
+
+    <!-- Surprise Me -->
+    <string name="btnSurpriseMeText">Clicca qui</string>
+    <string name="txtSurpriseMeText">Agita il telefono per ricevere le Offerte in base alle tue categorie preferite.</string>
+    <string name="txtOR">oppure</string>
+
+    <!-- MyDeals -->
+    <string name="couponid">Coupon: </string>
+    <string name="issued">Data di ricezione: </string>
+
+    <!-- Setting Items -->
+    <string name="buttonUpdateText">Aggiorna</string>
+    <string name="settingItemChangeLocation">Cambia Citta\"</string>
+    <string name="settingItemPersonalProfile">Profilo</string>
+    <string name="settingItemMyCoupon">I miei coupons</string>
+    <string name="settingItemSearch">Ricerca</string>
+    <string name="settingItemNotifications">Notifiche</string>
+    <string name="settingItemCategoryPreferences">Scegli Categoria</string>
+    <string name="settingItemEmail">Configura la tua email</string>
+    <string name="settingItemUnsubscribe">Disattiva</string>
+    <string name="settingItemKeywords">Preferenze</string>
+    <string name="version">Version:</string>
+    <string name="titleCategoryPreferences">Scegli Categoria</string>
+    <string name="titleUnsubscribeMessage">Se ti disattivi al servizio, non potrai più ricevere ne\" vedere le offerte</string>
+    <string name="invalidEmailMessage">email non valida</string>
+    <string name="atleastOneCategoryMessage">seleziona almeno una categoria</string>
+    <string name="emailTextHint">example@mail.com</string>
+    <string name="keywordsTextHint">per es. Scarpe, Cellulari, ecc.</string>
+    <string name="btnSetAlertsText">Attiva avvisi</string>
+    <string name="emailTextPromo">Nota: Aggiungi la tua email oggi stesso e inizia a ricevere la newsletter con tutte le migliori offerte a te dedicate..</string>
+    <string name="keywordsSentMessage">La parola che hai inserito e\" stata inviata al server</string>
+    <string name="keywordsFailedMessage">Invio parola fallito, riprova piu\" tardi</string>
+    <string name="notificationText">Non perdere le migliori Offerte esclusive di TIM Coupon. Scegli quante Notifiche vuoi ricevere ogni giorno e clicca sul tasto Aggiorna</string>
+    <string name="notificationSentMessage">Preferenze di notifica aggiornate</string>
+    <string name="notificationFailedMessage">Impossibile aggiornare le preferenze di notifica, si prega di riprovare</string>
+
+    <!-- Deals near me -->
+    <string name="gpsNeededMessage">TIM Coupon vuole condividere la tua città. Abilitiamo il GPS?</string>
+    <string name="enable">Attivo</string>
+    <string name="enableretry">Riprovare</string>
+    <!-- <string name="locationNotAvailable">Ci sono problemi nell\"individuare la tua esatta posizione. Potresti riprovare piuì tardi? Grazie</string> -->
+
+    <string name="locationNotAvailables">Impossibile recuperare la posizione. Abilita WiFi o GPS in modalità ad alta precisione per ottenere risultati migliori.</string>
+
+    <!-- Registraion screen -->
+    <string name="countryCode">+39</string>
+    <string name="register">Registrazione</string>
+    <string name="validate">INVIA</string>
+    <string name="registrationFailMessage">La tua registrazione non e\" andata a buon fine. Ti chiediamo di riprovare piu\" tardi.</string>
+    <string name="otpExpiredMessage">Questo PIN e\" scaduto. Clicca su \"Reinvia PIN\" per averne uno nuovo</string>
+    <string name="agree">Accetto</string>
+    <string name="enterMobileNumber">Inserisci il tuo numero di cellulare</string>
+    <string name="invalidMobileNumber">Il tuo numero di telefono deve avere almeno 6 caratteri</string>
+    <string name="enterOTP">Inserisci il PIN che hai ricevuto</string>
+    <string name="otpResendText">Se non hai ancora ricevuto il PIN e vuoi richiederne uno nuovo, premi il pulsante qui di sotto per generare un nuovo PIN da ricevere via SMS.</string>
+    <string name="otpResendButtonText">RICHIEDI NUOVO PIN</string>
+    <string name="registerMobileNumber">Registrati a TIM Coupon e otterrai un ulteriore sconto del 7% + le spedizioni Gratis per tutti gli acquisti effettuati su Tempo di Sconti! La prima settimana è Gratis, che aspetti a provare?</string>
+    <string name="welcomeText">Per questa settimana, puoi accedere gratis a migliaia di Offerte per la tua citta\"</string>
+    <string name="welcomeTextDis">Bentornato! Si prega di registrarsi per procedere</string>
+    <string name="welcomeOfferText">Servizio in abbonamento a 0,98€ / Sett</string>
+    <string name="welcomeDealContinueButtonText">Continua</string>
+    <string name="welcomeText_DiscontinuedUser">Welcome back.</string>
+    <string name="subscription_status_pending_message">La tua attivazione non e\" ancora completata. Riprova piu\" tardi</string>
+    <string name="unsubscription_status_pending">Stiamo vivendo un problema di connettività, per favore cerchiamo di disattivare tardi</string>
+    <string name="subscription_failed_message">Invio del PIN al server e\" fallito, riprova di nuovo.</string>
+    <string name="incorrectOTP">Il PIN che hai insierito non e\" corretto. Riprova di nuovo.</string>
+    <string name="freeDealMessage">Complimenti! Hai ricevuto un\"Offerta Speciale di benvenuto! \n Clicca per procedere con l\"Offerta di Benvenuto.</string>
+    <string name="txtTnCAndInfo">T\u0026C / Info\u0026Costi</string>
+
+    <!-- Notification Screen -->
+    <string name="enable_inApp_notif">Abilita Notifiche</string>
+    <string name="enable_daily_msg">Abilita Ricezione SMS Giornaliero</string>
+    <string name="daily_notif_limit">Numero Notifiche quotidiane</string>
+    <string name="enable_all_notif">Enable All notification</string>
+    <string name="notMoreThan">Not more than</string>
+    <string name="hour_notif">/hour</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- IP change screen -->
+    <string name="current_ip">Current IP</string>
+    <string name="new_ip">New IP</string>
+    <string name="cancel_en">Cancel</string>
+    <string name="submit_en">Submit</string>
+
+</resources>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ebebeb" >
+
+    <it.telecomitalia.timcoupon.ui.AmazingListView
+        android:id="@+id/lsComposer"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#ebebeb"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10dip"
+        android:listSelector="@android:color/transparent"
+        android:scrollingCache="false" />
+
+    <ViewSwitcher
+        android:id="@+id/gpsNeededViewSwitcher"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <ViewSwitcher
+            android:id="@id/android:empty"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+
+                <ProgressBar
+                    android:id="@+id/emptyProgress"
+                    android:layout_width="40dip"
+                    android:layout_height="40dip"
+                    android:layout_centerInParent="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+
+                <com.onmobile.utils.GreatBuyzTextView
+                    android:id="@+id/emptyText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="@string/emptyDeal"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <com.onmobile.utils.GreatBuyzTextView
+                    android:id="@+id/emptyBackButtonText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/emptyText"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="5dip"
+                    android:gravity="center"
+                    android:text="@string/emptyViewBackButton"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    android:visibility="gone" />
+            </RelativeLayout>
+        </ViewSwitcher>
+
+        <RelativeLayout
+            android:id="@+id/gpsNeededView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:visibility="gone" >
+
+            <com.onmobile.utils.GreatBuyzTextView
+                android:id="@+id/gpsNeededTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dip"
+                android:gravity="center"
+                android:text="@string/gpsNeededMessage"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnEnableGPS"
+                android:layout_width="wrap_content"
+                android:layout_height="35dip"
+                android:layout_below="@+id/gpsNeededTextView"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dip"
+                android:background="@drawable/normal_btn"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip"
+                android:text="@string/enable"
+                android:textColor="#ffffff"
+                android:textSize="15sp"
+                android:textStyle="bold" >
+            </Button>
+        </RelativeLayout>
+    </ViewSwitcher>
+
+</RelativeLayout>

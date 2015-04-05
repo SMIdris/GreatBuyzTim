@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <include
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/registerHeader"
+        android:layout_alignParentTop="true"
+        layout="@layout/header" >
+    </include>
+
+    <Button
+        android:id="@+id/btnVisit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="5dip"
+        android:background="@drawable/bn_pressed"
+        android:focusable="false"
+        android:focusableInTouchMode="true"
+        android:shadowColor="@color/visitnbuyshadow"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="1"
+        android:text="@string/welcomeDealContinueButtonText"
+        android:textColor="@color/white"
+        android:textSize="@dimen/visit_buy"
+        android:textStyle="bold"
+        android:visibility="visible" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/btnVisit"
+        android:layout_below="@+id/registerHeader"
+        android:background="@drawable/welcome" >
+
+        <WebView
+            android:id="@+id/webDealDetails"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/transparent"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollbars="none"
+            android:textColor="@color/greytextcolor"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+</RelativeLayout>

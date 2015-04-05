@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/deal_detail_screen_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/btnlayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <RelativeLayout
+            android:id="@+id/layout_expire"
+            android:layout_width="fill_parent"
+            android:layout_height="25dip"
+            android:background="@color/deal_detail_screen_exp_time_bg" >
+
+            <com.onmobile.utils.GreatBuyzTextView
+                android:id="@+id/txt_expire_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dip"
+                android:drawableLeft="@drawable/expired_icon"
+                android:drawablePadding="5dip"
+                android:focusable="false"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:textSize="11sp" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btnDetailVisitDeal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_expire"
+            android:layout_margin="5dip"
+            android:background="@drawable/bn_pressed"
+            android:focusable="false"
+            android:focusableInTouchMode="true"
+            android:shadowColor="@color/visitnbuyshadow"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:text="@string/btnVisitText"
+            android:textColor="@color/white"
+            android:textSize="@dimen/visit_buy"
+            android:textStyle="bold"
+            android:visibility="visible" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_below="@+id/btnDetailVisitDeal" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/btnlayout"
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="15dip" >
+
+        <RelativeLayout
+            android:id="@+id/detailedScrollChild"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:focusable="false"
+            android:focusableInTouchMode="true" >
+
+            <LinearLayout
+                android:id="@+id/imgBtnContainer"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+<!--                 <ImageView
+                    android:id="@+id/imgDetailDeal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="180dip"
+                    android:background="@drawable/default_deal_display"
+                    android:scaleType="centerCrop" />
+ -->
+				
+				<include layout="@layout/detailed_deal_image"/>
+
+
+                
+            </LinearLayout>
+
+            <LinearLayout 
+                android:id="@+id/dealDescLayout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layoutDetailDealProContainer"
+                    android:orientation="vertical"
+                >
+                <RelativeLayout 
+                    android:id="@+id/briefDetails"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    >
+                     <com.onmobile.utils.GreatBuyzTextView
+                    android:id="@+id/txtDetailDesc"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:paddingLeft="15dip"
+                    android:paddingRight="15dip"
+                    android:paddingTop="15dp"
+                    android:textColor="@color/deal_detail_screen_text_col"
+                    android:textSize="14sp" />
+
+                    <!-- <ImageButton
+                        android:id="@+id/briefDetailsButton "
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/txtDetailDesc"
+                        android:layout_alignParentEnd="@+id/txtDetailDesc"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="70dp"
+                        android:textSize="20sp"
+                        android:background="@drawable/down_arrow"
+                         />
+ -->                    
+                </RelativeLayout>
+                <!-- <RelativeLayout 
+                    android:id="@+id/moreDetailsLayout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    >
+                     <com.onmobile.utils.GreatBuyzTextView
+                    android:id="@+id/txtMoreDetailDesc"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:paddingLeft="15dip"
+                    android:paddingRight="15dip"
+                    android:paddingTop="15dp"
+                    android:text="this is kiran kumar repalle working at techvedika software pvt ltd .. cunsolutant at CA technologies ..."
+                    android:textColor="@color/deal_detail_screen_text_col"
+                    android:textSize="14sp" />
+
+                    <ImageButton
+                        android:id="@+id/longDetailsButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/txtMoreDetailDesc"
+                        android:layout_alignParentEnd="@+id/txtMoreDetailDesc"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/txtMoreDetailDesc"
+                       android:layout_marginRight="10dp"
+                        android:background="@drawable/up_arrow"
+                         />
+                    
+                </RelativeLayout> -->
+                
+               
+                
+            </LinearLayout>
+            
+            <LinearLayout
+                android:id="@+id/layoutDetailDealProContainer"
+                android:layout_width="fill_parent"
+                android:layout_height="52dip"
+                android:layout_below="@+id/imgBtnContainer"
+                android:layout_marginLeft="15dip"
+                android:layout_marginRight="15dip"
+                android:layout_marginTop="10dip"
+                android:background="@drawable/deal_detail_bg"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <com.onmobile.utils.GreatBuyzTextView
+                        android:id="@+id/txt_deal_value_text"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingLeft="3dip"
+                        android:text="@string/value"
+                        android:textColor="@color/deal_detail_screen_price_txt"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal" >
+
+                        <com.onmobile.utils.GreatBuyzTextView
+                            android:id="@+id/txt_detail_deal_value"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:gravity="center"
+                            android:paddingLeft="3dip"
+                            android:textColor="@color/deal_detail_screen_price_value"
+                            android:textSize="12sp" />
+
+                        <com.onmobile.utils.GreatBuyzTextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:focusable="false"
+                            android:gravity="center"
+                            android:paddingLeft="3dip"
+                            android:text="@string/euro"
+                            android:textColor="#000000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <com.onmobile.utils.GreatBuyzTextView
+                    android:layout_width="1dip"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/price_box_devider" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <com.onmobile.utils.GreatBuyzTextView
+                        android:id="@+id/txt_deal_desc_text"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingLeft="3dip"
+                        android:text="@string/discount"
+                        android:textColor="@color/deal_detail_screen_price_txt"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal" >
+
+                        <com.onmobile.utils.GreatBuyzTextView
+                            android:id="@+id/txt_detail_deal_desc_val"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:gravity="center"
+                            android:paddingLeft="3dip"
+                            android:textColor="@color/deal_detail_screen_price_value"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <com.onmobile.utils.GreatBuyzTextView
+                            android:id="@+id/percentage_txt"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:focusable="false"
+                            android:gravity="center"
+                            android:paddingLeft="3dip"
+                            android:text="@string/percent"
+                            android:textColor="#000000"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <com.onmobile.utils.GreatBuyzTextView
+                    android:layout_width="1dip"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/price_box_devider" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <com.onmobile.utils.GreatBuyzTextView
+                        android:id="@+id/txt_deal_pay_text"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingLeft="3dip"
+                        android:text="@string/pay"
+                        android:textColor="@color/deal_detail_screen_price_txt"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal" >
+
+                        <com.onmobile.utils.GreatBuyzTextView
+                            android:id="@+id/txt_detail_deal_pay_val"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:gravity="center"
+                            android:paddingLeft="3dip"
+                            android:textColor="@color/deal_detail_screen_price_value"
+                            android:textSize="12sp" />
+
+                        <com.onmobile.utils.GreatBuyzTextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:focusable="false"
+                            android:gravity="center"
+                            android:paddingLeft="3dip"
+                            android:text="@string/euro"
+                            android:textColor="#000000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

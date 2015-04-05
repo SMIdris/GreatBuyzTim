@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/commonHeader"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white" >
+
+    <include
+        android:id="@+id/registerHeader"
+        android:layout_alignParentTop="true"
+        layout="@layout/header" >
+    </include>
+
+    <com.onmobile.utils.GreatBuyzTextView
+        android:id="@+id/txt_help_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/registerHeader"
+        android:layout_marginLeft="5dip"
+        android:layout_marginTop="5dip"
+        android:textColor="#004C92"
+        android:textSize="22sp" />
+
+    <WebView
+        android:id="@+id/helpDetails"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/txt_help_title"
+        android:background="#00000000"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollbars="vertical"
+        android:textSize="16sp" />
+
+</RelativeLayout>

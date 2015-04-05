@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/registration"
+    android:orientation="vertical"
+    android:weightSum="1" >
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:layout_weight="1" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/registrationInfo"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="25dip"
+                android:layout_marginTop="15dip"
+                android:orientation="vertical" >
+
+                <com.onmobile.utils.GreatBuyzTextView
+                    android:id="@+id/registrationInfoTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_marginTop="15dip"
+                    android:gravity="center"
+                    android:text="@string/registerMarketingTitle"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <com.onmobile.utils.GreatBuyzTextView
+                    android:id="@+id/registrationInfoMsg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:text="@string/registerMarketingText"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/registrationBonusImage"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@+id/registrationInfo"
+                android:gravity="center_horizontal|center_vertical"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/bonus_image"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="Bonus Image"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/bonus_image" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/registrationWelcomeMsg"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@+id/registrationBonusImage"
+                android:layout_marginBottom="25dip"
+                android:layout_marginTop="15dip"
+                android:orientation="vertical" >
+
+                <com.onmobile.utils.GreatBuyzTextView
+                    android:id="@+id/txtRegistrationWelcomeMsg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_marginTop="15dip"
+                    android:text="@string/registerMarketingInfo"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+           
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/registrationView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="#88000000"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/layoutRegisterAccount"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/layoutMobileNumber"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone" >
+
+                <com.onmobile.utils.GreatBuyzTextView
+                    android:id="@+id/txtCountryCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginTop="5dip"
+                    android:text="@string/countryCode"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edtEnterMobileNumber"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_marginTop="10dip"
+                    android:background="@drawable/editbox_background_normal"
+                    android:hint="@string/enterMobileNumber"
+                    android:inputType="number"
+                    android:maxLength="12"
+                    android:textColorHint="@color/darkgray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutAgreeContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dip"
+                android:orientation="horizontal" >
+
+                <CheckBox
+                    android:id="@+id/checkAgreeToTerms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/checkbox"
+                    android:text="@string/agree"
+                    android:textColor="@color/black" />
+
+                <Button
+                    android:id="@+id/btnViewAgreement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dip"
+                    android:background="@drawable/terms" />
+
+                <com.onmobile.utils.GreatBuyzTextView
+                    android:id="@+id/txtTnCAndInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dip"
+                    android:text="@string/txtTnCAndInfo"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/btnRegister"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dip"
+                    android:layout_marginLeft="5dip"
+                    android:layout_marginRight="5dip"
+                    android:layout_marginTop="10dip"
+                    android:background="@drawable/registration_drawable_btn"
+                    android:enabled="true"
+                    android:gravity="center"
+                    android:shadowColor="@color/black"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="1"
+                    android:text="@string/register"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/white_color_text_size"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

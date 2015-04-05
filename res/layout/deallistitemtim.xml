@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_entry_base_new"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:clickable="false"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    android:gravity="center" >
+
+    <ImageView
+        android:id="@+id/img_deal_new"
+        android:layout_width="fill_parent"
+        android:layout_height="160dip"
+        android:background="@drawable/default_category"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="center_vertical"
+        android:scaleType="centerCrop" >
+    </ImageView>
+
+    <LinearLayout
+        android:id="@+id/layoutDealProContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/img_deal_new"
+        android:layout_marginBottom="5dip"
+        android:layout_marginLeft="12dip"
+        android:layout_marginRight="12dip"
+        android:background="@drawable/deal_image_overlay"
+        android:baselineAligned="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <com.onmobile.utils.GreatBuyzTextView
+                android:id="@+id/txt_deal_value_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="center_horizontal"
+                android:paddingLeft="3dip"
+                android:text="@string/value"
+                android:textColor="#ffffff"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:orientation="horizontal" >
+
+                <com.onmobile.utils.GreatBuyzTextView
+                    android:id="@+id/txt_deal_value"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center"
+                    android:paddingBottom="2dip"
+                    android:paddingLeft="3dip"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <com.onmobile.utils.GreatBuyzTextView
+                    android:id="@+id/txt_euro_symbol_1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center"
+                    android:paddingLeft="3dip"
+                    android:text="@string/euro"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <com.onmobile.utils.GreatBuyzTextView
+                android:id="@+id/txt_deal_desc_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="center"
+                android:paddingLeft="3dip"
+                android:text="@string/discount"
+                android:textColor="#ffffff"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:orientation="horizontal" >
+
+                <com.onmobile.utils.GreatBuyzTextView
+                    android:id="@+id/txt_deal_desc_val"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center"
+                    android:paddingBottom="2dip"
+                    android:paddingLeft="3dip"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <com.onmobile.utils.GreatBuyzTextView
+                    android:id="@+id/txt_percent_symbol"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center"
+                    android:paddingLeft="3dip"
+                    android:text="@string/percent"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.onmobile.utils.GreatBuyzTextView
+            android:layout_width="1dip"
+            android:layout_height="fill_parent"
+            android:focusable="false"
+            android:focusableInTouchMode="false" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <com.onmobile.utils.GreatBuyzTextView
+                android:id="@+id/txt_deal_pay_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="center"
+                android:paddingLeft="3dip"
+                android:text="@string/pay"
+                android:textColor="#ffffff"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:orientation="horizontal" >
+
+                <com.onmobile.utils.GreatBuyzTextView
+                    android:id="@+id/txt_deal_pay_val"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center"
+                    android:paddingBottom="2dip"
+                    android:paddingLeft="3dip"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <com.onmobile.utils.GreatBuyzTextView
+                    android:id="@+id/txt_euro_symbol_2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center"
+                    android:paddingLeft="3dip"
+                    android:text="@string/euro"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout 
+        android:id="@+id/txt_new_deal_desc_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        android:layout_below="@+id/img_deal_new"
+        android:layout_centerVertical="true"
+        >
+        <com.onmobile.utils.GreatBuyzTextView
+        android:id="@+id/txt_new_deal_desc"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:ellipsize="end"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:paddingLeft="10dip"
+        android:textColor="#4f5152"
+        android:textSize="14sp" />
+        <com.onmobile.utils.GreatBuyzTextView
+        android:id="@+id/txt_new_deal_location"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:focusable="false"
+        android:visibility="gone"
+        android:focusableInTouchMode="false"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:paddingLeft="10dip"
+        android:textColor="#4f5152"
+        android:textSize="14sp" />
+        
+    </LinearLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_below="@+id/txt_new_deal_desc_layout"
+        android:background="#dcdcdc" />
+
+</RelativeLayout>
