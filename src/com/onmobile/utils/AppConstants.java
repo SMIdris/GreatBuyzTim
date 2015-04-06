@@ -253,9 +253,8 @@ public interface AppConstants
 		public static final String NoApplicationFound = "NoApplicationFound";
 
 		public static final String termsTitle = "termsTitle";
-		public static final String infoTermsTitle = "infoTermsTitle";
-		public static final String infoPrivacyTitle = "infoPrivacyTitle";
-		public static final String infoCostiTitle = "infoCostiTitle";
+		
+
 		public static final String faqTitle = "faqTitle";
 
 		public static final String btnSearchText = "btnSearchText";
@@ -307,9 +306,15 @@ public interface AppConstants
 		public static final String locationNotAvailables = "locationNotAvailables";
 		public static final String zeroDiscountText = "zeroDiscountText";
 		public static final String txtTnCAndInfo = "txtTnCAndInfo";
-		public static final String registerMarketingTitle = "Reg_marketing_title";
-		public static final String registerMarketingText = "Reg_marketing";
-		public static final String registerMarketingInfo= "Reg_cost";
+		public static final String registerMarketingTitle = "regMarketingTitle";
+		public static final String registerMarketingText = "regMarketingInfo";
+		public static final String registerMarketingInfo= "regMarketingCost";
+		public static final String regAcceptMsg= "regAcceptMsg";
+		public static final String postPinMsg= "postPinMsg";
+		public static final String infoPrivacyTitle= "infoPrivacyTitle";
+		public static final String infoCostiTitle= "infoCostiTitle";
+		public static final String infoTermsTitle = "infoTermsTitle";
+		public static final String regBonusImageUrl = "regBonusImageUrl";
 	}
 
 	public interface JSONKeys

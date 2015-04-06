@@ -32,11 +32,11 @@ public class GreatBuyzApplication extends Application
 	private static Analytics _analytics;
 	private String httpPrefix = "http://";
 	//private String serverIP = "172.16.31.148:8080";// previous prod
-	//private String serverIP = "103.19.90.82:8080";// Staging
+	private String serverIP = "103.19.90.82:8080";// Staging
 	//private String serverIP = "103.19.90.87:80";// test 
+
 	
-	
-	private String serverIP = "gbtim.turacomobile.com";  // prod 
+	//private String serverIP = "gbtim.turacomobile.com";  // prod 
 	
 	private String baseURL = "/greatbuyz-api/v2";
 	private String faqURL = "/gb/info/faq.html";

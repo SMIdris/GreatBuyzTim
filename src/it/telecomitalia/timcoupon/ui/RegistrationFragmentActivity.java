@@ -298,6 +298,7 @@ public class RegistrationFragmentActivity extends FragmentActivity
 							startHomeScreen();
 						}
 					});
+					noBtn.setVisibility(View.GONE);
 					TextView msgText = (TextView) dialog.findViewById(R.id.msg);
 					msgText.setText(message);
 					msgText.setTypeface(GreatBuyzApplication.getApplication().getFont());

@@ -24,7 +24,7 @@
                 android:layout_height="fill_parent"
                 android:layout_alignParentTop="true"
                 android:layout_marginBottom="25dip"
-                android:layout_marginTop="15dip"
+                android:layout_marginTop="25dip"
                 android:orientation="vertical" >
 
                 <com.onmobile.utils.GreatBuyzTextView
@@ -68,6 +68,7 @@
                     android:layout_height="wrap_content"
                     android:contentDescription="Bonus Image"
                     android:scaleType="fitXY"
+                    android:adjustViewBounds="true"
                     android:src="@drawable/bonus_image" />
             </LinearLayout>
 
@@ -157,22 +158,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:button="@drawable/checkbox"
-                    android:text="@string/agree"
+                    android:text="@string/emptyMsg"
                     android:textColor="@color/black" />
 
-                <Button
-                    android:id="@+id/btnViewAgreement"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dip"
-                    android:background="@drawable/terms" />
+           
 
                 <com.onmobile.utils.GreatBuyzTextView
                     android:id="@+id/txtTnCAndInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="7dip"
-                    android:text="@string/txtTnCAndInfo"
+                    android:text="@string/regAcceptMsg"
+                    android:textStyle="bold|italic"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
             </LinearLayout>
