@@ -499,6 +499,38 @@ public class DetailScreen extends Activity
 				titleText1.setText(Utils.getMessageString(AppConstants.Messages.titleInfo, R.string.titleInfo));
 				titleText1.setTypeface(GreatBuyzApplication.getApplication().getFont());
 				return dialog;
+				
+			case AppConstants.DialogConstants.MESSAGE_DIALOG_NODEAL:
+				String messages = args.getString(AppConstants.JSONKeys.MESSAGE);
+				final GenericDialog dialogs = new GenericDialog(this, R.layout.status_message, R.style.AlertDialogCustom);
+				dialogs.setCancelable(false);
+				Button btns = (Button) dialogs.findViewById(R.id.status_btn);
+				btns.setText(Utils.getMessageString(AppConstants.Messages.ok, R.string.ok));
+				btns.setTypeface(GreatBuyzApplication.getApplication().getFont());
+				btns.setOnClickListener(new OnClickListener()
+				{
+					@Override
+					public void onClick(View v)
+					{
+
+						try
+						{
+							removeDialog(AppConstants.DialogConstants.MESSAGE_DIALOG);
+							onBackPressed();
+						}
+						catch (Exception e)
+						{
+							e.printStackTrace();
+						}
+					}
+				});
+				TextView msgTexts = (TextView) dialogs.findViewById(R.id.msg);
+				msgTexts.setText(messages);
+				msgTexts.setTypeface(GreatBuyzApplication.getApplication().getFont());
+				TextView titleText1s = (TextView) dialogs.findViewById(R.id.title);
+				titleText1s.setText(Utils.getMessageString(AppConstants.Messages.titleInfo, R.string.titleInfo));
+				titleText1s.setTypeface(GreatBuyzApplication.getApplication().getFont());
+				return dialogs;
 
 			case AppConstants.DialogConstants.CHANGE_SETTINGS_LOCATION_DIALOG:
 				{
@@ -816,6 +848,27 @@ public class DetailScreen extends Activity
 			}
 		});
 	}
+	
+	public void showMessageDialogNoDeal(final String message)
+	{
+		runOnUiThread(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				try
+				{
+					Bundle b = new Bundle();
+					b.putString(AppConstants.JSONKeys.MESSAGE, message);
+					showDialog(AppConstants.DialogConstants.MESSAGE_DIALOG_NODEAL, b);
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	private void repaint(final DealScreenDTO deal)
 	{
@@ -863,7 +916,9 @@ public class DetailScreen extends Activity
 					}
 					else
 					{
-						onBackPressed();
+					
+						showMessageDialogNoDeal(Utils.getMessageString(AppConstants.Messages.emptyDeal, R.string.emptyDeal));
+						//onBackPressed();
 					}
 				}
 			});

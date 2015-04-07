@@ -184,8 +184,9 @@ public class ServiceDelegate
 		String imei = Utils.getAndroidId(GreatBuyzApplication.getApplication());
 		if (!Utils.isNothing(imei)) GreatBuyzApplication.getDataController().updateAndroidId(imei);
 		String imsi = null;
-	//	imsi = _data.getIMSI();
-		 imsi = "sdfsdf342345234";
+		imsi = _data.getIMSI();
+//		 imsi = "123sdfsdf3423452345";
+//		 imei = "4354354354354351235";
 		String data = RequestBuilder.getInfoRequest(latitude, longitude, imei, imsi, _data.getGCMId(), _data.getVersions());
 		//
 		// data = "{\"keywords\":\"1\",\"client\":\"2.0.30\",\"tnc\":\"1\",\"imei\":\"be71847de81d043\",\"faq\":\"1\",\"about\":\"1\",\"constants\":\"95\",\"long\":0,\"messages\":\"95\",\"help\":\"1\",\"locations\":\"95\",\"categories\":\"0\",\"imsi\":\"89914903040938218617\",\"gcmid\":\"APA91bGxDjSk4j4Tjiz8r44qFs6dlb_UhTEnjhROhAB-N5v6Dkh7g5ScDTb2gxjkzA0DurlLz2jMt93htBtdoER5kKBoF7OwdzHhoQtmT2ZQECdZcL4b84DuoThtHvvPSSjp5akOWAsrxrZeWAT1k0YqMkwPAQqETQ\",\"lat\":0}";
