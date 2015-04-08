@@ -45,7 +45,8 @@
                     android:id="@+id/registrationInfoMsg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:layout_marginBottom="10dip"
                     android:layout_marginLeft="10dip"
                     android:layout_marginRight="10dip"
@@ -85,7 +86,8 @@
                     android:id="@+id/txtRegistrationWelcomeMsg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
+                   android:layout_gravity="center"
+                    android:gravity="center"
                     android:layout_marginLeft="10dip"
                     android:layout_marginRight="10dip"
                     android:layout_marginTop="15dip"
@@ -127,7 +129,7 @@
                     android:layout_marginLeft="10dip"
                     android:layout_marginTop="5dip"
                     android:text="@string/countryCode"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -138,6 +140,7 @@
                     android:layout_marginLeft="10dip"
                     android:layout_marginRight="10dip"
                     android:layout_marginTop="10dip"
+                    android:textColor="@color/darkgray"
                     android:background="@drawable/editbox_background_normal"
                     android:hint="@string/enterMobileNumber"
                     android:inputType="number"
@@ -170,7 +173,7 @@
                     android:layout_marginLeft="7dip"
                     android:text="@string/regAcceptMsg"
                     android:textStyle="bold|italic"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="14sp" />
             </LinearLayout>
 

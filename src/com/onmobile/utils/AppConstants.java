@@ -125,8 +125,7 @@ public interface AppConstants
 
 	public interface GCM
 	{
-		//public static final String GCM_PROJECT_ID = "507363539968"; //395165115367 //786921400297
-		public static final String GCM_PROJECT_ID = "786921400297";
+		public static final String GCM_PROJECT_ID = "507363539968"; 
 		public static final int GCM_REGISTRATION_FAILED = 0;
 		public static final int GCM_RECEIVED = 1;
 		public static final int GCM_UPDATE_REGISTRATION_ID = 2;

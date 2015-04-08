@@ -837,7 +837,7 @@ public class SampleTabsStyled extends FragmentActivity implements OnCategoryClic
 			closeInfoView();
 		}
 
-		else if (isCategoryByDealsDisplayed && mPager.getCurrentItem() == 2)
+		else if (isCategoryByDealsDisplayed && mPager.getCurrentItem() == categoryListFragmentPosition)
 		{
 			categoryFragmentNavigationListner.onSwitchToPrevFragment();
 		}
