@@ -3,7 +3,7 @@
     package="it.telecomitalia.timcoupon"
     android:installLocation="auto"
     android:versionCode="1"
-    android:versionName="2.1.11" >
+    android:versionName="2.1.12" >
 
     <uses-sdk android:minSdkVersion="8" />
 
@@ -118,10 +118,10 @@
         </activity>
         <!-- SMS link Activity -->
 
-        <activity android:name="it.telecomitalia.timcoupon.ui.SmsActivity" 
+        <activity
+            android:name="it.telecomitalia.timcoupon.ui.SmsActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Black.NoTitleBar"
-            >
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" >
                 </action>
@@ -132,8 +132,21 @@
                 </category>
 
                 <data
-                    android:scheme="http" >
-                </data>
+                    android:host="*"
+                    android:pathPattern=".*\\cpn.html"
+                    android:scheme="http" />
+                <data
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\cpn.html"
+                    android:scheme="http" />
+                <data
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\.cpn.html"
+                    android:scheme="http" />
+                <data
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\cpn.html"
+                    android:scheme="http" />
             </intent-filter>
             <intent-filter>
                 <data android:scheme="wwwgreatbuyzappdeal" />

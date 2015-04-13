@@ -453,7 +453,7 @@ public final class RegistrationFragment extends Fragment
 		try
 		{
 			getActivity().showDialog(AppConstants.DialogConstants.LOADING_DIALOG);
-			GreatBuyzApplication.getServiceDelegate().getMDNFromNetworkPOST(url, headers, postData, new IOperationListener()
+			GreatBuyzApplication.getServiceDelegate().getMDNFromNetworkPOST(activity,url, headers, postData, new IOperationListener()
 			{
 				@Override
 				public void onOperationCompleted(boolean pOperationComplitionStatus, String pMessageFromServer)

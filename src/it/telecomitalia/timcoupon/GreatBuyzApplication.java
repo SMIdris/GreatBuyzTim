@@ -23,7 +23,7 @@ import com.onmobile.utils.Utils;
 public class GreatBuyzApplication extends Application
 {
 	private boolean isTerminated = false;
-	private final String TAG = "[GreatBuyz]GreatBuyzApplication";
+	public final static String TAG = "[GreatBuyzTIM]GreatBuyzApplication";
 	private static GreatBuyzApplication _application;
 	private static DataController _dataController;
 	private static ServiceDelegate _serviceDelegate;
@@ -32,11 +32,13 @@ public class GreatBuyzApplication extends Application
 	private static Analytics _analytics;
 	private String httpPrefix = "http://";
 	//private String serverIP = "172.16.31.148:8080";// previous prod
-	private String serverIP = "103.19.90.82:8080";// Staging
+	//private String serverIP = "103.19.90.82:8080";// Staging
 	//private String serverIP = "103.19.90.87:80";// test 
 
-	
-	//private String serverIP = "gbtim.turacomobile.com";  // prod 
+	//private String serverIP = "103.19.90.82:80"; // Staging Public IP
+	//private String serverIP = "172.16.2.125:8083"; // Staging Local Ip
+	//private String serverIP = "103.19.90.82:8080";// QA
+	private String serverIP = "gbtim.turacomobile.com";  // prod 
 	
 	private String baseURL = "/greatbuyz-api/v2";
 	private String faqURL = "/gb/info/faq.html";

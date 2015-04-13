@@ -4,7 +4,6 @@ import it.telecomitalia.timcoupon.GreatBuyzApplication;
 import it.telecomitalia.timcoupon.R;
 import it.telecomitalia.timcoupon.data.Deal;
 import it.telecomitalia.timcoupon.data.DealScreenDTO;
-import it.telecomitalia.timcoupon.data.Purchase;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
@@ -34,8 +33,8 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.content.SharedPreferences;
-import android.location.Location;
 import android.util.Log;
 
 import com.onmobile.hcoe.io.HttpClientService;
@@ -183,10 +182,10 @@ public class ServiceDelegate
 	{
 		String imei = Utils.getAndroidId(GreatBuyzApplication.getApplication());
 		if (!Utils.isNothing(imei)) GreatBuyzApplication.getDataController().updateAndroidId(imei);
-		String imsi = null;
-	//	imsi = _data.getIMSI();
-		 imsi = "123sdfsdf3423452345";
-		 imei = "4354354354354351235";
+		//String imsi = null;
+		String imsi = _data.getIMSI();
+//		imsi = "123sdfsdf3423452345w";
+//		imei = "4354354354354351235w";
 		String data = RequestBuilder.getInfoRequest(latitude, longitude, imei, imsi, _data.getGCMId(), _data.getVersions());
 		try
 		{
@@ -421,7 +420,7 @@ public class ServiceDelegate
 		}
 	}
 	
-	public void getMDNFromNetworkPOST(final String url, final Map<String, String> headers, final String postData, final IOperationListener _operationListener) throws UnsupportedEncodingException
+	public void getMDNFromNetworkPOST(final Context ctx, final String url, final Map<String, String> headers, final String postData, final IOperationListener _operationListener) throws UnsupportedEncodingException
 	{
 		try
 		{
@@ -455,8 +454,17 @@ public class ServiceDelegate
 				}
 				
 				@Override
-				public void onHttpRequestError(Exception e)
+				public void onHttpRequestError(final Exception e)
 				{
+//					((Activity) ctx).runOnUiThread(new Runnable() {
+//				        @Override
+//				        public void run() {
+//				           //Your code to run in GUI thread here
+//				        	
+//				        	Toast.makeText(ctx, "msg : " + e.getMessage(), Toast.LENGTH_LONG).show();
+//				        }//public void run() {
+//				});
+//					L.e(e.getMessage());
 					e.printStackTrace();
 					_operationListener.onOperationCompleted(false, httpErrorString);
 				}

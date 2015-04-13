@@ -67,7 +67,7 @@
     <string name="registerMarketingText">Avrai subito accesso a migliaia di Offerte messe a disposizione dai  migliori partner selezionati per te! Inizia subito lo shopping! Approfitta dello speciale *BONUS DI BENVENUTO*</string>
     <string name="registerMarketingInfo">Servizio in abbonamento al costo di 0,98€ i.i. a settimana. La prima settimana èGratis! Cliccando sul tasto CLICCA e ABBONATI dichiari di essere maggiorenne</string>
   <!-- new messages -->
-		<string name="regAcceptMsg">Accetta Termini e Condizioni e Info Provacy</string>
+		<string name="regAcceptMsg">Accetta Termini e Condizioni e Info Privacy</string>
 		<string name="postPinMsg">Complimenti, servizio attivato con successo! Buon shopping con TIMCoupon</string>
 		<string name="infoPrivacyTitle">Info privacy</string>
 		<string name="infoCostiTitle">Info sui costi</string>

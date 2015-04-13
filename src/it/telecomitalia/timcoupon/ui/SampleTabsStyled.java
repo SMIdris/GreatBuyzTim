@@ -342,12 +342,13 @@ public class SampleTabsStyled extends FragmentActivity implements OnCategoryClic
 	{
 		
 		String userSubscriptionStatus = _data.getUserSubscriptionStatus();
-		if(userSubscriptionStatus.equalsIgnoreCase("DISCONTINUED")){
+		if(!userSubscriptionStatus.equalsIgnoreCase("ACTIVE")){
 			Bundle b = new Bundle();
 			String err = Utils.getMessageString(AppConstants.Messages.inAppNotifyExitDialog, R.string.inAppNotifyExitDialog);
 			b.putString(AppConstants.JSONKeys.MESSAGE, err);
 			showDialog(AppConstants.DialogConstants.IN_APP_EXIT_DIALOG, b);
-		}else{
+		}
+		else{
 			if (intent.getBooleanExtra(AppConstants.DEAL_SCREEN, false))
 			{
 				Intent mIn = new Intent(SampleTabsStyled.this, DetailScreen.class);
@@ -2378,7 +2379,7 @@ public class SampleTabsStyled extends FragmentActivity implements OnCategoryClic
 				break;
 			case AppConstants.SettingItems.ALL_TNC:
 				closeMenu();
-				String ALL_TNC = GreatBuyzApplication.getApplication().getALLTNCURL();
+				String ALL_TNC = GreatBuyzApplication.getApplication().getINFOTNCURL();
 				showWebView(Utils.getMessageString(AppConstants.Messages.infoTermsTitle, R.string.infoTermsTitle), ALL_TNC, false);
 				showWebView("", "", true);
 				break;
