@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <android.support.v4.widget.DrawerLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <include
+                android:id="@+id/registerHeader"
+                android:layout_alignParentTop="true"
+                layout="@layout/header" >
+            </include>
+
+            <RelativeLayout
+                android:id="@+id/layout_indicator"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/registerHeader"
+                android:orientation="horizontal" >
+
+                <RelativeLayout
+                    android:id="@+id/btn_indicator_left"
+                    android:layout_width="25dip"
+                    android:layout_height="40dip"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:enabled="false" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/tab_nav_prev_btn"
+                        android:duplicateParentState="true" />
+                </RelativeLayout>
+
+                <com.turacomobile.greatbuyz.ui.TabPageIndicator
+                    android:id="@+id/indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/btn_indicator_right"
+                    android:layout_toRightOf="@+id/btn_indicator_left" />
+
+                <RelativeLayout
+                    android:id="@+id/btn_indicator_right"
+                    android:layout_width="25dip"
+                    android:layout_height="40dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/tab_nav_next_btn"
+                        android:duplicateParentState="true" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layout_indicator" />
+
+            <RelativeLayout
+                android:id="@+id/webView_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@+id/registerHeader"
+                android:background="@color/white"
+                android:clickable="true"
+                android:visibility="gone" >
+
+                <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
+                    android:id="@+id/txt_help_title"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingLeft="5dip"
+                    android:paddingTop="5dip"
+                    android:textColor="#004C92"
+                    android:textSize="22sp" />
+
+                <WebView
+                    android:id="@+id/helpDetails"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_below="@+id/txt_help_title"
+                    android:background="#00000000"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollbars="vertical"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/left_drawer"
+            android:layout_width="280dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:background="#2c2c2c"
+            android:divider="#2e3234"
+            android:dividerHeight="1dip" />
+    </android.support.v4.widget.DrawerLayout>
+
+    <RelativeLayout
+        android:id="@+id/child_drawer_layout"
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:background="#1d1d1d"
+        android:clickable="true" >
+
+        <RelativeLayout
+            android:id="@+id/layout_child_drawer_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/settings_header" >
+
+            <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
+                android:id="@+id/title_text_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical|left"
+                android:padding="16dp"
+                android:textColor="#ffffff"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/layout_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dip"
+                android:orientation="horizontal" >
+
+                <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
+                    android:id="@+id/version_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/version"
+                    android:textColor="#ffffff"
+                    android:textSize="13sp" />
+
+                <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
+                    android:id="@+id/version_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:textColor="#ffffff"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/left_drawer_child"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_child_drawer_header"
+            android:layout_gravity="right"
+            android:background="#2c2c2c"
+            android:divider="#2e3234"
+            android:dividerHeight="1dip" />
+
+        <RelativeLayout
+            android:id="@+id/notification_form"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/layout_child_drawer_header"
+            android:layout_gravity="right"
+            android:background="#1d1d1d"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip" >
+
+                <!-- <RelativeLayout
+                    android:id="@+id/first_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/notif_layout_row_hight" >
+
+                    <com.onmobile.utils.GreatBuyzTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/enable_inApp_notif"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <CheckBox
+                        android:id="@+id/in_app_notification_checkbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/in_app_notification_checkbox"
+                        android:background="@drawable/divider" />
+                </RelativeLayout> -->
+
+                <RelativeLayout
+                    android:id="@+id/dailyMsgRow"
+                    android:layout_width="match_parent"
+                    android:layout_below="@+id/first_row"
+                    android:layout_height="@dimen/notif_layout_row_hight"
+                     >
+
+                    <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/enable_daily_msg"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <CheckBox
+                        android:id="@+id/dailyMsgCheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:button="@drawable/checkbox_new" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/dailyMsgCheckBox"
+                        android:background="@drawable/divider" />
+                </RelativeLayout>
+                <!-- <RelativeLayout
+                    android:id="@+id/second_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/first_row" >
+
+                    <com.onmobile.utils.GreatBuyzTextView
+                        android:id="@+id/notification_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginTop="5dip"
+                        android:text="@string/notificationText"
+                        android:textColor="@color/notification_textview_color"
+                        android:textSize="12sp" />
+
+                    <com.onmobile.utils.GreatBuyzTextView
+                        android:id="@+id/spinner_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginTop="10dip"
+                        android:text="@string/daily_notif_limit"
+                        android:textColor="@color/notification_textview_color"
+                        android:textSize="14sp" />
+                    <Spinner
+                        android:id="@+id/notification_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dip"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignRight="@+id/spinner_text"
+                        android:layout_marginTop="5dip" />
+                </RelativeLayout> -->
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/second_row"
+                    android:layout_marginTop="5dip"
+                    android:background="@drawable/divider" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/button_notification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relativeLayout1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="34dip"
+                android:background="@drawable/orange_btn"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip"
+                android:text="@string/buttonUpdateText"
+                android:textColor="@color/white" />
+
+            <ImageView
+                android:id="@+id/dividerimg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/button_notification"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/divider" />
+
+            <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
+                android:id="@+id/setalerttextview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/dividerimg"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:background="@color/grey"
+                android:clickable="true"
+                android:drawableLeft="@drawable/setting_help"
+                android:drawablePadding="8dp"
+                android:minHeight="50dip"
+                android:padding="10dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="@string/settingItemKeywords"
+                android:textColor="#fff"
+                android:textSize="14sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</android.support.v4.widget.DrawerLayout>

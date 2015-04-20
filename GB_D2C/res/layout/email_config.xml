@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="4dip"
+    android:paddingLeft="10dip"
+    android:paddingRight="10dip"
+    android:paddingTop="6dip" >
+
+    <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/settingItemEmail"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/email_input"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/editbox_background_normal"
+        android:hint="@string/emailTextHint"
+        android:inputType="textEmailAddress"
+        android:textColorHint="@color/darkgray"
+        android:textSize="18sp" />
+
+    <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
+        android:id="@+id/txt_promoText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:gravity="center"
+        android:lines="2"
+        android:paddingBottom="10dip"
+        android:text="@string/emailTextPromo"
+        android:textSize="14sp" />
+
+</LinearLayout>

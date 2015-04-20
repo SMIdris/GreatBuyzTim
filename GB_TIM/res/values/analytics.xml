@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="https://schemas.android.com/tools" tools:ignore="TypographyDashes">
+
+    <!-- Replace placeholder ID with your tracking ID -->
+    <!-- Production -->
+    <string name="ga_trackingId">UA-37554482-1</string>
+    <!-- Staging -->
+    <!-- <string name="ga_trackingId">UA-31569216-1</string> -->
+
+
+    <!-- Enable automatic activity tracking -->
+    <bool name="ga_autoActivityTracking">true</bool>
+
+    <!-- Enable automatic exception tracking -->
+    <bool name="ga_reportUncaughtExceptions">true</bool>
+
+    <integer name="ga_dispatchPeriod">0</integer>
+
+    <!-- <string name="it.telecomitalia.timcoupon.ui.DetailScreen">DealDetail</string>
+    <string name="it.telecomitalia.timcoupon.ui.HelpActivity">Help</string>
+    <string name="it.telecomitalia.timcoupon.ui.MyDealsDetailScreen">MyDealsDetail</string>
+    <string name="it.telecomitalia.timcoupon.ui.SplashActivity">Splash</string> -->
+
+</resources>

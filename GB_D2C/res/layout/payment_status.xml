@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_of_location_box"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="4dip"
+    android:paddingLeft="10dip"
+    android:paddingRight="10dip"
+    android:paddingTop="6dip" >
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#618b00"
+        android:textSize="18dip"
+        android:visibility="gone" >
+    </TextView>
+
+    <WebView
+        android:id="@+id/paymentStatusView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:background="#00000000"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollbars="vertical"
+        android:textSize="16dip" />
+
+    <Button
+        android:id="@+id/btnOk"
+        android:layout_width="100dip"
+        android:layout_height="35dip"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dip"
+        android:background="@drawable/orange_btn"
+        android:paddingLeft="20dip"
+        android:paddingRight="20dip"
+        android:textColor="#ffffff"
+        android:textSize="15dip"
+        android:textStyle="bold" >
+    </Button>
+
+</LinearLayout>

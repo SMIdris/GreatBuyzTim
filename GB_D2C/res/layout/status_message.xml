@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_of_location_box"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_marginBottom="4dip"
+    android:layout_marginLeft="10dip"
+    android:layout_marginRight="10dip"
+    android:layout_marginTop="6dip" >
+
+    <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#004C92"
+        android:textSize="18sp"
+        android:visibility="gone" />
+
+    <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
+        android:id="@+id/msg"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:gravity="center"
+        android:layout_marginBottom="5dip"
+        android:textColor="#484747"
+        android:textSize="16sp"
+        android:textStyle="normal" />
+
+    <Button
+        android:id="@+id/status_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="35dip"
+        android:background="@drawable/normal_btn"
+        android:layout_marginBottom="20dip"
+        android:paddingLeft="20dip"
+        android:paddingRight="20dip"
+        android:textColor="#ffffff"
+        android:textSize="15sp"
+        android:textStyle="bold" >
+    </Button>
+
+</LinearLayout>

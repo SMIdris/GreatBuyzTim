@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/listbg"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/registerHeader"
+        layout="@layout/header" >
+    </include>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerHorizontal="true" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/giftafriendtitle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_tab_indicator_unselected"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dip"
+                android:text="GIFT A FRIEND"
+                android:textColor="@color/white"
+                android:textSize="14dip"
+                android:textStyle="bold"
+                android:visibility="gone" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/title1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:layout_marginTop="10dip"
+                android:padding="1dip"
+                android:text="Enter mobile number"
+                android:textColor="@color/greytextcolor"
+                android:textSize="14dip"
+                android:textStyle="bold"
+                android:visibility="gone" >
+            </TextView>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:layout_marginTop="10dip"
+                
+                android:background="@color/white" >
+
+                <EditText
+                    android:id="@+id/edtMobileNumber"
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dip"
+                    android:layout_toLeftOf="@+id/add_contact"
+                    android:background="@null"
+                    android:layout_margin="1dip"
+                    android:cursorVisible="true"
+                    android:hint="Friend&apos;s mobile number"
+                    android:imeOptions="actionNext"
+                    android:numeric="integer"
+                    android:paddingLeft="5dip"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/tooltipcolor" >
+                </EditText>
+
+                <Button
+                    android:id="@+id/add_contact"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dip"
+                 
+                    android:background="@drawable/add_contact" />
+                
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/title2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:padding="1dip"
+                android:text="Enter your friend name"
+                android:textColor="@color/greytextcolor"
+                android:textSize="14dip"
+                android:textStyle="bold"
+                android:visibility="gone" >
+            </TextView>
+
+            <EditText
+                android:id="@+id/edtYourFriendName"
+                android:layout_width="fill_parent"
+                android:layout_height="50dip"
+                android:layout_marginTop="1dip"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:background="@color/white"
+                android:cursorVisible="true"
+                android:hint="Your friend name"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+                android:paddingLeft="5dip"
+                android:textColor="@color/black"
+                android:textColorHint="@color/tooltipcolor" >
+            </EditText>
+
+            <TextView
+                android:id="@+id/title3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:padding="1dip"
+                android:text="Enter message"
+                android:textColor="@color/greytextcolor"
+                android:textSize="14dip"
+                android:textStyle="bold"
+                android:visibility="gone" >
+            </TextView>
+
+            <EditText
+                android:id="@+id/edtMessage"
+                android:layout_width="fill_parent"
+                android:layout_height="50dip"
+                android:layout_marginTop="1dip"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:background="@color/white"
+                android:cursorVisible="true"
+                android:hint="Message"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+                android:paddingLeft="5dip"
+                android:textColor="@color/black"
+                android:textColorHint="@color/tooltipcolor" >
+            </EditText>
+
+            <TextView
+                android:id="@+id/title4"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:padding="1dip"
+                android:text="Enter your name"
+                android:textColor="@color/greytextcolor"
+                android:textSize="14dip"
+                android:textStyle="bold"
+                android:visibility="gone" >
+            </TextView>
+
+            <EditText
+                android:id="@+id/edtYourName"
+                android:layout_width="fill_parent"
+                android:layout_height="50dip"
+                android:layout_marginTop="1dip"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:background="@color/white"
+                android:cursorVisible="true"
+                android:hint="Your name"
+                android:imeOptions="actionDone"
+                android:singleLine="true"
+                android:paddingLeft="5dip"
+                android:textColor="@color/black"
+                android:textColorHint="@color/tooltipcolor" >
+            </EditText>
+
+            <LinearLayout
+                android:id="@+id/layoutAgreeContainer"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone" >
+
+                <CheckBox
+                    android:id="@+id/checkAgreeToTerms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/checkbox"
+                    android:text="@string/agree"
+                    android:textColor="@color/black" />
+
+                <Button
+                    android:id="@+id/btnViewAgreement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:background="@drawable/terms" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:layout_marginTop="10dip"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:textColor="@color/black" >
+
+                <Button
+                    android:id="@+id/btnSendGift"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dip"
+                    android:background="@drawable/orange_btn"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:paddingLeft="30dip"
+                    android:paddingRight="30dip"
+                    android:text="SEND"
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/white_color_text_size"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnCancelGift"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:background="@drawable/orange_btn"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:paddingLeft="20dip"
+                    android:paddingRight="20dip"
+                    android:text="CANCEL"
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/white_color_text_size"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

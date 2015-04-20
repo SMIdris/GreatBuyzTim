@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewSwitcher xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/switcherRegistration"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#000000" >
+
+    <include layout="@layout/registration_view" />
+
+    <include layout="@layout/otp_validation_view" />
+
+</ViewSwitcher>

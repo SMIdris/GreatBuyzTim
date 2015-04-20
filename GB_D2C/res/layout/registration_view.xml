@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/registration" >
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <LinearLayout
+            android:id="@+id/registrationView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/layoutRegisterAccount"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
+                    android:id="@+id/txtRegisterMobileNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_marginTop="5dip"
+                    android:text="@string/registerMobileNumber"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+
+                <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
+                    android:id="@+id/txtWelcomeMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+
+                <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
+                    android:id="@+id/txtWelcomeOfferText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginBottom="5dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_marginTop="5dip"
+                    android:text="@string/welcomeOfferText"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+
+                <LinearLayout
+                    android:id="@+id/layoutMobileNumber"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone" >
+
+                    <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
+                        android:id="@+id/txtCountryCode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_marginLeft="10dip"
+                        android:layout_marginTop="5dip"
+                        android:text="@string/countryCode"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edtEnterMobileNumber"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dip"
+                        android:layout_marginRight="10dip"
+                        android:layout_marginTop="10dip"
+                        android:background="@drawable/editbox_background_normal"
+                        android:hint="@string/enterMobileNumber"
+                        android:inputType="number"
+                        android:maxLength="12"
+                        android:textColorHint="@color/darkgray" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutAgreeContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dip"
+                    android:orientation="horizontal" >
+
+                    <CheckBox
+                        android:id="@+id/checkAgreeToTerms"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/checkbox"
+                        android:text="@string/agree"
+                        android:textColor="@color/black" />
+
+                    <Button
+                        android:id="@+id/btnViewAgreement"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dip"
+                        android:background="@drawable/terms" />
+
+                    <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
+                        android:id="@+id/txtTnCAndInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dip"
+                        android:text="@string/txtTnCAndInfo"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dip"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:layout_marginTop="10dip"
+                android:background="@drawable/registration_drawable_btn"
+                android:enabled="false"
+                android:gravity="center"
+                android:shadowColor="@color/black"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="1"
+                android:text="@string/register"
+                android:textColor="@color/white"
+                android:textSize="@dimen/white_color_text_size"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

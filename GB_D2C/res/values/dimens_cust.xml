@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	
+	<!-- Header -->
+	<dimen name="header_global_height">55dip</dimen>
+	<dimen name="header_text2_text_size">26dip</dimen>
+	<dimen name="header_text2_margin_top">0dip</dimen>
+	<dimen name="header_text2_margin_left">10dip</dimen>
+	<dimen name="header_text2_padding_bottom">10dip</dimen>
+	
+	<!--  TextSizes -->
+	<dimen name="green_color_text_size">12dip</dimen>
+	<dimen name="black_color_text_size">11dip</dimen>
+	<dimen name="white_color_text_size">16dip</dimen>
+	
+	
+	<!-- Expiry Date & Time Sizes -->
+	<dimen name="expiry_date_time_text_size">12dp</dimen>
+	<dimen name="expiry_text_size">9dp</dimen>
+	<dimen name="visit_buy">14dip</dimen>
+	
+	<dimen name="main_heading">16dip</dimen>
+	<dimen name="heading">14dip</dimen>
+	<dimen name="body">12dip</dimen>
+	<dimen name="settings_item">13dip</dimen>
+	
+			<!--  Slide Drawer 220-->
+	<dimen name="left_drawer_width">270dip</dimen>
+	
+	<dimen name="notif_layout_row_hight">60dip</dimen>
+	<dimen name="notif_txt_hight">40dip</dimen>
+	<dimen name="notif_txt_width">50dip</dimen>
+</resources>
