@@ -23,6 +23,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.DrawerLayout.DrawerListener;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -43,11 +44,14 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.turacomobile.greatbuyz.GreatBuyzApplication;
 import com.turacomobile.greatbuyz.R;
 import com.turacomobile.greatbuyz.analytics.Analytics;
 import com.turacomobile.greatbuyz.data.SettingItem;
+import com.turacomobile.greatbuyz.framework.ActionItem;
+import com.turacomobile.greatbuyz.framework.QuickAction;
 import com.turacomobile.greatbuyz.hcoe.ui.dialog.GenericDialog;
 import com.turacomobile.greatbuyz.hcoe.ui.dialog.LoadingDialog;
 import com.turacomobile.greatbuyz.service.DataController;
@@ -55,10 +59,12 @@ import com.turacomobile.greatbuyz.service.IOperationListener;
 import com.turacomobile.greatbuyz.utils.AppConstants;
 import com.turacomobile.greatbuyz.utils.GBWebViewClient;
 import com.turacomobile.greatbuyz.utils.GreatBuyzTextView;
+import com.turacomobile.greatbuyz.utils.PopoverView;
+import com.turacomobile.greatbuyz.utils.PopoverView.PopoverViewDelegate;
 import com.turacomobile.greatbuyz.utils.Utils;
 import com.turacomobile.greatbuyz.utils.settingsArrayAdapter;
 
-public class SampleTabsStyled extends FragmentActivity implements OnCategoryClick, OnDealItemClick, OnPageChangeListener
+public class SampleTabsStyled extends FragmentActivity implements OnCategoryClick, OnDealItemClick, OnPageChangeListener, PopoverViewDelegate
 {
 	GreatBuyzApplication _app = GreatBuyzApplication.getApplication();
 
@@ -256,6 +262,7 @@ public class SampleTabsStyled extends FragmentActivity implements OnCategoryClic
 		// mBtnPrevTab.setVisibility(View.INVISIBLE);
 
 		mBtnNextTab = (RelativeLayout) findViewById(R.id.btn_indicator_right);
+		final TextView ivPic1 = (TextView) this.findViewById(R.id.popoverText);
 		mBtnNextTab.setOnClickListener(new OnClickListener()
 		{
 			@Override
@@ -263,9 +270,85 @@ public class SampleTabsStyled extends FragmentActivity implements OnCategoryClic
 			{
 				System.out.println("Right");
 				mIndicator.setCurrentItem(mSelectedTabIndex + 1);
+				
+//				RelativeLayout rootView = (RelativeLayout)findViewById(R.id.popover);
+//				
+//				PopoverView popoverView = new PopoverView(SampleTabsStyled.this, R.layout.popover_showed_view);
+//				popoverView.setContentSizeForViewInPopover(new Point(320, 340));
+//				popoverView.setDelegate(SampleTabsStyled.this);
+//				popoverView.showPopoverFromRectInViewGroup(rootView, PopoverView.getFrameForView(v), PopoverView.PopoverArrowDirectionAny, true);
+				ivPic1.performClick();
 			}
 		});
+//
+		ActionItem addAction = new ActionItem();
 
+		addAction.setTitle("Phone");
+		addAction.setIcon(getResources().getDrawable(R.drawable.phone));
+
+		// Accept action item
+		ActionItem accAction = new ActionItem();
+
+		accAction.setTitle("Gmail");
+		accAction.setIcon(getResources().getDrawable(R.drawable.gmail));
+
+		// Upload action item
+		ActionItem upAction = new ActionItem();
+
+		upAction.setTitle("Talk");
+		upAction.setIcon(getResources().getDrawable(R.drawable.talk));
+
+		final QuickAction mQuickAction = new QuickAction(this);
+
+		mQuickAction.addActionItem(addAction);
+		mQuickAction.addActionItem(accAction);
+		mQuickAction.addActionItem(upAction);
+		//
+//		ScrollView ScrollView = (ScrollView) this.findViewById(R.id.scrollv);
+
+
+		// setup the action item click listener
+		mQuickAction
+				.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
+					public void onItemClick(int pos) {
+
+//						if (pos == 0) { // Add item selected
+//							Toast.makeText(MainActivity.this,
+//									"PHONE item selected", Toast.LENGTH_SHORT)
+//									.show();
+//						} else if (pos == 1) { // Accept item selected
+//							Toast.makeText(MainActivity.this,
+//									"GMAIL item selected", Toast.LENGTH_SHORT)
+//									.show();
+//						} else if (pos == 2) { // Upload item selected
+//							Toast.makeText(MainActivity.this, "TALK selected",
+//									Toast.LENGTH_SHORT).show();
+//						}
+					}
+				});
+
+		
+		ivPic1.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				mQuickAction.show(v);
+				mQuickAction.setAnimStyle(QuickAction.ANIM_GROW_FROM_CENTER);
+			}
+		});
+		
+//		ScrollView.getViewTreeObserver().addOnScrollChangedListener(new OnScrollChangedListener() {
+//
+//			   // @Override
+//			    public void onScrollChanged() {
+//
+//			    	ivPic1.performClick();
+//
+//			    }
+//			});
+
+
+		
+		
+		//
 		RelativeLayout myDealsShortcut = (RelativeLayout) findViewById(R.id.imgMyDeals);
 		myDealsShortcut.setOnClickListener(new OnClickListener()
 		{
@@ -291,7 +374,8 @@ public class SampleTabsStyled extends FragmentActivity implements OnCategoryClic
 		menuView.setVisibility(View.VISIBLE);
 		
 		mDailyMsgCheckBox = (CheckBox) findViewById(R.id.dailyMsgCheckBox);
-
+		
+		
 		// ////System.out.println("GreatBuyz: function OUT SampleTabsStyled > onCreate");
 
 		// Log.v("Time test : Home screen create end :", "" +
@@ -2535,5 +2619,25 @@ public class SampleTabsStyled extends FragmentActivity implements OnCategoryClic
 		{
 			exitFromApp();
 		}
+	}
+	
+	@Override
+	public void popoverViewWillShow(PopoverView view) {
+		Log.i("POPOVER", "Will show");
+	}
+
+	@Override
+	public void popoverViewDidShow(PopoverView view) {
+		Log.i("POPOVER", "Did show");
+	}
+
+	@Override
+	public void popoverViewWillDismiss(PopoverView view) {
+		Log.i("POPOVER", "Will dismiss");
+	}
+
+	@Override
+	public void popoverViewDidDismiss(PopoverView view) {
+		Log.i("POPOVER", "Did dismiss");
 	}
 }

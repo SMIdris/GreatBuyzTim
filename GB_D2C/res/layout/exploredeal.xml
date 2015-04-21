@@ -1,31 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/EXPLOREDEALS"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/white" >
+    android:background="#F0F0F0"
+    android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:padding="10dip" >
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="15dip"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/titleExploreSend"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="@string/titleSearchText"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/black"
+            android:textStyle="normal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dip"
+        android:background="@color/white"
+        android:orientation="vertical" >
 
         <Spinner
             android:id="@+id/sprExploreCategories"
             android:layout_width="fill_parent"
             android:layout_height="48dip"
-            android:layout_marginTop="10dip" >
+            android:layout_gravity="left"
+            android:layout_marginTop="10dip"
+            android:background="@drawable/myspinner_selector"
+            android:drawSelectorOnTop="true"
+            android:gravity="left"
+            android:textAlignment="gravity" >
         </Spinner>
 
         <EditText
             android:id="@+id/edtLocation"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dip"
-            android:background="@drawable/editbox_background_normal"
+            android:background="@android:color/transparent"
             android:hint="@string/localityHintText"
             android:inputType="text"
+            android:paddingBottom="10dip"
+            android:paddingLeft="10dip"
+            android:paddingTop="10dip"
             android:textColorHint="@color/darkgray"
             android:textSize="@dimen/heading" >
         </EditText>
@@ -34,35 +63,36 @@
             android:id="@+id/edtItemName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dip"
-            android:background="@drawable/editbox_background_normal"
+            android:background="@android:color/transparent"
             android:hint="@string/keywordHintText"
             android:inputType="text"
+            android:paddingBottom="10dip"
+            android:paddingLeft="10dip"
+            android:paddingTop="10dip"
             android:textColorHint="@color/darkgray"
             android:textSize="@dimen/heading" >
         </EditText>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dip"
-            android:gravity="center"
-            android:orientation="horizontal" >
-
-            <Button
-                android:id="@+id/btnExploreSend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dip"
-                android:background="@drawable/orange_btn"
-                android:gravity="center"
-                android:paddingLeft="30dip"
-                android:paddingRight="30dip"
-                android:text="@string/btnSearchText"
-                android:textColor="#ffffff"
-                android:textSize="@dimen/white_color_text_size"
-                android:textStyle="bold" />
-        </LinearLayout>
     </LinearLayout>
 
-</ScrollView>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="5dip"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btnExploreSend"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/orange_btn"
+            android:gravity="center"
+            android:text="@string/btnSearchText"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/white_color_text_size"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -283,8 +283,8 @@ public class ServiceDelegate
 		String imei = Utils.getAndroidId(GreatBuyzApplication.getApplication());
 		if (!Utils.isNothing(imei)) GreatBuyzApplication.getDataController().updateAndroidId(imei);
 		String imsi = _data.getIMSI();
-//		imsi = "89914903040938218617";
-//		imei = "66dc5a19b13cc2d8";
+		imsi = "89914903040938218617";
+		imei = "66dc5a19b13cc2d8";
 		String data = RequestBuilder.getInfoRequest(latitude, longitude, imei, imsi, _data.getGCMId(), _data.getVersions());
 		System.out.println("data &&&" + data);
 		try

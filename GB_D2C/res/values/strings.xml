@@ -71,6 +71,7 @@
     <string name="faqTitle">FAQ</string>
 
     <!-- Explore deals -->
+    <string name="titleSearchText">Explore Deals and Coupons</string>
     <string name="btnSearchText">Search</string>
     <string name="localityHintText">Your Location</string>
     <string name="keywordHintText">Search with keyword..</string>

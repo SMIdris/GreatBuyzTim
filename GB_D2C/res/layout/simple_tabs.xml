@@ -18,6 +18,8 @@
 
             <include
                 android:id="@+id/registerHeader"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 layout="@layout/header" >
             </include>
@@ -68,9 +70,24 @@
                 </RelativeLayout>
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/popover"
+                android:layout_width="100dip"
+                android:layout_height="1dip"
+                android:layout_above="@+id/pager"
+                android:layout_alignParentRight="true" >
+
+                <TextView
+                     android:id="@+id/popoverText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="" />
+            </RelativeLayout>
+
             <android.support.v4.view.ViewPager
                 android:id="@+id/pager"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/layout_indicator" />
 
@@ -196,7 +213,8 @@
                 android:layout_marginLeft="10dip"
                 android:layout_marginRight="10dip" >
 
-                <!-- <RelativeLayout
+                <!--
+                <RelativeLayout
                     android:id="@+id/first_row"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/notif_layout_row_hight" >
@@ -222,14 +240,14 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/in_app_notification_checkbox"
                         android:background="@drawable/divider" />
-                </RelativeLayout> -->
+                </RelativeLayout>
+                -->
 
                 <RelativeLayout
                     android:id="@+id/dailyMsgRow"
                     android:layout_width="match_parent"
-                    android:layout_below="@+id/first_row"
                     android:layout_height="@dimen/notif_layout_row_hight"
-                     >
+                    android:layout_below="@+id/first_row" >
 
                     <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
                         android:layout_width="wrap_content"
@@ -254,7 +272,8 @@
                         android:layout_below="@+id/dailyMsgCheckBox"
                         android:background="@drawable/divider" />
                 </RelativeLayout>
-                <!-- <RelativeLayout
+                <!--
+                <RelativeLayout
                     android:id="@+id/second_row"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -286,7 +305,8 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignRight="@+id/spinner_text"
                         android:layout_marginTop="5dip" />
-                </RelativeLayout> -->
+                </RelativeLayout>
+                -->
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -325,11 +345,11 @@
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/dividerimg"
                 android:layout_centerVertical="true"
-                android:gravity="center_vertical"
                 android:background="@color/grey"
                 android:clickable="true"
                 android:drawableLeft="@drawable/setting_help"
                 android:drawablePadding="8dp"
+                android:gravity="center_vertical"
                 android:minHeight="50dip"
                 android:padding="10dp"
                 android:paddingLeft="16dp"
