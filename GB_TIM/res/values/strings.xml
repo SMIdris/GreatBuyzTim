@@ -73,6 +73,7 @@
 		<string name="infoCostiTitle">Info sui costi</string>
 		<string name="regBonusImageUrl">regBonusImageUrl</string>
 		<string name="emptyMsg"></string>
+		<string name="enableLogs">Enable Logs</string>
     
     <!-- Help screen -->
     <string name="termsTitle">Termini e Condizioni</string>

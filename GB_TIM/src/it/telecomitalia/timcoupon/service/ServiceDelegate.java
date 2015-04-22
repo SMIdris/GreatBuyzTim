@@ -4,6 +4,7 @@ import it.telecomitalia.timcoupon.GreatBuyzApplication;
 import it.telecomitalia.timcoupon.R;
 import it.telecomitalia.timcoupon.data.Deal;
 import it.telecomitalia.timcoupon.data.DealScreenDTO;
+import it.telecomitalia.timcoupon.framework.L;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
@@ -182,13 +183,18 @@ public class ServiceDelegate
 	{
 		String imei = Utils.getAndroidId(GreatBuyzApplication.getApplication());
 		if (!Utils.isNothing(imei)) GreatBuyzApplication.getDataController().updateAndroidId(imei);
-		//String imsi = null;
+		// String imsi = null;
 		String imsi = _data.getIMSI();
-//		imsi = "123sdfsdf3423452345w";
-//		imei = "4354354354354351235w";
+		//
 		String data = RequestBuilder.getInfoRequest(latitude, longitude, imei, imsi, _data.getGCMId(), _data.getVersions());
+		//
 		try
 		{
+			SharedPreferences pref = GreatBuyzApplication.getApplication().getSharedPreferences();
+			boolean isLogsEnabled = pref.getBoolean(AppConstants.SharedPrefKeys.enableLogs, true);
+			GreatBuyzApplication.isDebug = isLogsEnabled;
+			//
+			if (GreatBuyzApplication.isDebug) L.i("\nServer Details : " + BASE_URL + AppConstants.URIParts.GET_INFO + "\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage data : " + data);
 			gateway.submitRequest(BASE_URL + AppConstants.URIParts.GET_INFO, getHeaders(), data, new IHttpResponseListener()
 			{
 				@Override
@@ -199,11 +205,13 @@ public class ServiceDelegate
 					{
 						try
 						{
+							if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage pResponse : " + pResponse);
 							ResponseParser.parseGetInfo(new JSONObject(pResponse));
 							_operationListener.onOperationCompleted(true, null);
 						}
 						catch (Exception e)
 						{
+							if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
 							e.printStackTrace();
 							_operationListener.onOperationCompleted(false, httpErrorString);
 						}
@@ -217,6 +225,7 @@ public class ServiceDelegate
 				@Override
 				public void onHttpRequestError(Exception e)
 				{
+					if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage onHttpRequestError : " + e.getMessage());
 					e.printStackTrace();
 					_operationListener.onOperationCompleted(false, httpErrorString);
 				}
@@ -224,6 +233,7 @@ public class ServiceDelegate
 		}
 		catch (Exception e)
 		{
+			if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
 			e.printStackTrace();
 			_operationListener.onOperationCompleted(false, httpErrorString);
 		}
@@ -388,6 +398,7 @@ public class ServiceDelegate
 					String mdn = null;
 					try
 					{
+						if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage : " + p_Response);
 						mdn = ResponseParser.findMDN(p_Response);
 						if (!Utils.isNothing(mdn))
 						{
@@ -395,12 +406,14 @@ public class ServiceDelegate
 							{
 								mdn = "+" + mdn;
 							}
+							if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage  mdn : " + mdn);
 							_data.updateMDN(mdn);
 						}
 						_operationListener.onOperationCompleted(true, null);
 					}
 					catch (Exception e)
 					{
+						if (GreatBuyzApplication.isDebug) L.e("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage : " + e.getMessage());
 						_operationListener.onOperationCompleted(false, httpErrorString);
 					}
 				}
@@ -408,6 +421,7 @@ public class ServiceDelegate
 				@Override
 				public void onHttpRequestError(Exception e)
 				{
+					if (GreatBuyzApplication.isDebug) L.e("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage : " + e.getMessage());
 					e.printStackTrace();
 					_operationListener.onOperationCompleted(false, httpErrorString);
 				}
@@ -415,6 +429,7 @@ public class ServiceDelegate
 		}
 		catch (Exception e)
 		{
+			if (GreatBuyzApplication.isDebug) L.e("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage : " + e.getMessage());
 			e.printStackTrace();
 			_operationListener.onOperationCompleted(false, httpErrorString);
 		}
@@ -432,6 +447,7 @@ public class ServiceDelegate
 					String mdn = null;
 					try
 					{
+						if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage : " + pResponse);
 						mdn = ResponseParser.findMDN(pResponse);
 						if (Utils.isNothing(mdn))
 						{
@@ -443,12 +459,14 @@ public class ServiceDelegate
 							{
 								mdn = "+" + mdn;
 							}
+							if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage  mdn : " + mdn);
 							_data.updateMDN(mdn);
 							_operationListener.onOperationCompleted(true, pResponse);
 						}
 					}
 					catch (Exception e)
 					{
+						if (GreatBuyzApplication.isDebug) L.e("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage : " + e.getMessage());
 						_operationListener.onOperationCompleted(false, httpErrorString);
 					}
 				}
@@ -456,15 +474,7 @@ public class ServiceDelegate
 				@Override
 				public void onHttpRequestError(final Exception e)
 				{
-//					((Activity) ctx).runOnUiThread(new Runnable() {
-//				        @Override
-//				        public void run() {
-//				           //Your code to run in GUI thread here
-//				        	
-//				        	Toast.makeText(ctx, "msg : " + e.getMessage(), Toast.LENGTH_LONG).show();
-//				        }//public void run() {
-//				});
-//					L.e(e.getMessage());
+					if (GreatBuyzApplication.isDebug) L.e("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage : " + e.getMessage());
 					e.printStackTrace();
 					_operationListener.onOperationCompleted(false, httpErrorString);
 				}
@@ -472,6 +482,7 @@ public class ServiceDelegate
 		}
 		catch (Exception e)
 		{
+			if (GreatBuyzApplication.isDebug) L.e("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage : " + e.getMessage());
 			e.printStackTrace();
 			_operationListener.onOperationCompleted(false, httpErrorString);
 		}
@@ -675,6 +686,40 @@ public class ServiceDelegate
 							e.printStackTrace();
 							_operationListener.onOperationCompleted(false, httpErrorString);
 						}
+					}
+					else
+					{
+						onErrorReceived(pResponse, _operationListener);
+					}
+				}
+				
+				@Override
+				public void onHttpRequestError(Exception e)
+				{
+					e.printStackTrace();
+					_operationListener.onOperationCompleted(false, httpErrorString);
+				}
+			}, HttpGet.METHOD_NAME);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			_operationListener.onOperationCompleted(false, httpErrorString);
+		}
+	}
+	
+	public void getServerIps(final IOperationListener _operationListener) throws UnsupportedEncodingException, URISyntaxException
+	{
+		try
+		{
+			gateway.submitRequest(BASE_URL + AppConstants.URIParts.GET_SERVER_IPS, getHeaders(), new IHttpResponseListener()
+			{
+				@Override
+				public void onReceiveResponse(int pStatusCode, HashMap<String, String> pResponseHeaders, String pResponse)
+				{
+					if (pResponse != null && pStatusCode == 200)
+					{
+						_operationListener.onOperationCompleted(true, pResponse);
 					}
 					else
 					{

@@ -2,6 +2,7 @@ package it.telecomitalia.timcoupon.ui;
 
 import it.telecomitalia.timcoupon.GreatBuyzApplication;
 import it.telecomitalia.timcoupon.R;
+import it.telecomitalia.timcoupon.framework.L;
 import it.telecomitalia.timcoupon.service.DataController;
 import it.telecomitalia.timcoupon.service.IOperationListener;
 import it.telecomitalia.timcoupon.service.ResponseParser;
@@ -268,6 +269,7 @@ public final class RegistrationFragment extends Fragment
 					/*
 					 * if (!loadSavedPreferences("msisdn").equals(mdn)) { getActivity().showDialog(AppConstants.DialogConstants.LOADING_DIALOG, null); completeRegistration(mdn); } else showValidationView();
 					 */
+					if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage completeRegistration with MDN : " + mdn);
 				}
 				else
 				{
@@ -281,6 +283,8 @@ public final class RegistrationFragment extends Fragment
 					// m);
 					GreatBuyzApplication.getApplication().getAnalyticsAgent().logEvent(AppConstants.Flurry.Registration, m);
 					updateServer(mdn, AppConstants.JSONKeys.GCM, AppConstants.JSONKeys.WAP, AppConstants.UserActivationStatus.DIRECT_ACTIVATION, AppConstants.JSONKeys.SERVICE_KEY_VALUE);
+					//
+					if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage updateServer with MDN : " + mdn);
 				}
 			}
 		});
@@ -322,6 +326,7 @@ public final class RegistrationFragment extends Fragment
 				{
 					String expiredOTP = Utils.getMessageString(AppConstants.Messages.otpExpiredMessage, R.string.otpExpiredMessage);
 					showMessageDialog(AppConstants.DialogConstants.REG_UNSUCCESSFUL_DIALOG, expiredOTP);
+					if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage expiredOTP: " + expiredOTP);
 				}
 				else
 				{
@@ -375,6 +380,7 @@ public final class RegistrationFragment extends Fragment
 					return;
 				}
 				completeRegistration(mdn);
+				if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage completeRegistration btnResendOTP: " + mdn);
 			}
 		});
 		return layout;
@@ -416,6 +422,7 @@ public final class RegistrationFragment extends Fragment
 				catch (Exception e)
 				{
 					e.printStackTrace();
+					if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage getMDNFromUser  : " + e.getMessage());
 				}
 			}
 		});
@@ -437,6 +444,7 @@ public final class RegistrationFragment extends Fragment
 					{
 						getMDNFromUser();
 					}
+					if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage getMDNUsingGET pOperationComplitionStatus : " + pOperationComplitionStatus);
 				}
 			});
 		}
@@ -444,6 +452,7 @@ public final class RegistrationFragment extends Fragment
 		{
 			removeOtherDialog(AppConstants.DialogConstants.LOADING_DIALOG);
 			getMDNFromUser();
+			if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage getMDNUsingGET  : " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -453,7 +462,7 @@ public final class RegistrationFragment extends Fragment
 		try
 		{
 			getActivity().showDialog(AppConstants.DialogConstants.LOADING_DIALOG);
-			GreatBuyzApplication.getServiceDelegate().getMDNFromNetworkPOST(activity,url, headers, postData, new IOperationListener()
+			GreatBuyzApplication.getServiceDelegate().getMDNFromNetworkPOST(activity, url, headers, postData, new IOperationListener()
 			{
 				@Override
 				public void onOperationCompleted(boolean pOperationComplitionStatus, String pMessageFromServer)
@@ -466,11 +475,13 @@ public final class RegistrationFragment extends Fragment
 					{
 						getMDNFromUser();
 					}
+					if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage getMDNUsingPOST pOperationComplitionStatus : " + pOperationComplitionStatus);
 				}
 			});
 		}
 		catch (Exception e)
 		{
+			if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage getMDNUsingPOST  : " + e.getMessage());
 			removeOtherDialog(AppConstants.DialogConstants.LOADING_DIALOG);
 			getMDNFromUser();
 			e.printStackTrace();
@@ -481,6 +492,7 @@ public final class RegistrationFragment extends Fragment
 	{
 		getMDN = false;
 		String url = _data.getConstant(AppConstants.Constants.getMDNUrl);
+		if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage url : " + url);
 		if (Utils.isNothing(url))
 		{
 			layoutEditMobileNumber.setVisibility(View.VISIBLE);
@@ -495,9 +507,11 @@ public final class RegistrationFragment extends Fragment
 		}
 		catch (JSONException e)
 		{
+			if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage JSONException : " + e.getMessage());
 			e.printStackTrace();
 		}
 		String postData = _data.getConstant(AppConstants.Constants.getMDNPostParams);
+		if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage postData : " + postData);
 		if (HttpGet.METHOD_NAME.equalsIgnoreCase(method))
 		{
 			getMDNUsingGET(url, headers);
@@ -518,6 +532,7 @@ public final class RegistrationFragment extends Fragment
 				@Override
 				public void onOperationCompleted(boolean pOperationComplitionStatus, String pMessageFromServer)
 				{
+					if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage completeRegistration pOperationComplitionStatus : " + pOperationComplitionStatus);
 					removeOtherDialog(AppConstants.DialogConstants.LOADING_DIALOG);
 					// ////System.out.println(pOperationComplitionStatus);
 					if (!pOperationComplitionStatus)
@@ -534,6 +549,7 @@ public final class RegistrationFragment extends Fragment
 		}
 		catch (Exception e)
 		{
+			if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
 			removeOtherDialog(AppConstants.DialogConstants.LOADING_DIALOG);
 			e.printStackTrace();
 		}
@@ -547,6 +563,7 @@ public final class RegistrationFragment extends Fragment
 			@Override
 			public void onOperationCompleted(boolean pOperationComplitionStatus, String pMessageFromServer)
 			{
+				if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage subscribe pOperationComplitionStatus : " + pOperationComplitionStatus + "\nmsisdn :" + msisdn);
 				removeOtherDialog(AppConstants.DialogConstants.LOADING_DIALOG);
 				GCMRegistrar.setRegisteredOnServer(GreatBuyzApplication.getApplication(), pOperationComplitionStatus);
 				_data.updateIsUserSubscribedToGCM(pOperationComplitionStatus);
@@ -597,6 +614,7 @@ public final class RegistrationFragment extends Fragment
 				@Override
 				public void onOperationCompleted(boolean p_OperationComplitionStatus, String p_MessageFromServer)
 				{
+					if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage updateUserInfo pOperationComplitionStatus : " + p_OperationComplitionStatus + "\nmsisdn :" + msisdn);
 					removeOtherDialog(AppConstants.DialogConstants.LOADING_DIALOG);
 					if (p_OperationComplitionStatus)
 					{
@@ -622,6 +640,7 @@ public final class RegistrationFragment extends Fragment
 			removeOtherDialog(AppConstants.DialogConstants.LOADING_DIALOG);
 			_data.updateIsUserSubscribedToGCM(false);
 			showMessageDialog(AppConstants.DialogConstants.REG_MESSAGE_DIALOG_WITH_EXIT, httpErrorString);
+			if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -646,6 +665,7 @@ public final class RegistrationFragment extends Fragment
 				}
 				catch (Exception e)
 				{
+					if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
 					e.printStackTrace();
 				}
 			}
@@ -666,6 +686,7 @@ public final class RegistrationFragment extends Fragment
 				}
 				catch (Exception e)
 				{
+					if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
 					e.printStackTrace();
 				}
 			}
@@ -687,6 +708,7 @@ public final class RegistrationFragment extends Fragment
 				}
 				catch (Exception e)
 				{
+					if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
 					e.printStackTrace();
 				}
 			}
@@ -706,6 +728,7 @@ public final class RegistrationFragment extends Fragment
 				}
 				catch (Exception e)
 				{
+					if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
 					e.printStackTrace();
 				}
 			}
@@ -725,6 +748,7 @@ public final class RegistrationFragment extends Fragment
 				}
 				catch (Exception e)
 				{
+					if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
 					e.printStackTrace();
 				}
 			}
@@ -777,6 +801,7 @@ public final class RegistrationFragment extends Fragment
 				}
 				catch (Exception e)
 				{
+					if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
 					e.printStackTrace();
 				}
 			}

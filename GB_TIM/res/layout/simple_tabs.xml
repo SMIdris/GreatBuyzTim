@@ -18,6 +18,8 @@
 
             <include
                 android:id="@+id/registerHeader"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 layout="@layout/header" >
             </include>
@@ -196,12 +198,10 @@
                 android:layout_marginLeft="10dip"
                 android:layout_marginRight="10dip" >
 
-                
                 <RelativeLayout
                     android:id="@+id/dailyMsgRow"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/notif_layout_row_hight"
-                     >
+                    android:layout_height="@dimen/notif_layout_row_hight" >
 
                     <com.onmobile.utils.GreatBuyzTextView
                         android:layout_width="wrap_content"
@@ -225,13 +225,12 @@
                         android:layout_below="@+id/dailyMsgCheckBox"
                         android:background="@drawable/divider" />
                 </RelativeLayout>
-                
-                
+
                 <RelativeLayout
                     android:id="@+id/first_row"
                     android:layout_width="match_parent"
-                    android:layout_below="@+id/dailyMsgRow"
-                    android:layout_height="@dimen/notif_layout_row_hight" >
+                    android:layout_height="@dimen/notif_layout_row_hight"
+                    android:layout_below="@+id/dailyMsgRow" >
 
                     <com.onmobile.utils.GreatBuyzTextView
                         android:layout_width="wrap_content"
@@ -255,7 +254,8 @@
                         android:layout_below="@+id/in_app_notification_checkbox"
                         android:background="@drawable/divider" />
                 </RelativeLayout>
-				                <RelativeLayout
+
+                <RelativeLayout
                     android:id="@+id/second_row"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -275,8 +275,8 @@
                         android:id="@+id/spinner_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/notification_text"
                         android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/notification_text"
                         android:layout_marginTop="10dip"
                         android:text="@string/daily_notif_limit"
                         android:textColor="@color/notification_textview_color"
@@ -329,11 +329,11 @@
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/dividerimg"
                 android:layout_centerVertical="true"
-                android:gravity="center_vertical"
                 android:background="@color/grey"
                 android:clickable="true"
                 android:drawableLeft="@drawable/setting_help"
                 android:drawablePadding="8dp"
+                android:gravity="center_vertical"
                 android:minHeight="50dip"
                 android:padding="10dp"
                 android:paddingLeft="16dp"

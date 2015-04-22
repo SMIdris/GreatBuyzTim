@@ -44,7 +44,15 @@
             android:layout_marginLeft="20dp"
             android:visibility="visible" />
         </LinearLayout>
-
+<EditText
+        android:id="@+id/edtCurrentIPNew"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="--- New IP ---"
+        android:enabled="false"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip" >
+    </EditText>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

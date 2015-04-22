@@ -69,6 +69,7 @@ public interface AppConstants
 		public static final String  SessionId= "SessionId";
 		//public static final String  isClientUnsubScribe= "isClientUnsubScribe";
 		public static String APP_VERSION_CODE = "APP_VERSION_CODE";
+		public static final String enableLogs = "enable_logs";
 	}
 
 	public interface NotificationType
@@ -85,6 +86,7 @@ public interface AppConstants
 		// Info controller
 		public static final String GET_KEYWORDS = "/info/keywords.json?";
 		public static final String GET_CITIES = "/info/cities.json";
+		public static final String GET_SERVER_IPS = "/info/serverConfigInfo";
 
 		// Subscription controller
 		public static final String GET_PURCHASE_HISTORY = "/subscriber/mydeals.json?";
@@ -511,6 +513,7 @@ public interface AppConstants
 		public static final int REG_MESSAGE_DIALOG_WITH_EXIT = 110;
 		public static final int IN_APP_EXIT_DIALOG = 111;
 		public static final int MESSAGE_DIALOG_NODEAL = 112;
+		public static final int ENABLE_LOGS_DIALOG = 113;
 
 		// Settings
 		public static final int CHANGE_LOCATION_DIALOG = 202;

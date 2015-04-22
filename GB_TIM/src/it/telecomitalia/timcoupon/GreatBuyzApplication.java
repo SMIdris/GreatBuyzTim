@@ -24,6 +24,7 @@ public class GreatBuyzApplication extends Application
 {
 	private boolean isTerminated = false;
 	public final static String TAG = "[GreatBuyzTIM]GreatBuyzApplication";
+	public static boolean isDebug = true;
 	private static GreatBuyzApplication _application;
 	private static DataController _dataController;
 	private static ServiceDelegate _serviceDelegate;
@@ -82,6 +83,15 @@ public class GreatBuyzApplication extends Application
 		super.onCreate();
 		System.out.println("GreatBuyz: GBA onCreate start");
 		_application = this;
+		
+		SharedPreferences pref = GreatBuyzApplication.getApplication().getSharedPreferences();
+		Editor prefEdit = pref.edit();
+		prefEdit.putBoolean(AppConstants.SharedPrefKeys.enableLogs, true);
+		prefEdit.commit();
+		
+		 boolean isLogsEnabled = pref.getBoolean(AppConstants.SharedPrefKeys.enableLogs, false);
+		 isDebug = isLogsEnabled;
+		 //
 		if (isTerminated == false)
 		{
 
@@ -181,7 +191,8 @@ public class GreatBuyzApplication extends Application
 
 	public void resetDatabase()
 	{
-		_dataController.deleteDatabase();
+		//_dataController.deleteDatabase();
+		clearAllData();
 		_db = null;
 		_db = new DB(this);
 	}

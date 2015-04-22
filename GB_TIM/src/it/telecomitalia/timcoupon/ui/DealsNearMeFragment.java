@@ -3,6 +3,7 @@ package it.telecomitalia.timcoupon.ui;
 import it.telecomitalia.timcoupon.GreatBuyzApplication;
 import it.telecomitalia.timcoupon.R;
 import it.telecomitalia.timcoupon.data.DealScreenDTO;
+import it.telecomitalia.timcoupon.framework.L;
 import it.telecomitalia.timcoupon.service.ClipResponse;
 import android.app.Activity;
 import android.content.Context;
@@ -90,6 +91,8 @@ public final class DealsNearMeFragment extends Fragment implements LocationListe
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
+		try
+		{
 		activity = getActivity();
 		locationNotAvailableMessage = Utils.getMessageString(AppConstants.Messages.locationNotAvailables, R.string.locationNotAvailables);
 		radius = AppConstants.DEALS_NEAR_ME_RADIUS;
@@ -101,7 +104,9 @@ public final class DealsNearMeFragment extends Fragment implements LocationListe
 				radius = Integer.parseInt(serverRadius);
 			}
 			catch (Exception e)
-			{}
+			{
+				if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
+			}
 		}
 		if (GreatBuyzApplication.getDataController().getDealsNearMeDTO() != null && GreatBuyzApplication.getDataController().getDealsNearMeDTO().getDealsNearMeList().size() > 0)
 		{
@@ -138,12 +143,19 @@ public final class DealsNearMeFragment extends Fragment implements LocationListe
 		// }
 		// setContentView(R.layout.row);
 	}
+	catch (Exception e)
+	{
+		if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
+	}
+	}
 	
 	@Override
 	public void onLocationChanged(Location location)
 	{
 		// Determine whether new location is better than current best
 		// estimate
+		try
+		{
 		if (null == mBestReading || location.getAccuracy() < mBestReading.getAccuracy())
 		{
 			if (gps != null) gps.stopUsingGPS();
@@ -162,12 +174,20 @@ public final class DealsNearMeFragment extends Fragment implements LocationListe
 			// {
 			// }
 		}
+		
+	}
+	catch (Exception e)
+	{
+		if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
+	}
 	}
 	
 	@Override
 	public void onConnected(Bundle dataBundle)
 	{
 		// Get first reading. Get additional location updates if necessary
+		try
+		{
 		if (servicesAvailable())
 		{
 			// Get best last location measurement meeting criteria
@@ -199,6 +219,12 @@ public final class DealsNearMeFragment extends Fragment implements LocationListe
 		{
 			noGoogleServices();
 		}
+		}
+		catch (Exception e)
+		{
+			if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
+		}
+		
 	}
 	
 	public void noGoogleServices()
@@ -288,12 +314,18 @@ public final class DealsNearMeFragment extends Fragment implements LocationListe
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		try{
 		mLocationRequest = LocationRequest.create();
 		mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 		mLocationRequest.setInterval(POLLING_FREQ);
 		mLocationRequest.setNumUpdates(1);
 		// mLocationRequest.setFastestInterval(FASTEST_UPDATE_FREQ);
 		mGoogleApiClient = new GoogleApiClient.Builder(activity).addApi(LocationServices.API).addConnectionCallbacks(this).addOnConnectionFailedListener(this).build();
+	}
+	catch (Exception e)
+	{
+		if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
+	}
 	}
 	
 	public MyListDownloader listDownloader;
@@ -308,6 +340,8 @@ public final class DealsNearMeFragment extends Fragment implements LocationListe
 	{
 		super.onCreateView(inflater, container, savedInstanceState);
 		View v = inflater.inflate(R.layout.listfragment, null);
+		try{
+		
 		lsComposer = (AmazingListView) v.findViewById(R.id.lsComposer);
 		gpsNeededViewSwitcher = (ViewSwitcher) v.findViewById(R.id.gpsNeededViewSwitcher);
 		gpsNeededViewSwitcher.setDisplayedChild(0);
@@ -333,6 +367,11 @@ public final class DealsNearMeFragment extends Fragment implements LocationListe
 			}
 		});
 		lsComposer.setEmptyView(viewSwitcher);
+		}
+		catch (Exception e)
+		{
+			if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
+		}
 		return v;
 	}
 	
@@ -359,7 +398,7 @@ public final class DealsNearMeFragment extends Fragment implements LocationListe
 				}
 				catch (Exception e)
 				{
-					e.printStackTrace();
+					if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
 				}
 			}
 		});

@@ -5,6 +5,7 @@ import it.telecomitalia.timcoupon.R;
 import it.telecomitalia.timcoupon.data.Deal;
 import it.telecomitalia.timcoupon.data.DealScreenDTO;
 import it.telecomitalia.timcoupon.data.SettingItem;
+import it.telecomitalia.timcoupon.framework.L;
 import it.telecomitalia.timcoupon.service.DB;
 import it.telecomitalia.timcoupon.service.DataController;
 import it.telecomitalia.timcoupon.service.IOperationListener;
@@ -64,44 +65,38 @@ import com.squareup.picasso.Picasso;
 
 public class DetailScreenNew extends Activity
 {
-	List<DealScreenDTO> dealScreenDTOs = null;
-	List<Deal> dealDTOs = null;
-
-	DataController _data = GreatBuyzApplication.getDataController();
-
-	static Activity activity;
-	LinearLayout mBackNavigation;
-	Button btnVisitDeal;
-
-	private GreatBuyzTextView settingChildListTitle;
-	private List<SettingItem> settingItems = null;
-	private DrawerLayout mDrawerLayout;
-	private ListView mDrawerList;
-	private static boolean mIsMainDrawerOpen = false;
-	private static boolean mIsChildDrawerOpen = false;
-
-	ViewPager mPager;
-
-	private DrawerLayout mDrawerLayoutChild;
-	private RelativeLayout mDrawerLayoutChildView;
-	private ListView mDrawerListChild;
-	List<SettingItem> settingSubListItems = null;
-
-	private RelativeLayout mNotificationLayout;
-	private LinearLayout mVersionLayout;
-	private Button mNotifButton;
-	private CheckBox mInappCheckBox;
-	private CheckBox mDailyMsgCheckBox;
-	private Spinner mNotificationSpinner;
-	private TextView mSpinnerText;
-	private TextView mNotifSetAlertTextView;
-	public boolean[] selection;
-	public boolean[] cloneSelection;
-	int selectedIndex = 1000;
-	boolean isCategoryChange = false;
-	String message = null;
-	static final ArrayList<String> spinnerValues = Utils.getNotificationFrequencies();
-
+	List<DealScreenDTO>			dealScreenDTOs	  = null;
+	List<Deal>					 dealDTOs			= null;
+	DataController				 _data			   = GreatBuyzApplication.getDataController();
+	static Activity				activity;
+	LinearLayout				   mBackNavigation;
+	Button						 btnVisitDeal;
+	private GreatBuyzTextView	  settingChildListTitle;
+	private List<SettingItem>	  settingItems		= null;
+	private DrawerLayout		   mDrawerLayout;
+	private ListView			   mDrawerList;
+	private static boolean		 mIsMainDrawerOpen   = false;
+	private static boolean		 mIsChildDrawerOpen  = false;
+	ViewPager					  mPager;
+	private DrawerLayout		   mDrawerLayoutChild;
+	private RelativeLayout		 mDrawerLayoutChildView;
+	private ListView			   mDrawerListChild;
+	List<SettingItem>			  settingSubListItems = null;
+	private RelativeLayout		 mNotificationLayout;
+	private LinearLayout		   mVersionLayout;
+	private Button				 mNotifButton;
+	private CheckBox			   mInappCheckBox;
+	private CheckBox			   mDailyMsgCheckBox;
+	private Spinner				mNotificationSpinner;
+	private TextView			   mSpinnerText;
+	private TextView			   mNotifSetAlertTextView;
+	public boolean[]			   selection;
+	public boolean[]			   cloneSelection;
+	int							selectedIndex	   = 1000;
+	boolean						isCategoryChange	= false;
+	String						 message			 = null;
+	static final ArrayList<String> spinnerValues	   = Utils.getNotificationFrequencies();
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -113,40 +108,51 @@ public class DetailScreenNew extends Activity
 		// loadView();
 		// ////System.out.println("GreatBuyz: function OUT DetailScreen > onCreate");
 	}
-
+	
 	@Override
 	protected void onNewIntent(Intent intent)
 	{
 		// ////System.out.println("GreatBuyz: function IN DetailScreen > onNewIntent");
 		super.onNewIntent(intent);
-
-		setIntent(intent);
-		dealScreenDTOs = null;
-		loadNewIntent(intent);
+		try
+		{
+			setIntent(intent);
+			dealScreenDTOs = null;
+			loadNewIntent(intent);
+		}
+		catch (Exception e)
+		{
+			if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
+		}
 		// loadView();
 		// ////System.out.println("GreatBuyz: function OUT DetailScreen > onNewIntent");
 	}
-
+	
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent event)
 	{
-		if (event.getKeyCode() == KeyEvent.KEYCODE_MENU)
-			return true;
+		if (event.getKeyCode() == KeyEvent.KEYCODE_MENU) return true;
 		return super.dispatchKeyEvent(event);
 	}
-
+	
 	@Override
 	protected void onStart()
 	{
 		// ////System.out.println("GreatBuyz: function IN DetailScreen > onStart");
 		super.onStart();
-		// FlurryAgent.onPageView();
-		GreatBuyzApplication.getApplication().getAnalyticsAgent().onPageVisit(AppConstants.Flurry.DealDetails);
-
-		activity = this;
+		try
+		{
+			// FlurryAgent.onPageView();
+			GreatBuyzApplication.getApplication().getAnalyticsAgent().onPageVisit(AppConstants.Flurry.DealDetails);
+			activity = this;
+		}
+		catch (Exception e)
+		{
+			if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
+		}
 		// ////System.out.println("GreatBuyz: function OUT DetailScreen > onStart");
 	}
-
+	
 	@Override
 	protected void onStop()
 	{
@@ -155,56 +161,54 @@ public class DetailScreenNew extends Activity
 		activity = null;
 		// ////System.out.println("GreatBuyz: function OUT DetailScreen > onStop");
 	}
-
+	
 	@Override
 	public void onBackPressed()
 	{
 		// ////System.out.println("GreatBuyz: function IN DetailScreen > onBackPressed");
-
-		if (mIsChildDrawerOpen)
+		try
 		{
-			mDrawerLayoutChild.closeDrawer(Gravity.RIGHT);
-			mIsChildDrawerOpen = false;
-			return;
+			if (mIsChildDrawerOpen)
+			{
+				mDrawerLayoutChild.closeDrawer(Gravity.RIGHT);
+				mIsChildDrawerOpen = false;
+				return;
+			}
+			else if (mIsMainDrawerOpen)
+			{
+				closeMenu();
+				return;
+			}
 		}
-
-		else if (mIsMainDrawerOpen)
+		catch (Exception e)
 		{
-			closeMenu();
-			return;
+			if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
 		}
-
 		finish();
 		// ////System.out.println("GreatBuyz: function OUT DetailScreen > onBackPressed");
 	}
-
+	
 	int type = 0;
+	
 	@SuppressLint("SetJavaScriptEnabled")
 	private void loadNewIntent(Intent intent)
 	{
 		_data = GreatBuyzApplication.getDataController();
-
 		// ////System.out.println("GreatBuyz: function IN DetailScreen > loadNewIntent");
-		//int type = 0;
-
+		// int type = 0;
 		type = intent.getIntExtra(AppConstants.JSONKeys.TYPE, 0);
-
 		int selectedIndex = 0;
 		ImageView menuView;
-
 		setContentView(R.layout.detailed_deal_new);
-
 		RelativeLayout myDealsShortcut = (RelativeLayout) findViewById(R.id.imgMyDeals);
 		ImageView myIcon = (ImageView) findViewById(R.id.myicon);
-		SharedPreferences pref = GreatBuyzApplication
-				.getApplication().getSharedPreferences();
+		SharedPreferences pref = GreatBuyzApplication.getApplication().getSharedPreferences();
 		boolean isNewWelcomeDeal = pref.getBoolean(DB.COL_VERSION_WELCOME_DEAL, false);
-		System.out.println("isNewWelcomeDeal &&&"+isNewWelcomeDeal);
-		if(isNewWelcomeDeal){
+		System.out.println("isNewWelcomeDeal &&&" + isNewWelcomeDeal);
+		if (isNewWelcomeDeal)
+		{
 			myIcon.setImageResource(R.drawable.myone);
 		}
-		
-		
 		myDealsShortcut.setOnClickListener(new OnClickListener()
 		{
 			@Override
@@ -214,9 +218,7 @@ public class DetailScreenNew extends Activity
 				finish();
 			}
 		});
-
 		mPager = (ViewPager) findViewById(R.id.pager);
-
 		menuView = (ImageView) findViewById(R.id.imgMenu);
 		menuView.setOnClickListener(new OnClickListener()
 		{
@@ -226,9 +228,7 @@ public class DetailScreenNew extends Activity
 				clickMenuButton();
 			}
 		});
-
 		menuView.setVisibility(View.VISIBLE);
-
 		mBackNavigation = (LinearLayout) findViewById(R.id.back_navigation);
 		mBackNavigation.setOnClickListener(new OnClickListener()
 		{
@@ -242,24 +242,19 @@ public class DetailScreenNew extends Activity
 		mSpinnerText = (TextView) findViewById(R.id.spinner_text);
 		mInappCheckBox = (CheckBox) findViewById(R.id.in_app_notification_checkbox);
 		mDailyMsgCheckBox = (CheckBox) findViewById(R.id.dailyMsgCheckBox);
-		
 		mNotificationSpinner = (Spinner) findViewById(R.id.notification_spinner);
 		ArrayAdapter<String> notifadapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerValues);
 		notifadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		mNotificationSpinner.setAdapter(notifadapter);
-
 		mInappCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener()
 		{
-
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
 			{
 				setNotificationSpinnerVisibility(isChecked);
 			}
 		});
-
 		selectedIndex = intent.getIntExtra(AppConstants.JSONKeys.INDEX, 0);
-
 		try
 		{
 			if (type == AppConstants.FramentConstants.DEALS_OF_THE_DAY)
@@ -304,18 +299,14 @@ public class DetailScreenNew extends Activity
 			{
 				dealScreenDTOs = _data.getExploreDeals().getExploreDealsList();
 			}
-
-			if (dealScreenDTOs == null)
-				return;
-
+			if (dealScreenDTOs == null) return;
 			mPager.setAdapter(new DetailScreenPagerAdapter(this, dealScreenDTOs));
 			mPager.setCurrentItem(selectedIndex);
-			
-			mPager
-			.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+			mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener()
+			{
 				@Override
-				public void onPageSelected(int position) {
-					
+				public void onPageSelected(int position)
+				{
 					HashMap<String, String> m = new HashMap<String, String>();
 					m.put(AppConstants.Flurry.CLICK, AppConstants.Flurry.VISIT);
 					m.put(AppConstants.Flurry.DEALID, dealScreenDTOs.get(position).getDealId());
@@ -323,211 +314,182 @@ public class DetailScreenNew extends Activity
 					GreatBuyzApplication.getApplication().getAnalyticsAgent().logEvent(AppConstants.Flurry.DealDetails, m);
 				}
 			});
-			
 		}
 		catch (Exception e)
 		{
 			// //System.out.println("GB: crash will finish");
+			if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
 			e.printStackTrace();
 			finish();
 			return;
 		}
-
 	}
-
+	
 	private class DetailScreenPagerAdapter extends PagerAdapter
 	{
-		Activity context;
+		Activity					context;
 		private List<DealScreenDTO> data;
-		LayoutInflater inflater;
-
+		LayoutInflater			  inflater;
+		
 		public DetailScreenPagerAdapter(Activity context, List<DealScreenDTO> deals)
 		{
 			this.context = context;
 			this.data = deals;
 			inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		}
-
+		
 		@Override
 		public int getCount()
 		{
 			return data.size();
 		}
-
+		
 		@Override
 		public Object instantiateItem(View collection, int position)
 		{
-			
-		//	System.out.println("POSITION ******"+position);
+			// System.out.println("POSITION ******"+position);
 			RelativeLayout view = (RelativeLayout) inflater.inflate(R.layout.detailed_deal_view, null);
 			loadView(view, dealScreenDTOs.get(position), position);
 			((ViewPager) collection).addView(view);
 			return view;
 		}
-
+		
 		@Override
 		public void destroyItem(View collection, int position, Object view)
 		{
 			((ViewPager) collection).removeView((View) view);
 		}
-
+		
 		@Override
 		public boolean isViewFromObject(View view, Object object)
 		{
 			return view == object;
 		}
-
+		
 		@SuppressLint("SimpleDateFormat")
 		private String getTime(Date get_expire)
 		{
 			SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
 			return sdf.format(get_expire);
 		}
-
+		
 		@SuppressLint("SimpleDateFormat")
 		private String getDate(Date get_expire)
 		{
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			return sdf.format(get_expire);
 		}
-
 		
 		private void loadView(RelativeLayout view, DealScreenDTO dealScreenDTO, int position)
 		{
-			/*final RelativeLayout longDescriptionLayout;
-			final RelativeLayout briefDetails;
-			final TextView txtMoreDetailDesc;*/
-			String dealLongDescription;
-			if (dealScreenDTO == null)
-				return;
-
-			String url = dealScreenDTO.getImage();
-			ImageView img;
-			img = (ImageView) view.findViewById(R.id.imgDetailDeal);
-			img.setTag(url);
-
-			if (!Utils.isNothing(url))
-				Picasso.with(activity).load(url).config(Bitmap.Config.RGB_565).resize(320, 180).centerCrop().into(img);
-
-			//longDescriptionLayout =(RelativeLayout) view.findViewById(R.id.moreDetailsLayout);
-			//briefDetails =(RelativeLayout) view.findViewById(R.id.briefDetails);
-			TextView txtDetailDesc = (TextView) view.findViewById(R.id.txtDetailDesc);
-			//txtMoreDetailDesc = (TextView) view.findViewById(R.id.txtMoreDetailDesc);
-			
-			//ImageButton briefDetailsButton =(ImageButton) view.findViewById(R.id.briefDetailsButton);
-			//ImageButton longDetailsButton =(ImageButton) view.findViewById(R.id.longDetailsButton);
-			
-			dealLongDescription = dealScreenDTO.getDetails();
-			dealLongDescription = Html.fromHtml(dealLongDescription).toString();
-			if (type == AppConstants.FramentConstants.MY_DEALS)
+			/*
+			 * final RelativeLayout longDescriptionLayout; final RelativeLayout briefDetails; final TextView txtMoreDetailDesc;
+			 */
+			try
 			{
-				System.out.println("name is executed *******"+dealScreenDTO.getName());
-				txtDetailDesc.setText(dealScreenDTO.getName());
-			}else{
-				txtDetailDesc.setText(dealLongDescription);
-			}
-			System.out.println("dealLongDescription"+dealLongDescription);
-			
-			/*if(dealLongDescription.length()>200){
-				txtDetailDesc.setText(dealScreenDTO.getDetails().substring(0, 200)+ String.valueOf("..."));
-			}else{
-				txtDetailDesc.setText(dealScreenDTO.getDetails());
-			}*/
-			/*txtMoreDetailDesc.setText(dealLongDescription);
-			briefDetailsButton.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View arg0) {
-					longDescriptionLayout.setVisibility(View.VISIBLE);
-					briefDetails.setVisibility(View.GONE);
-				}
-			});
-			longDetailsButton.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View arg0) {
-					longDescriptionLayout.setVisibility(View.GONE);
-					briefDetails.setVisibility(View.VISIBLE);
-				}
-			});*/
-			
-			
-			txtDetailDesc.setTypeface(GreatBuyzApplication.getApplication().getFont());
-
-			TextView txtDetailDealVal = (TextView) view.findViewById(R.id.txt_detail_deal_value);
-			txtDetailDealVal.setText(String.valueOf(dealScreenDTO.getPrice()));
-			txtDetailDealVal.setTypeface(GreatBuyzApplication.getApplication().getFont());
-
-			String discount = dealScreenDTO.getDiscount();
-
-			TextView txtDetailDisc = (TextView) view.findViewById(R.id.txt_detail_deal_desc_val);
-
-			if (discount.equals("0"))
-			{
-				discount = "-";
-				view.findViewById(R.id.percentage_txt).setVisibility(View.INVISIBLE);
-			}
-			else
-			{
-				String percent = getResources().getString(R.string.percent);
-				if (discount.endsWith(percent))
+				String dealLongDescription;
+				if (dealScreenDTO == null) return;
+				String url = dealScreenDTO.getImage();
+				ImageView img;
+				img = (ImageView) view.findViewById(R.id.imgDetailDeal);
+				img.setTag(url);
+				if (!Utils.isNothing(url)) Picasso.with(activity).load(url).config(Bitmap.Config.RGB_565).resize(320, 180).centerCrop().into(img);
+				// longDescriptionLayout =(RelativeLayout) view.findViewById(R.id.moreDetailsLayout);
+				// briefDetails =(RelativeLayout) view.findViewById(R.id.briefDetails);
+				TextView txtDetailDesc = (TextView) view.findViewById(R.id.txtDetailDesc);
+				// txtMoreDetailDesc = (TextView) view.findViewById(R.id.txtMoreDetailDesc);
+				// ImageButton briefDetailsButton =(ImageButton) view.findViewById(R.id.briefDetailsButton);
+				// ImageButton longDetailsButton =(ImageButton) view.findViewById(R.id.longDetailsButton);
+				dealLongDescription = dealScreenDTO.getDetails();
+				dealLongDescription = Html.fromHtml(dealLongDescription).toString();
+				if (type == AppConstants.FramentConstants.MY_DEALS)
 				{
-					discount = discount.substring(0, discount.lastIndexOf(percent) - 1);
+					System.out.println("name is executed *******" + dealScreenDTO.getName());
+					txtDetailDesc.setText(dealScreenDTO.getName());
+				}
+				else
+				{
+					txtDetailDesc.setText(dealLongDescription);
+				}
+				System.out.println("dealLongDescription" + dealLongDescription);
+				/*
+				 * if(dealLongDescription.length()>200){ txtDetailDesc.setText(dealScreenDTO.getDetails().substring(0, 200)+ String.valueOf("...")); }else{ txtDetailDesc.setText(dealScreenDTO.getDetails()); }
+				 */
+				/*
+				 * txtMoreDetailDesc.setText(dealLongDescription); briefDetailsButton.setOnClickListener(new View.OnClickListener() {
+				 * @Override public void onClick(View arg0) { longDescriptionLayout.setVisibility(View.VISIBLE); briefDetails.setVisibility(View.GONE); } }); longDetailsButton.setOnClickListener(new View.OnClickListener() {
+				 * @Override public void onClick(View arg0) { longDescriptionLayout.setVisibility(View.GONE); briefDetails.setVisibility(View.VISIBLE); } });
+				 */
+				txtDetailDesc.setTypeface(GreatBuyzApplication.getApplication().getFont());
+				TextView txtDetailDealVal = (TextView) view.findViewById(R.id.txt_detail_deal_value);
+				txtDetailDealVal.setText(String.valueOf(dealScreenDTO.getPrice()));
+				txtDetailDealVal.setTypeface(GreatBuyzApplication.getApplication().getFont());
+				String discount = dealScreenDTO.getDiscount();
+				TextView txtDetailDisc = (TextView) view.findViewById(R.id.txt_detail_deal_desc_val);
+				if (discount.equals("0"))
+				{
+					discount = "-";
+					view.findViewById(R.id.percentage_txt).setVisibility(View.INVISIBLE);
+				}
+				else
+				{
+					String percent = getResources().getString(R.string.percent);
+					if (discount.endsWith(percent))
+					{
+						discount = discount.substring(0, discount.lastIndexOf(percent) - 1);
+					}
+				}
+				txtDetailDisc.setText(discount);
+				txtDetailDisc.setTypeface(GreatBuyzApplication.getApplication().getFont());
+				TextView txtDetailDealPay = (TextView) view.findViewById(R.id.txt_detail_deal_pay_val);
+				txtDetailDealPay.setText(String.valueOf(dealScreenDTO.getCouponPrice()));
+				txtDetailDealPay.setTypeface(GreatBuyzApplication.getApplication().getFont());
+				RelativeLayout expireLayout = (RelativeLayout) view.findViewById(R.id.layout_expire);
+				expireLayout.setVisibility(View.VISIBLE);
+				TextView txtExpireDate = (TextView) view.findViewById(R.id.txt_expire_date);
+				// TextView txtExpireTime = (TextView)
+				// view.findViewById(R.id.txt_expire_time);
+				// ImageView seperatorImg = (ImageView)
+				// view.findViewById(R.id.seperator);
+				if (dealScreenDTO.get_expire() != null)
+				{
+					String date = getDate(dealScreenDTO.get_expire());
+					String seperator = getString(R.string.expirydatetimeseperator);
+					String time = getTime(dealScreenDTO.get_expire());
+					txtExpireDate.setVisibility(View.VISIBLE);
+					// txtExpireTime.setVisibility(View.VISIBLE);
+					// seperatorImg.setVisibility(View.VISIBLE);
+					String str = date + " " + seperator + " " + time;
+					txtExpireDate.setTypeface(GreatBuyzApplication.getApplication().getFont());
+					// txtExpireTime.setTypeface(GreatBuyzApplication.getApplication().getFont());
+					txtExpireDate.setText(getString(R.string.expirydate) + " " + str);
+					// txtExpireTime.setText(str);
+				}
+				else
+				{
+					expireLayout.setVisibility(View.GONE);
+				}
+				btnVisitDeal = (Button) view.findViewById(R.id.btnDetailVisitDeal);
+				btnVisitDeal.setVisibility(View.VISIBLE);
+				btnVisitDeal.setTypeface(GreatBuyzApplication.getApplication().getFont());
+				Utils.setMessageToButton(btnVisitDeal, AppConstants.Messages.btnVisitText);
+				visitDeal(dealScreenDTO);
+				if (position == 0)
+				{
+					HashMap<String, String> m = new HashMap<String, String>();
+					m.put(AppConstants.Flurry.CLICK, AppConstants.Flurry.VISIT);
+					m.put(AppConstants.Flurry.DEALID, dealScreenDTO.getDealId());
+					// FlurryAgent.logEvent(AppConstants.Flurry.DealDetail, m);
+					GreatBuyzApplication.getApplication().getAnalyticsAgent().logEvent(AppConstants.Flurry.DealDetails, m);
 				}
 			}
-
-			txtDetailDisc.setText(discount);
-			txtDetailDisc.setTypeface(GreatBuyzApplication.getApplication().getFont());
-
-			TextView txtDetailDealPay = (TextView) view.findViewById(R.id.txt_detail_deal_pay_val);
-			txtDetailDealPay.setText(String.valueOf(dealScreenDTO.getCouponPrice()));
-			txtDetailDealPay.setTypeface(GreatBuyzApplication.getApplication().getFont());
-
-			RelativeLayout expireLayout = (RelativeLayout) view.findViewById(R.id.layout_expire);
-			expireLayout.setVisibility(View.VISIBLE);
-			TextView txtExpireDate = (TextView) view.findViewById(R.id.txt_expire_date);
-			// TextView txtExpireTime = (TextView)
-			// view.findViewById(R.id.txt_expire_time);
-
-			// ImageView seperatorImg = (ImageView)
-			// view.findViewById(R.id.seperator);
-
-			if (dealScreenDTO.get_expire() != null)
+			catch (Exception e)
 			{
-				String date = getDate(dealScreenDTO.get_expire());
-				String seperator = getString(R.string.expirydatetimeseperator);
-				String time = getTime(dealScreenDTO.get_expire());
-
-				txtExpireDate.setVisibility(View.VISIBLE);
-				// txtExpireTime.setVisibility(View.VISIBLE);
-				// seperatorImg.setVisibility(View.VISIBLE);
-				String str = date + " " + seperator + " " + time;
-
-				txtExpireDate.setTypeface(GreatBuyzApplication.getApplication().getFont());
-				// txtExpireTime.setTypeface(GreatBuyzApplication.getApplication().getFont());
-
-				txtExpireDate.setText(getString(R.string.expirydate) + " " + str);
-				// txtExpireTime.setText(str);
+				// //System.out.println("GB: crash will finish");
+				if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
 			}
-			else
-			{
-				expireLayout.setVisibility(View.GONE);
-			}
-
-			btnVisitDeal = (Button) view.findViewById(R.id.btnDetailVisitDeal);
-			btnVisitDeal.setVisibility(View.VISIBLE);
-			btnVisitDeal.setTypeface(GreatBuyzApplication.getApplication().getFont());
-			Utils.setMessageToButton(btnVisitDeal, AppConstants.Messages.btnVisitText);
-			visitDeal(dealScreenDTO);
-			
-			if(position == 0){
-				HashMap<String, String> m = new HashMap<String, String>();
-				m.put(AppConstants.Flurry.CLICK, AppConstants.Flurry.VISIT);
-				m.put(AppConstants.Flurry.DEALID, dealScreenDTO.getDealId());
-				// FlurryAgent.logEvent(AppConstants.Flurry.DealDetail, m);
-				GreatBuyzApplication.getApplication().getAnalyticsAgent().logEvent(AppConstants.Flurry.DealDetails, m);
-			}
-			
 		}
-
+		
 		private void visitDeal(final DealScreenDTO dealScreenDTO)
 		{
 			btnVisitDeal.setTypeface(GreatBuyzApplication.getApplication().getFont());
@@ -536,17 +498,25 @@ public class DetailScreenNew extends Activity
 				@Override
 				public void onClick(View v)
 				{
-					HashMap<String, String> m = new HashMap<String, String>();
-					m.put(AppConstants.Flurry.CLICK, AppConstants.Flurry.VISIT);
-					m.put(AppConstants.Flurry.DEALID, dealScreenDTO.getDealId());
-					// FlurryAgent.logEvent(AppConstants.Flurry.DealDetail, m);
-					GreatBuyzApplication.getApplication().getAnalyticsAgent().logEvent(AppConstants.Flurry.DealDetails, m);
-					Utils.launchUri(DetailScreenNew.this, dealScreenDTO.getDealVisitUri());
+					try
+					{
+						HashMap<String, String> m = new HashMap<String, String>();
+						m.put(AppConstants.Flurry.CLICK, AppConstants.Flurry.VISIT);
+						m.put(AppConstants.Flurry.DEALID, dealScreenDTO.getDealId());
+						// FlurryAgent.logEvent(AppConstants.Flurry.DealDetail, m);
+						GreatBuyzApplication.getApplication().getAnalyticsAgent().logEvent(AppConstants.Flurry.DealDetails, m);
+						Utils.launchUri(DetailScreenNew.this, dealScreenDTO.getDealVisitUri());
+					}
+					catch (Exception e)
+					{
+						// //System.out.println("GB: crash will finish");
+						if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
+					}
 				}
 			});
 		}
 	}
-
+	
 	@Override
 	protected Dialog onCreateDialog(int id, Bundle args)
 	{
@@ -556,7 +526,6 @@ public class DetailScreenNew extends Activity
 				LoadingDialog loadingDialog = new LoadingDialog(this, R.style.AlertDialogCustom);
 				loadingDialog.setCancelable(false);
 				return loadingDialog;
-
 			case AppConstants.DialogConstants.MESSAGE_DIALOG:
 				String message = args.getString(AppConstants.JSONKeys.MESSAGE);
 				final GenericDialog dialog = new GenericDialog(this, R.layout.status_message, R.style.AlertDialogCustom);
@@ -569,7 +538,6 @@ public class DetailScreenNew extends Activity
 					@Override
 					public void onClick(View v)
 					{
-
 						try
 						{
 							removeDialog(AppConstants.DialogConstants.MESSAGE_DIALOG);
@@ -587,264 +555,253 @@ public class DetailScreenNew extends Activity
 				titleText1.setText(Utils.getMessageString(AppConstants.Messages.titleInfo, R.string.titleInfo));
 				titleText1.setTypeface(GreatBuyzApplication.getApplication().getFont());
 				return dialog;
-
 			case AppConstants.DialogConstants.CHANGE_SETTINGS_LOCATION_DIALOG:
+			{
+				final List<String> loc = _data.getCitiesList();
+				String[] locations = loc.toArray(new String[loc.size()]);
+				final String prevLocation = _data.getUserCity();
+				int selLoc = loc.indexOf(prevLocation);
+				AlertDialog.Builder locationBuilder = new AlertDialog.Builder(this);
+				locationBuilder.setTitle(Utils.getMessageString(AppConstants.Messages.settingItemChangeLocation, R.string.settingItemChangeLocation));
+				locationBuilder.setSingleChoiceItems(locations, selLoc, new DialogInterface.OnClickListener()
 				{
-					final List<String> loc = _data.getCitiesList();
-					String[] locations = loc.toArray(new String[loc.size()]);
-					final String prevLocation = _data.getUserCity();
-					int selLoc = loc.indexOf(prevLocation);
-					AlertDialog.Builder locationBuilder = new AlertDialog.Builder(this);
-					locationBuilder.setTitle(Utils.getMessageString(AppConstants.Messages.settingItemChangeLocation,
-							R.string.settingItemChangeLocation));
-					locationBuilder.setSingleChoiceItems(locations, selLoc, new DialogInterface.OnClickListener()
+					@Override
+					public void onClick(DialogInterface dialog, int which)
 					{
-
-						@Override
-						public void onClick(DialogInterface dialog, int which)
-						{
-							selectedIndex = which;
-						}
-					});
-					String strOk = Utils.getMessageString(AppConstants.Messages.ok, R.string.ok);
-					locationBuilder.setPositiveButton(strOk, new DialogInterface.OnClickListener()
-					{
-
-						@Override
-						public void onClick(DialogInterface dialog, int which)
-						{
-							if (selectedIndex < loc.size())
-							{
-								if (!loc.get(selectedIndex).equals(prevLocation))
-								{
-									setUserPreferencesAndUpdateScreen(loc.get(selectedIndex));
-									removeOtherDialog(AppConstants.DialogConstants.CHANGE_SETTINGS_LOCATION_DIALOG);
-								}
-							}
-							closeMenu();
-						}
-					});
-					String strCancel = Utils.getMessageString(AppConstants.Messages.cancel, R.string.cancel);
-					locationBuilder.setNegativeButton(strCancel, new DialogInterface.OnClickListener()
-					{
-
-						@Override
-						public void onClick(DialogInterface dialog, int which)
-						{
-							closeMenu();
-							removeOtherDialog(AppConstants.DialogConstants.CHANGE_SETTINGS_LOCATION_DIALOG);
-						}
-					});
-					AlertDialog lad = locationBuilder.create();
-					// lad.setCancelable(false);
-					lad.setCanceledOnTouchOutside(false);
-					return lad;
-				}
-			case AppConstants.DialogConstants.CATEGORY_PREF_DIALOG:
-				{
-					final List<Integer> selectedCategoryIndices = new ArrayList<Integer>();
-					selectedCategoryIndices.clear();
-					final List<Integer> selectedUnselectedCategories = new ArrayList<Integer>();
-					selectedUnselectedCategories.clear();
-					
-					List<String> cat = _data.getCategoriesList();
-					selection = new boolean[cat.size()];
-					cloneSelection = new boolean[cat.size()];
-					Cursor c = _data.getCategoriesCursor();
-					int i = 0;
-					while (c.moveToNext())
-					{
-						selection[i] = false;
-						cloneSelection[i] = false;
-						if (c.getInt(1) > 0)
-						{
-							cloneSelection[i] = true;
-							selection[i] = true;
-							selectedCategoryIndices.add(i);
-						}
-						i++;
+						selectedIndex = which;
 					}
-					c.close();
-
-					String[] cats = cat.toArray(new String[cat.size()]);
-
-					AlertDialog.Builder catBuilder = new AlertDialog.Builder(this);
-					catBuilder.setTitle(Utils.getMessageString(AppConstants.Messages.titleCategoryPreferences, R.string.titleCategoryPreferences));
-					catBuilder.setMultiChoiceItems(cats, selection, new DialogInterface.OnMultiChoiceClickListener()
+				});
+				String strOk = Utils.getMessageString(AppConstants.Messages.ok, R.string.ok);
+				locationBuilder.setPositiveButton(strOk, new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dialog, int which)
 					{
-						@Override
-						public void onClick(DialogInterface dialog, int which, boolean isChecked)
+						if (selectedIndex < loc.size())
 						{
-							if(!selectedUnselectedCategories.contains(which)){
-								selectedUnselectedCategories.add(which);
-							}
-							isCategoryChange = true;
-							selection[which] = isChecked;
-
-							if (isChecked)
+							if (!loc.get(selectedIndex).equals(prevLocation))
 							{
-								if (!selectedCategoryIndices.contains(Integer.valueOf(which)) && isChecked)
-								{
-									selectedCategoryIndices.add(Integer.valueOf(which));
-								}
-							}
-							else if (!isChecked)
-							{
-								if (selectedCategoryIndices.contains(Integer.valueOf(which)))
-								{
-									if (selectedCategoryIndices.size() < 2)
-									{
-										((AlertDialog) dialog).getListView().setItemChecked(which, true);
-										Bundle b = new Bundle();
-										b.putString(AppConstants.JSONKeys.MESSAGE, Utils.getMessageString(
-												AppConstants.Messages.atleastOneCategoryMessage, R.string.atleastOneCategoryMessage));
-										showOtherDialog(AppConstants.DialogConstants.MESSAGE_DIALOG, b);
-									}
-									else
-										selectedCategoryIndices.remove(Integer.valueOf(which));
-								}
+								setUserPreferencesAndUpdateScreen(loc.get(selectedIndex));
+								removeOtherDialog(AppConstants.DialogConstants.CHANGE_SETTINGS_LOCATION_DIALOG);
 							}
 						}
-					});
-					String strOk = Utils.getMessageString(AppConstants.Messages.ok, R.string.ok);
-					catBuilder.setPositiveButton(strOk, new DialogInterface.OnClickListener()
+						closeMenu();
+					}
+				});
+				String strCancel = Utils.getMessageString(AppConstants.Messages.cancel, R.string.cancel);
+				locationBuilder.setNegativeButton(strCancel, new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dialog, int which)
 					{
-
-						@Override
-						public void onClick(DialogInterface dialog, int which)
+						closeMenu();
+						removeOtherDialog(AppConstants.DialogConstants.CHANGE_SETTINGS_LOCATION_DIALOG);
+					}
+				});
+				AlertDialog lad = locationBuilder.create();
+				// lad.setCancelable(false);
+				lad.setCanceledOnTouchOutside(false);
+				return lad;
+			}
+			case AppConstants.DialogConstants.CATEGORY_PREF_DIALOG:
+			{
+				final List<Integer> selectedCategoryIndices = new ArrayList<Integer>();
+				selectedCategoryIndices.clear();
+				final List<Integer> selectedUnselectedCategories = new ArrayList<Integer>();
+				selectedUnselectedCategories.clear();
+				List<String> cat = _data.getCategoriesList();
+				selection = new boolean[cat.size()];
+				cloneSelection = new boolean[cat.size()];
+				Cursor c = _data.getCategoriesCursor();
+				int i = 0;
+				while (c.moveToNext())
+				{
+					selection[i] = false;
+					cloneSelection[i] = false;
+					if (c.getInt(1) > 0)
+					{
+						cloneSelection[i] = true;
+						selection[i] = true;
+						selectedCategoryIndices.add(i);
+					}
+					i++;
+				}
+				c.close();
+				String[] cats = cat.toArray(new String[cat.size()]);
+				AlertDialog.Builder catBuilder = new AlertDialog.Builder(this);
+				catBuilder.setTitle(Utils.getMessageString(AppConstants.Messages.titleCategoryPreferences, R.string.titleCategoryPreferences));
+				catBuilder.setMultiChoiceItems(cats, selection, new DialogInterface.OnMultiChoiceClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dialog, int which, boolean isChecked)
+					{
+						if (!selectedUnselectedCategories.contains(which))
 						{
-							if (isCategoryChange && selectedCategoryIndices.size() > 0 && Utils.compareTwoArray(selection, cloneSelection))
-							{
-								setUserPreferencesCategories(selection.clone(),selectedUnselectedCategories);
-								closeMenu();
-								// updateCurrentTab();
-							}
-							removeOtherDialog(AppConstants.DialogConstants.CATEGORY_PREF_DIALOG);
+							selectedUnselectedCategories.add(which);
 						}
-					});
-					String strCancel = Utils.getMessageString(AppConstants.Messages.cancel, R.string.cancel);
-					catBuilder.setNegativeButton(strCancel, new DialogInterface.OnClickListener()
-					{
-						@Override
-						public void onClick(DialogInterface dialog, int which)
+						isCategoryChange = true;
+						selection[which] = isChecked;
+						if (isChecked)
 						{
-							removeOtherDialog(AppConstants.DialogConstants.CATEGORY_PREF_DIALOG);
+							if (!selectedCategoryIndices.contains(Integer.valueOf(which)) && isChecked)
+							{
+								selectedCategoryIndices.add(Integer.valueOf(which));
+							}
+						}
+						else if (!isChecked)
+						{
+							if (selectedCategoryIndices.contains(Integer.valueOf(which)))
+							{
+								if (selectedCategoryIndices.size() < 2)
+								{
+									((AlertDialog) dialog).getListView().setItemChecked(which, true);
+									Bundle b = new Bundle();
+									b.putString(AppConstants.JSONKeys.MESSAGE, Utils.getMessageString(AppConstants.Messages.atleastOneCategoryMessage, R.string.atleastOneCategoryMessage));
+									showOtherDialog(AppConstants.DialogConstants.MESSAGE_DIALOG, b);
+								}
+								else
+									selectedCategoryIndices.remove(Integer.valueOf(which));
+							}
+						}
+					}
+				});
+				String strOk = Utils.getMessageString(AppConstants.Messages.ok, R.string.ok);
+				catBuilder.setPositiveButton(strOk, new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+						if (isCategoryChange && selectedCategoryIndices.size() > 0 && Utils.compareTwoArray(selection, cloneSelection))
+						{
+							setUserPreferencesCategories(selection.clone(), selectedUnselectedCategories);
+							closeMenu();
+							// updateCurrentTab();
+						}
+						removeOtherDialog(AppConstants.DialogConstants.CATEGORY_PREF_DIALOG);
+					}
+				});
+				String strCancel = Utils.getMessageString(AppConstants.Messages.cancel, R.string.cancel);
+				catBuilder.setNegativeButton(strCancel, new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+						removeOtherDialog(AppConstants.DialogConstants.CATEGORY_PREF_DIALOG);
+						closeMenu();
+					}
+				});
+				return catBuilder.create();
+			}
+			case AppConstants.DialogConstants.UNSUBSCRIBE_DIALOG:
+			{
+				message = Utils.getMessageString(AppConstants.Messages.titleUnsubscribeMessage, R.string.titleUnsubscribeMessage);
+				final GenericDialog dialog1 = new GenericDialog(this, R.layout.exit_message, R.style.AlertDialogCustom);
+				dialog1.setCancelable(false);
+				Button btn1 = (Button) dialog1.findViewById(R.id.yes_btn);
+				btn1.setText(Utils.getMessageString(AppConstants.Messages.yes, R.string.yes));
+				btn1.setTypeface(GreatBuyzApplication.getApplication().getFont());
+				btn1.setOnClickListener(new OnClickListener()
+				{
+					@Override
+					public void onClick(View v)
+					{
+						try
+						{
+							removeOtherDialog(AppConstants.DialogConstants.UNSUBSCRIBE_DIALOG);
+							unsubscribe(_data.getMDN(), AppConstants.JSONKeys.GCM, AppConstants.JSONKeys.WAP);
+						}
+						catch (Exception e)
+						{
+							if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
+							e.printStackTrace();
+						}
+					}
+				});
+				Button noBtn = (Button) dialog1.findViewById(R.id.no_btn);
+				noBtn.setTypeface(GreatBuyzApplication.getApplication().getFont());
+				noBtn.setText(Utils.getMessageString(AppConstants.Messages.no, R.string.no));
+				noBtn.setOnClickListener(new OnClickListener()
+				{
+					@Override
+					public void onClick(View v)
+					{
+						try
+						{
+							removeOtherDialog(AppConstants.DialogConstants.UNSUBSCRIBE_DIALOG);
 							closeMenu();
 						}
-					});
-					return catBuilder.create();
-				}
-			case AppConstants.DialogConstants.UNSUBSCRIBE_DIALOG:
-				{
-					message = Utils.getMessageString(AppConstants.Messages.titleUnsubscribeMessage, R.string.titleUnsubscribeMessage);
-					final GenericDialog dialog1 = new GenericDialog(this, R.layout.exit_message, R.style.AlertDialogCustom);
-					dialog1.setCancelable(false);
-
-					Button btn1 = (Button) dialog1.findViewById(R.id.yes_btn);
-					btn1.setText(Utils.getMessageString(AppConstants.Messages.yes, R.string.yes));
-					btn1.setTypeface(GreatBuyzApplication.getApplication().getFont());
-					btn1.setOnClickListener(new OnClickListener()
-					{
-						@Override
-						public void onClick(View v)
+						catch (Exception e)
 						{
-							try
-							{
-								removeOtherDialog(AppConstants.DialogConstants.UNSUBSCRIBE_DIALOG);
-								unsubscribe(_data.getMDN(), AppConstants.JSONKeys.GCM, AppConstants.JSONKeys.WAP);
-							}
-							catch (Exception e)
-							{
-								e.printStackTrace();
-							}
+							if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
+							e.printStackTrace();
 						}
-					});
-					Button noBtn = (Button) dialog1.findViewById(R.id.no_btn);
-					noBtn.setTypeface(GreatBuyzApplication.getApplication().getFont());
-					noBtn.setText(Utils.getMessageString(AppConstants.Messages.no, R.string.no));
-					noBtn.setOnClickListener(new OnClickListener()
-					{
-						@Override
-						public void onClick(View v)
-						{
-							try
-							{
-								removeOtherDialog(AppConstants.DialogConstants.UNSUBSCRIBE_DIALOG);
-								closeMenu();
-							}
-							catch (Exception e)
-							{
-								e.printStackTrace();
-							}
-						}
-					});
-
-					TextView msgText1 = (TextView) dialog1.findViewById(R.id.msg);
-					msgText1.setText(message);
-					msgText1.setTypeface(GreatBuyzApplication.getApplication().getFont());
-					TextView titleText11 = (TextView) dialog1.findViewById(R.id.title);
-					titleText11.setText(AppConstants.EMPTY_STRING);
-					titleText11.setTypeface(GreatBuyzApplication.getApplication().getFont());
-					return dialog1;
-				}
+					}
+				});
+				TextView msgText1 = (TextView) dialog1.findViewById(R.id.msg);
+				msgText1.setText(message);
+				msgText1.setTypeface(GreatBuyzApplication.getApplication().getFont());
+				TextView titleText11 = (TextView) dialog1.findViewById(R.id.title);
+				titleText11.setText(AppConstants.EMPTY_STRING);
+				titleText11.setTypeface(GreatBuyzApplication.getApplication().getFont());
+				return dialog1;
+			}
 			case AppConstants.DialogConstants.UNSUBSCRIBE_PENDING_DIALOG:
+			{
+				message = args.getString(AppConstants.JSONKeys.MESSAGE);
+				final GenericDialog dialog1 = new GenericDialog(this, R.layout.exit_message, R.style.AlertDialogCustom);
+				dialog1.setCancelable(false);
+				Button btn1 = (Button) dialog1.findViewById(R.id.yes_btn);
+				btn1.setText(Utils.getMessageString(AppConstants.Messages.ok, R.string.ok));
+				btn1.setTypeface(GreatBuyzApplication.getApplication().getFont());
+				btn1.setOnClickListener(new OnClickListener()
 				{
-					message = args.getString(AppConstants.JSONKeys.MESSAGE);
-					final GenericDialog dialog1 = new GenericDialog(this, R.layout.exit_message, R.style.AlertDialogCustom);
-					dialog1.setCancelable(false);
-
-					Button btn1 = (Button) dialog1.findViewById(R.id.yes_btn);
-					btn1.setText(Utils.getMessageString(AppConstants.Messages.ok, R.string.ok));
-					btn1.setTypeface(GreatBuyzApplication.getApplication().getFont());
-					btn1.setOnClickListener(new OnClickListener()
+					@Override
+					public void onClick(View v)
 					{
-						@Override
-						public void onClick(View v)
+						try
 						{
-							try
-							{
-								removeOtherDialog(AppConstants.DialogConstants.UNSUBSCRIBE_PENDING_DIALOG);
-								exitFromApp();
-							}
-							catch (Exception e)
-							{
-								e.printStackTrace();
-							}
+							removeOtherDialog(AppConstants.DialogConstants.UNSUBSCRIBE_PENDING_DIALOG);
+							exitFromApp();
 						}
-					});
-					Button noBtn = (Button) dialog1.findViewById(R.id.no_btn);
-					noBtn.setTypeface(GreatBuyzApplication.getApplication().getFont());
-					noBtn.setText(getString(R.string.cancel));
-					noBtn.setOnClickListener(new OnClickListener()
+						catch (Exception e)
+						{
+							if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
+							e.printStackTrace();
+						}
+					}
+				});
+				Button noBtn = (Button) dialog1.findViewById(R.id.no_btn);
+				noBtn.setTypeface(GreatBuyzApplication.getApplication().getFont());
+				noBtn.setText(getString(R.string.cancel));
+				noBtn.setOnClickListener(new OnClickListener()
+				{
+					@Override
+					public void onClick(View v)
 					{
-						@Override
-						public void onClick(View v)
+						try
 						{
-							try
-							{
-								removeOtherDialog(AppConstants.DialogConstants.UNSUBSCRIBE_PENDING_DIALOG);
-								closeMenu();
-							}
-							catch (Exception e)
-							{
-								e.printStackTrace();
-							}
+							removeOtherDialog(AppConstants.DialogConstants.UNSUBSCRIBE_PENDING_DIALOG);
+							closeMenu();
 						}
-					});
-
-					TextView msgText1 = (TextView) dialog1.findViewById(R.id.msg);
-					msgText1.setText(message);
-					msgText1.setTypeface(GreatBuyzApplication.getApplication().getFont());
-					TextView titleText11 = (TextView) dialog1.findViewById(R.id.title);
-					titleText11.setText(AppConstants.EMPTY_STRING);
-					titleText11.setTypeface(GreatBuyzApplication.getApplication().getFont());
-					return dialog1;
-				}
-
+						catch (Exception e)
+						{
+							if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
+							e.printStackTrace();
+						}
+					}
+				});
+				TextView msgText1 = (TextView) dialog1.findViewById(R.id.msg);
+				msgText1.setText(message);
+				msgText1.setTypeface(GreatBuyzApplication.getApplication().getFont());
+				TextView titleText11 = (TextView) dialog1.findViewById(R.id.title);
+				titleText11.setText(AppConstants.EMPTY_STRING);
+				titleText11.setTypeface(GreatBuyzApplication.getApplication().getFont());
+				return dialog1;
+			}
 		}
 		return super.onCreateDialog(id, args);
 	}
-
+	
 	public void showLoadingDialog()
 	{
 		runOnUiThread(new Runnable()
@@ -858,12 +815,13 @@ public class DetailScreenNew extends Activity
 				}
 				catch (Exception e)
 				{
+					if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
 					e.printStackTrace();
 				}
 			}
 		});
 	}
-
+	
 	public void removeLoadingDialog()
 	{
 		runOnUiThread(new Runnable()
@@ -877,12 +835,13 @@ public class DetailScreenNew extends Activity
 				}
 				catch (Exception e)
 				{
+					if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
 					e.printStackTrace();
 				}
 			}
 		});
 	}
-
+	
 	public void showMessageDialog(final String message)
 	{
 		runOnUiThread(new Runnable()
@@ -898,12 +857,13 @@ public class DetailScreenNew extends Activity
 				}
 				catch (Exception e)
 				{
+					if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
 					e.printStackTrace();
 				}
 			}
 		});
 	}
-
+	
 	public void closeMenu()
 	{
 		if (mIsMainDrawerOpen)
@@ -913,7 +873,7 @@ public class DetailScreenNew extends Activity
 			mIsChildDrawerOpen = false;
 		}
 	}
-
+	
 	public void clickMenuButton()
 	{
 		if (mDrawerLayout.isDrawerOpen(Gravity.RIGHT))
@@ -925,50 +885,42 @@ public class DetailScreenNew extends Activity
 			mDrawerLayout.openDrawer(Gravity.RIGHT);
 			mIsMainDrawerOpen = true;
 		}
-
 	}
-
+	
 	private void populateSettingsMenu()
 	{
 		createSettingsView();
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-
 		mDrawerList.setAdapter(new settingsArrayAdapter(this, R.layout.drawer_list_item, settingItems));
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 		mDrawerLayout.setDrawerListener(new DrawerListener()
 		{
-
 			@Override
 			public void onDrawerStateChanged(int arg0)
-			{
-			}
-
+			{}
+			
 			@Override
 			public void onDrawerSlide(View arg0, float arg1)
-			{
-			}
-
+			{}
+			
 			@Override
 			public void onDrawerOpened(View arg0)
 			{
 				mIsMainDrawerOpen = true;
 			}
-
+			
 			@Override
 			public void onDrawerClosed(View arg0)
 			{
 				mIsMainDrawerOpen = false;
-				if (mDrawerLayoutChild != null)
-					mDrawerLayoutChild.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+				if (mDrawerLayoutChild != null) mDrawerLayoutChild.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 			}
-
 		});
-
 		initializeChildLayout();
 	}
-
+	
 	private void initializeChildLayout()
 	{
 		settingChildListTitle = (GreatBuyzTextView) findViewById(R.id.title_text_id);
@@ -980,7 +932,6 @@ public class DetailScreenNew extends Activity
 		mNotifButton = (Button) findViewById(R.id.button_notification);
 		mNotifSetAlertTextView = (TextView) findViewById(R.id.setalerttextview);
 		Utils.setMessageToTextView(mNotifSetAlertTextView, AppConstants.Messages.settingItemKeywords);
-
 		mNotifSetAlertTextView.setOnClickListener(new OnClickListener()
 		{
 			@Override
@@ -1003,95 +954,71 @@ public class DetailScreenNew extends Activity
 					{
 						Object selectedItem = mNotificationSpinner.getSelectedItem();
 						String strFrequency = null;
-						if (selectedItem != null)
-							strFrequency = selectedItem.toString();
-
+						if (selectedItem != null) strFrequency = selectedItem.toString();
 						frequency = Integer.parseInt(strFrequency);
 					}
 					catch (Exception e)
 					{
+						if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
 					}
 				}
-				
 				String isDailyMsgEnabled = null;
-				if(mDailyMsgCheckBox.isChecked()){
-					isDailyMsgEnabled ="true";
-				}else{
-					isDailyMsgEnabled ="false";
+				if (mDailyMsgCheckBox.isChecked())
+				{
+					isDailyMsgEnabled = "true";
 				}
-				sendNotificationFrequencyToServer(frequency,isDailyMsgEnabled);
+				else
+				{
+					isDailyMsgEnabled = "false";
+				}
+				sendNotificationFrequencyToServer(frequency, isDailyMsgEnabled);
 			}
 		});
 		mDrawerLayoutChildView = (RelativeLayout) findViewById(R.id.child_drawer_layout);
 		mDrawerListChild = (ListView) findViewById(R.id.left_drawer_child);
 	}
-
+	
 	private void populateSettingsSubMenu()
 	{
 		mDrawerListChild.setAdapter(new settingsArrayAdapter(this, R.layout.drawer_list_item, settingSubListItems));
 		mDrawerListChild.setOnItemClickListener(new ChildDrawerItemClickListener());
 	}
-
+	
 	private void createSettingsSubView(int id)
 	{
-
 		switch (id)
 		{
 			case AppConstants.SettingItems.PERSONAL_PROFILE:
-				if (settingSubListItems != null && !settingSubListItems.isEmpty())
-					settingSubListItems.clear();
-
+				if (settingSubListItems != null && !settingSubListItems.isEmpty()) settingSubListItems.clear();
 				settingSubListItems = new ArrayList<SettingItem>();
-
-				settingSubListItems.add(new SettingItem(AppConstants.SettingItems.CATEGORIES, Utils.getMessageString(
-						AppConstants.Messages.settingItemCategoryPreferences, R.string.settingItemCategoryPreferences), this.getResources()
-						.getDrawable(R.drawable.setting_category)));
-				settingSubListItems.add(new SettingItem(AppConstants.SettingItems.LOCATION, Utils.getMessageString(
-						AppConstants.Messages.settingItemChangeLocation, R.string.settingItemChangeLocation), this.getResources()
-						.getDrawable(R.drawable.setting_faq)));
-				settingSubListItems.add(new SettingItem(AppConstants.SettingItems.UNSUBSCRIBE, Utils.getMessageString(
-						AppConstants.Messages.settingItemUnsubscribe, R.string.settingItemUnsubscribe), this.getResources().getDrawable(
-						R.drawable.setting_dea)));
-				settingSubListItems.add(new SettingItem(AppConstants.SettingItems.ALL_TNC, Utils.getMessageString(
-						AppConstants.Messages.infoTermsTitle, R.string.infoTermsTitle), this.getResources().getDrawable(R.drawable.setting_terms)));
-				settingSubListItems.add(new SettingItem(AppConstants.SettingItems.INFO_PRIVACY, Utils.getMessageString(
-						AppConstants.Messages.infoPrivacyTitle, R.string.infoPrivacyTitle), this.getResources().getDrawable(R.drawable.setting_privacy)));
-				settingSubListItems.add(new SettingItem(AppConstants.SettingItems.INFO_COSTI, Utils.getMessageString(
-						AppConstants.Messages.infoCostiTitle, R.string.infoCostiTitle), this.getResources().getDrawable(R.drawable.setting_costi)));
+				settingSubListItems.add(new SettingItem(AppConstants.SettingItems.CATEGORIES, Utils.getMessageString(AppConstants.Messages.settingItemCategoryPreferences, R.string.settingItemCategoryPreferences), this.getResources().getDrawable(R.drawable.setting_category)));
+				settingSubListItems.add(new SettingItem(AppConstants.SettingItems.LOCATION, Utils.getMessageString(AppConstants.Messages.settingItemChangeLocation, R.string.settingItemChangeLocation), this.getResources().getDrawable(R.drawable.setting_faq)));
+				settingSubListItems.add(new SettingItem(AppConstants.SettingItems.UNSUBSCRIBE, Utils.getMessageString(AppConstants.Messages.settingItemUnsubscribe, R.string.settingItemUnsubscribe), this.getResources().getDrawable(R.drawable.setting_dea)));
+				settingSubListItems.add(new SettingItem(AppConstants.SettingItems.ALL_TNC, Utils.getMessageString(AppConstants.Messages.infoTermsTitle, R.string.infoTermsTitle), this.getResources().getDrawable(R.drawable.setting_terms)));
+				settingSubListItems.add(new SettingItem(AppConstants.SettingItems.INFO_PRIVACY, Utils.getMessageString(AppConstants.Messages.infoPrivacyTitle, R.string.infoPrivacyTitle), this.getResources().getDrawable(R.drawable.setting_privacy)));
+				settingSubListItems.add(new SettingItem(AppConstants.SettingItems.INFO_COSTI, Utils.getMessageString(AppConstants.Messages.infoCostiTitle, R.string.infoCostiTitle), this.getResources().getDrawable(R.drawable.setting_costi)));
 				break;
-
 			case AppConstants.SettingItems.INFO:
-				if (settingSubListItems != null && !settingSubListItems.isEmpty())
-					settingSubListItems.clear();
-
+				if (settingSubListItems != null && !settingSubListItems.isEmpty()) settingSubListItems.clear();
 				settingSubListItems = new ArrayList<SettingItem>();
-
-				settingSubListItems.add(new SettingItem(AppConstants.SettingItems.ABOUT, Utils.getMessageString(
-						AppConstants.Messages.menuAbout, R.string.menuAbout), this.getResources().getDrawable(R.drawable.setting_alert)));
-
-				settingSubListItems.add(new SettingItem(AppConstants.SettingItems.FAQ, Utils.getMessageString(
-						AppConstants.Messages.menuFAQ, R.string.menuFAQ), this.getResources().getDrawable(R.drawable.setting_faq)));
+				settingSubListItems.add(new SettingItem(AppConstants.SettingItems.ABOUT, Utils.getMessageString(AppConstants.Messages.menuAbout, R.string.menuAbout), this.getResources().getDrawable(R.drawable.setting_alert)));
+				settingSubListItems.add(new SettingItem(AppConstants.SettingItems.FAQ, Utils.getMessageString(AppConstants.Messages.menuFAQ, R.string.menuFAQ), this.getResources().getDrawable(R.drawable.setting_faq)));
 				break;
 			default:
 				break;
 		}
 	}
-
+	
 	private void createSettingsView()
 	{
 		settingItems = new ArrayList<SettingItem>();
 		/* settingItems.add(getResources().getString(R.string.menuSettings)); */
-		settingItems.add(new SettingItem(AppConstants.SettingItems.PERSONAL_PROFILE, getResources().getString(
-				R.string.settingItemPersonalProfile), this.getResources().getDrawable(R.drawable.setting_personal)));
+		settingItems.add(new SettingItem(AppConstants.SettingItems.PERSONAL_PROFILE, getResources().getString(R.string.settingItemPersonalProfile), this.getResources().getDrawable(R.drawable.setting_personal)));
 		/*
-		 * settingItems.add(new SettingItem(AppConstants.SettingItems.MY_COUPON,
-		 * getResources().getString(R.string.settingItemMyCoupon), this
-		 * .getResources().getDrawable(R.drawable.setting_unsubscribe)));
+		 * settingItems.add(new SettingItem(AppConstants.SettingItems.MY_COUPON, getResources().getString(R.string.settingItemMyCoupon), this .getResources().getDrawable(R.drawable.setting_unsubscribe)));
 		 */
-		settingItems.add(new SettingItem(AppConstants.SettingItems.NOTIFICATIONS, getResources().getString(
-				R.string.settingItemNotifications), this.getResources().getDrawable(R.drawable.setting_faq)));
-		settingItems.add(new SettingItem(AppConstants.SettingItems.SEARCH, getResources().getString(R.string.settingItemSearch), this
-				.getResources().getDrawable(R.drawable.setting_search)));
+		settingItems.add(new SettingItem(AppConstants.SettingItems.NOTIFICATIONS, getResources().getString(R.string.settingItemNotifications), this.getResources().getDrawable(R.drawable.setting_faq)));
+		settingItems.add(new SettingItem(AppConstants.SettingItems.SEARCH, getResources().getString(R.string.settingItemSearch), this.getResources().getDrawable(R.drawable.setting_search)));
 		boolean getEmailIdFromUser = false;
 		String strGetEmail = _data.getConstant(AppConstants.Constants.getEmailIdFromUser);
 		if (!Utils.isNothing(strGetEmail))
@@ -1102,20 +1029,14 @@ public class DetailScreenNew extends Activity
 			}
 			catch (Exception e)
 			{
+				if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
 			}
 		}
-
-		if (getEmailIdFromUser)
-			settingItems.add(new SettingItem(AppConstants.SettingItems.EMAIL, getResources().getString(R.string.settingItemEmail), null));
-
-		settingItems.add(new SettingItem(AppConstants.SettingItems.INFO, getResources().getString(R.string.menuInfo), this.getResources()
-				.getDrawable(R.drawable.setting_info)));
-
-		settingItems.add(new SettingItem(AppConstants.SettingItems.REFRESH, Utils.getMessageString(AppConstants.Messages.menuRefresh,
-				R.string.menuRefresh), this.getResources().getDrawable(R.drawable.setting_refresh)));
-
+		if (getEmailIdFromUser) settingItems.add(new SettingItem(AppConstants.SettingItems.EMAIL, getResources().getString(R.string.settingItemEmail), null));
+		settingItems.add(new SettingItem(AppConstants.SettingItems.INFO, getResources().getString(R.string.menuInfo), this.getResources().getDrawable(R.drawable.setting_info)));
+		settingItems.add(new SettingItem(AppConstants.SettingItems.REFRESH, Utils.getMessageString(AppConstants.Messages.menuRefresh, R.string.menuRefresh), this.getResources().getDrawable(R.drawable.setting_refresh)));
 	}
-
+	
 	public class DrawerItemClickListener implements ListView.OnItemClickListener
 	{
 		@Override
@@ -1124,7 +1045,7 @@ public class DetailScreenNew extends Activity
 			selectItem(position);
 		}
 	}
-
+	
 	private class ChildDrawerItemClickListener implements ListView.OnItemClickListener
 	{
 		@Override
@@ -1133,17 +1054,14 @@ public class DetailScreenNew extends Activity
 			selectChildItem(position);
 		}
 	}
-
+	
 	private void selectChildItem(int position)
 	{
-
 		Intent helpIntent;
-
 		mDrawerListChild.setItemChecked(position, true);
 		setTitle(settingSubListItems.get(position).name);
 		mDrawerLayoutChild.closeDrawer(Gravity.RIGHT);
 		mIsChildDrawerOpen = false;
-
 		int id = settingSubListItems.get(position).id;
 		switch (id)
 		{
@@ -1159,8 +1077,7 @@ public class DetailScreenNew extends Activity
 			case AppConstants.SettingItems.TNC:
 				closeMenu();
 				helpIntent = new Intent();
-				helpIntent.putExtra(AppConstants.JSONKeys.NAME,
-						Utils.getMessageString(AppConstants.Messages.termsTitle, R.string.termsTitle));
+				helpIntent.putExtra(AppConstants.JSONKeys.NAME, Utils.getMessageString(AppConstants.Messages.termsTitle, R.string.termsTitle));
 				String ALLTNC_URL = GreatBuyzApplication.getApplication().getALLTNCURL();
 				helpIntent.putExtra(AppConstants.SharedPrefKeys.help, ALLTNC_URL);
 				helpIntent.putExtra(AppConstants.Messages.menuRefresh, false);
@@ -1176,7 +1093,6 @@ public class DetailScreenNew extends Activity
 				helpIntent.putExtra(AppConstants.Messages.menuRefresh, false);
 				setResult(AppConstants.RESULT_SHOW_WEBVIEW, helpIntent);
 				finish();
-
 				break;
 			case AppConstants.SettingItems.INFO_PRIVACY:
 				closeMenu();
@@ -1187,7 +1103,6 @@ public class DetailScreenNew extends Activity
 				helpIntent.putExtra(AppConstants.Messages.menuRefresh, false);
 				setResult(AppConstants.RESULT_SHOW_WEBVIEW, helpIntent);
 				finish();
-
 				break;
 			case AppConstants.SettingItems.INFO_COSTI:
 				closeMenu();
@@ -1198,7 +1113,6 @@ public class DetailScreenNew extends Activity
 				helpIntent.putExtra(AppConstants.Messages.menuRefresh, false);
 				setResult(AppConstants.RESULT_SHOW_WEBVIEW, helpIntent);
 				finish();
-
 				break;
 			case AppConstants.SettingItems.FAQ:
 				closeMenu();
@@ -1213,8 +1127,7 @@ public class DetailScreenNew extends Activity
 			case AppConstants.SettingItems.ABOUT:
 				closeMenu();
 				helpIntent = new Intent();
-				helpIntent
-						.putExtra(AppConstants.JSONKeys.NAME, Utils.getMessageString(AppConstants.Messages.menuAbout, R.string.menuAbout));
+				helpIntent.putExtra(AppConstants.JSONKeys.NAME, Utils.getMessageString(AppConstants.Messages.menuAbout, R.string.menuAbout));
 				String ABOUT_URL = GreatBuyzApplication.getApplication().getAboutURL();
 				helpIntent.putExtra(AppConstants.SharedPrefKeys.help, ABOUT_URL);
 				helpIntent.putExtra(AppConstants.Messages.menuRefresh, false);
@@ -1222,21 +1135,17 @@ public class DetailScreenNew extends Activity
 				finish();
 		}
 	}
-
+	
 	private void selectItem(int position)
 	{
 		mDrawerList.setItemChecked(position, true);
 		Intent helpIntent;
 		int id = settingItems.get(position).id;
-
 		mDrawerListChild.setVisibility(View.GONE);
 		mNotificationLayout.setVisibility(View.GONE);
-
 		mVersionLayout.setVisibility(View.GONE);
-
 		settingChildListTitle.setText(settingItems.get(position).name);
 		settingChildListTitle.setCompoundDrawablesWithIntrinsicBounds(settingItems.get(position).icon, null, null, null);
-
 		switch (id)
 		{
 			case AppConstants.SettingItems.PERSONAL_PROFILE:
@@ -1249,14 +1158,17 @@ public class DetailScreenNew extends Activity
 				mDrawerList.setItemChecked(position, true);
 				setTitle(settingItems.get(position).name);
 				break;
-
 			case AppConstants.SettingItems.NOTIFICATIONS:
 				int frequencyIndex = _data.getNotificationFrequencyIndex();
 				String isDailyMsgEnable = _data.isDailyMsgEnabled();
-				if(isDailyMsgEnable != null){
-					if(isDailyMsgEnable.equalsIgnoreCase("true")){
+				if (isDailyMsgEnable != null)
+				{
+					if (isDailyMsgEnable.equalsIgnoreCase("true"))
+					{
 						mDailyMsgCheckBox.setChecked(true);
-					}else{
+					}
+					else
+					{
 						mDailyMsgCheckBox.setChecked(false);
 					}
 				}
@@ -1279,7 +1191,6 @@ public class DetailScreenNew extends Activity
 				mDrawerList.setItemChecked(position, true);
 				setTitle(settingItems.get(position).name);
 				break;
-
 			case AppConstants.SettingItems.EMAIL:
 				break;
 			case AppConstants.SettingItems.KEYWORDS:
@@ -1298,13 +1209,10 @@ public class DetailScreenNew extends Activity
 				setResult(AppConstants.RESULT_CLICK_SEARCH);
 				finish();
 				break;
-
 			case AppConstants.SettingItems.ABOUT:
 				closeMenu();
-
 				helpIntent = new Intent();
-				helpIntent
-						.putExtra(AppConstants.JSONKeys.NAME, Utils.getMessageString(AppConstants.Messages.menuAbout, R.string.menuAbout));
+				helpIntent.putExtra(AppConstants.JSONKeys.NAME, Utils.getMessageString(AppConstants.Messages.menuAbout, R.string.menuAbout));
 				String ABOUT_URL = GreatBuyzApplication.getApplication().getAboutURL();
 				helpIntent.putExtra(AppConstants.SharedPrefKeys.help, ABOUT_URL);
 				helpIntent.putExtra(AppConstants.Messages.menuRefresh, false);
@@ -1321,12 +1229,10 @@ public class DetailScreenNew extends Activity
 				mIsChildDrawerOpen = true;
 				mDrawerList.setItemChecked(position, true);
 				setTitle(settingItems.get(position).name);
-
 				break;
 			case AppConstants.SettingItems.INFO:
 				createSettingsSubView(id);
 				populateSettingsSubMenu();
-
 				String versionNumber = Utils.getClientVersion();
 				if (!Utils.isNothing(versionNumber))
 				{
@@ -1334,13 +1240,11 @@ public class DetailScreenNew extends Activity
 					versionValue.setText(versionNumber);
 					mVersionLayout.setVisibility(View.VISIBLE);
 				}
-
 				mDrawerListChild.setVisibility(View.VISIBLE);
 				// mDrawerLayoutChild.openDrawer(mDrawerListChild);
 				mDrawerLayoutChild.openDrawer(mDrawerLayoutChildView);
 				mDrawerLayoutChild.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
 				mIsChildDrawerOpen = true;
-
 				mDrawerList.setItemChecked(position, true);
 				setTitle(settingItems.get(position).name);
 				break;
@@ -1352,7 +1256,7 @@ public class DetailScreenNew extends Activity
 				break;
 		}
 	}
-
+	
 	void setNotificationSpinnerVisibility(boolean status)
 	{
 		if (status)
@@ -1368,44 +1272,40 @@ public class DetailScreenNew extends Activity
 			// mNotifButton.setEnabled(false);
 		}
 	}
-
-	public void sendNotificationFrequencyToServer(final int frequency,final String isDailyMsgEnabled)
+	
+	public void sendNotificationFrequencyToServer(final int frequency, final String isDailyMsgEnabled)
 	{
 		try
 		{
 			showDialog(AppConstants.DialogConstants.LOADING_DIALOG, null);
-			GreatBuyzApplication.getServiceDelegate().updateUserInfo(null, null, null, null, null, frequency, null, null, null,isDailyMsgEnabled,
-					new IOperationListener()
+			GreatBuyzApplication.getServiceDelegate().updateUserInfo(null, null, null, null, null, frequency, null, null, null, isDailyMsgEnabled, new IOperationListener()
+			{
+				@Override
+				public void onOperationCompleted(boolean p_OperationComplitionStatus, String p_MessageFromServer)
+				{
+					removeOtherDialog(AppConstants.DialogConstants.LOADING_DIALOG);
+					// hideNotificationFrequencyScreen();
+					if (p_OperationComplitionStatus)
 					{
-
-						@Override
-						public void onOperationCompleted(boolean p_OperationComplitionStatus, String p_MessageFromServer)
-						{
-							removeOtherDialog(AppConstants.DialogConstants.LOADING_DIALOG);
-
-							// hideNotificationFrequencyScreen();
-
-							if (p_OperationComplitionStatus)
-							{
-								_data.updateNotificationFrequency(frequency);
-								_data.updateIsDailyMsgEnabled(isDailyMsgEnabled);
-								
-								Bundle b = new Bundle();
-								b.putString(AppConstants.JSONKeys.MESSAGE, getResources().getString(R.string.notificationSentMessage));
-								showOtherDialog(AppConstants.DialogConstants.MESSAGE_DIALOG, b);
-								Utils.changeFrequencyLog(frequency);
-							}
-							else
-							{
-								Bundle b = new Bundle();
-								b.putString(AppConstants.JSONKeys.MESSAGE, getResources().getString(R.string.notificationFailedMessage));
-								showOtherDialog(AppConstants.DialogConstants.MESSAGE_DIALOG, b);
-							}
-						}
-					});
+						_data.updateNotificationFrequency(frequency);
+						_data.updateIsDailyMsgEnabled(isDailyMsgEnabled);
+						Bundle b = new Bundle();
+						b.putString(AppConstants.JSONKeys.MESSAGE, getResources().getString(R.string.notificationSentMessage));
+						showOtherDialog(AppConstants.DialogConstants.MESSAGE_DIALOG, b);
+						Utils.changeFrequencyLog(frequency);
+					}
+					else
+					{
+						Bundle b = new Bundle();
+						b.putString(AppConstants.JSONKeys.MESSAGE, getResources().getString(R.string.notificationFailedMessage));
+						showOtherDialog(AppConstants.DialogConstants.MESSAGE_DIALOG, b);
+					}
+				}
+			});
 		}
 		catch (Exception e)
 		{
+			if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
 			e.printStackTrace();
 			removeOtherDialog(AppConstants.DialogConstants.LOADING_DIALOG);
 			// hideNotificationFrequencyScreen();
@@ -1413,43 +1313,42 @@ public class DetailScreenNew extends Activity
 			b.putString(AppConstants.JSONKeys.MESSAGE, getResources().getString(R.string.notificationFailedMessage));
 			showOtherDialog(AppConstants.DialogConstants.MESSAGE_DIALOG, b);
 		}
-
 	}
-
+	
 	public void setUserPreferencesAndUpdateScreen(final String selectedCity)
 	{
 		try
 		{
 			showDialog(AppConstants.DialogConstants.LOADING_DIALOG, null);
-			GreatBuyzApplication.getServiceDelegate().updateUserInfo(new String[] { selectedCity }, null, null, null, null, -2, null, null,null,
-					null, new IOperationListener()
+			GreatBuyzApplication.getServiceDelegate().updateUserInfo(new String[] { selectedCity }, null, null, null, null, -2, null, null, null, null, new IOperationListener()
+			{
+				@Override
+				public void onOperationCompleted(boolean pOperationComplitionStatus, String pMessageFromServer)
+				{
+					removeOtherDialog(AppConstants.DialogConstants.LOADING_DIALOG);
+					if (pOperationComplitionStatus)
 					{
-						@Override
-						public void onOperationCompleted(boolean pOperationComplitionStatus, String pMessageFromServer)
-						{
-							removeOtherDialog(AppConstants.DialogConstants.LOADING_DIALOG);
-							if (pOperationComplitionStatus)
-							{
-								Utils.changeCitySettings(selectedCity);
-								resetDataAndUpdateUI(selectedCity);
-							}
-							else
-							{
-								Bundle b = new Bundle();
-								b.putString(AppConstants.JSONKeys.MESSAGE, pMessageFromServer);
-								showDialog(AppConstants.DialogConstants.ERROR_DIALOG, b);
-							}
-						}
-					});
+						Utils.changeCitySettings(selectedCity);
+						resetDataAndUpdateUI(selectedCity);
+					}
+					else
+					{
+						Bundle b = new Bundle();
+						b.putString(AppConstants.JSONKeys.MESSAGE, pMessageFromServer);
+						showDialog(AppConstants.DialogConstants.ERROR_DIALOG, b);
+					}
+				}
+			});
 		}
 		catch (Exception e)
 		{
+			if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
 			e.printStackTrace();
 			removeOtherDialog(AppConstants.DialogConstants.LOADING_DIALOG);
 		}
 	}
-
-	public void setUserPreferencesCategories(final boolean[] selection,final List<Integer> selectedUnselectedCategories)
+	
+	public void setUserPreferencesCategories(final boolean[] selection, final List<Integer> selectedUnselectedCategories)
 	{
 		try
 		{
@@ -1468,36 +1367,36 @@ public class DetailScreenNew extends Activity
 			{
 				cats = categories.toArray(new String[categories.size()]);
 			}
-			GreatBuyzApplication.getServiceDelegate().updateUserInfo(null, cats, null, null, null, -2, null, null, null,null,
-					new IOperationListener()
+			GreatBuyzApplication.getServiceDelegate().updateUserInfo(null, cats, null, null, null, -2, null, null, null, null, new IOperationListener()
+			{
+				@Override
+				public void onOperationCompleted(boolean pOperationComplitionStatus, String pMessageFromServer)
+				{
+					removeOtherDialog(AppConstants.DialogConstants.LOADING_DIALOG);
+					if (pOperationComplitionStatus)
 					{
-						@Override
-						public void onOperationCompleted(boolean pOperationComplitionStatus, String pMessageFromServer)
-						{
-							removeOtherDialog(AppConstants.DialogConstants.LOADING_DIALOG);
-							if (pOperationComplitionStatus)
-							{
-								isCategoryChange = false;
-								resetDataAndUpdateUI(null, categories, null);
-								List<String> dbcategories =  _data.getCategoriesList();
-								Utils.changeCategorySettings(dbcategories, selection, selectedUnselectedCategories);
-							}
-							else
-							{
-								Bundle b = new Bundle();
-								b.putString(AppConstants.JSONKeys.MESSAGE, pMessageFromServer);
-								showDialog(AppConstants.DialogConstants.ERROR_DIALOG, b);
-							}
-						}
-					});
+						isCategoryChange = false;
+						resetDataAndUpdateUI(null, categories, null);
+						List<String> dbcategories = _data.getCategoriesList();
+						Utils.changeCategorySettings(dbcategories, selection, selectedUnselectedCategories);
+					}
+					else
+					{
+						Bundle b = new Bundle();
+						b.putString(AppConstants.JSONKeys.MESSAGE, pMessageFromServer);
+						showDialog(AppConstants.DialogConstants.ERROR_DIALOG, b);
+					}
+				}
+			});
 		}
 		catch (Exception e)
 		{
+			if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
 			e.printStackTrace();
 			removeOtherDialog(AppConstants.DialogConstants.LOADING_DIALOG);
 		}
 	}
-
+	
 	public void unsubscribe(final String mdn, final String channel, final String chargingMode)
 	{
 		showDialog(AppConstants.DialogConstants.LOADING_DIALOG);
@@ -1518,14 +1417,12 @@ public class DetailScreenNew extends Activity
 						// FlurryAgent.logEvent(AppConstants.Flurry.CategoryList,
 						// m);
 						GreatBuyzApplication.getApplication().getAnalyticsAgent().logEvent(AppConstants.Flurry.Unsubscribe, m);
-
 						exitFromApp();
 						// exit();
 					}
 					else
 					{
 						_data.updateIsUserSubscribedToGCM(true);
-
 						HashMap<String, String> m = new HashMap<String, String>();
 						m.put(AppConstants.Flurry.CLICK, AppConstants.Flurry.Unsubscribe);
 						m.put(AppConstants.Flurry.MDN, mdn);
@@ -1533,7 +1430,6 @@ public class DetailScreenNew extends Activity
 						// FlurryAgent.logEvent(AppConstants.Flurry.CategoryList,
 						// m);
 						GreatBuyzApplication.getApplication().getAnalyticsAgent().logEvent(AppConstants.Flurry.Unsubscribe, m);
-
 						Bundle b = new Bundle();
 						b.putString(AppConstants.JSONKeys.MESSAGE, getResources().getString(R.string.unsubscription_status_pending));
 						showOtherDialog(AppConstants.DialogConstants.UNSUBSCRIBE_PENDING_DIALOG, b);
@@ -1544,46 +1440,42 @@ public class DetailScreenNew extends Activity
 		catch (Exception e)
 		{
 			removeOtherDialog(AppConstants.DialogConstants.LOADING_DIALOG);
-
 			HashMap<String, String> m = new HashMap<String, String>();
 			m.put(AppConstants.Flurry.CLICK, AppConstants.Flurry.Unsubscribe);
 			m.put(AppConstants.Flurry.MDN, mdn);
 			m.put(AppConstants.Flurry.STATUS, AppConstants.Flurry.PENDING);
 			// FlurryAgent.logEvent(AppConstants.Flurry.CategoryList, m);
 			GreatBuyzApplication.getApplication().getAnalyticsAgent().logEvent(AppConstants.Flurry.Unsubscribe, m);
-
 			_data.updateIsUserSubscribedToGCM(true);
 			Bundle b = new Bundle();
 			b.putString(AppConstants.JSONKeys.MESSAGE, getResources().getString(R.string.unsubscription_status_pending));
 			showOtherDialog(AppConstants.DialogConstants.UNSUBSCRIBE_PENDING_DIALOG, b);
+			if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
-
+	
 	public void resetDataAndUpdateUI(String selectedCity)
 	{
 		GreatBuyzApplication.getApplication().clearAllDataOnCityChange();
 		_data.updateUserCity(selectedCity);
 		finish();
 	}
-
+	
 	public void resetDataAndUpdateUI(String loc, List<String> cats, String emailId)
 	{
 		// ////System.out.println("GreatBuyz: function IN SampleTabsStyled > resetDataAndUpdateUI");
 		GreatBuyzApplication.getApplication().clearAllDataOnCityChange();
-		if (loc != null)
-			_data.updateUserCity(loc);
+		if (loc != null) _data.updateUserCity(loc);
 		if (cats != null)
 		{
 			_data.clearCategoriesSelectedStatus();
 			_data.setCategoriesSelectedStatus(cats);
 		}
-		if (emailId != null)
-			_data.updateEmail(emailId);
-
+		if (emailId != null) _data.updateEmail(emailId);
 		// ////System.out.println("GreatBuyz: function OUT SampleTabsStyled > resetDataAndUpdateUI");
 	}
-
+	
 	private void showOtherDialog(final int which, final Bundle b)
 	{
 		runOnUiThread(new Runnable()
@@ -1595,7 +1487,7 @@ public class DetailScreenNew extends Activity
 			}
 		});
 	}
-
+	
 	public void removeOtherDialog(final int which)
 	{
 		runOnUiThread(new Runnable()
@@ -1609,12 +1501,13 @@ public class DetailScreenNew extends Activity
 				}
 				catch (Exception e)
 				{
+					if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
 					e.printStackTrace();
 				}
 			}
 		});
 	}
-
+	
 	void exitFromApp()
 	{
 		runOnUiThread(new Runnable()
@@ -1629,6 +1522,7 @@ public class DetailScreenNew extends Activity
 				}
 				catch (Exception e)
 				{
+					if (GreatBuyzApplication.isDebug) L.i("\nStack Trace: " + Thread.currentThread().getStackTrace()[2] + "\nMessage Exception : " + e.getMessage());
 					e.printStackTrace();
 				}
 			}

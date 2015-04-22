@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.SharedPreferences;
@@ -17,6 +21,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,10 +35,12 @@ import com.onmobile.utils.Utils;
 
 public class IPChangeActivity extends Activity
 {
-	EditText edtCurrentIP;
-	EditText edtNewIP;
-	Button btnCancel;
-	Button btnSubmit;
+	private EditText edtCurrentIP;
+	private EditText edtNewIP;
+	private EditText edtCurrentIPNew;
+	private Button btnCancel;
+	private Button btnSubmit;
+	public String newIP = "";
 	DataController _data;
 	Spinner serverSelectionSpinner;
 	String currentIP;
@@ -47,9 +55,13 @@ public class IPChangeActivity extends Activity
 		_data = GreatBuyzApplication.getDataController();
 		
 		edtCurrentIP = (EditText) findViewById(R.id.edtCurrentIP);
+		edtCurrentIPNew = (EditText) findViewById(R.id.edtCurrentIPNew);
+		//edtCurrentIPNew.setVisibility(View.GONE);
 		serverSelectionSpinner = (Spinner) findViewById(R.id.serverSelection);
 		GetSeverUrls geturls = new GetSeverUrls();
 		geturls.execute();
+		
+		//serverSelectionSpinner.setVisibility(View.INVISIBLE);
 		//edtNewIP = (EditText) findViewById(R.id.edtNewIP);
 
 		btnCancel = (Button) findViewById(R.id.btnCancelIP);
@@ -61,10 +73,7 @@ public class IPChangeActivity extends Activity
 			currentIP = GreatBuyzApplication.getApplication().getServerIP();
 
 		edtCurrentIP.setText(currentIP);
-
-		
-		
-		
+		edtCurrentIPNew.setText("");
 		
 		btnCancel.setOnClickListener(new OnClickListener()
 		{
@@ -91,10 +100,22 @@ public class IPChangeActivity extends Activity
 				int spinnerSelected = serverSelectionSpinner.getSelectedItemPosition();
 				//final String newIP = edtNewIP.getText().toString();
 				final String newIP = serverNames.get(spinnerSelected).url;//edtNewIP.getText().toString();
-
+				// newIP = edtCurrentIP.getText().toString();
+				//String currentIPNew = edtCurrentIPNew.getText().toString();
+//				if(edtCurrentIPNew.getText().toString().equals("")){
+//					newIP = edtCurrentIP.getText().toString();
+//				}
+//				else
+//				{
+//					 newIP = edtCurrentIPNew.getText().toString();
+//				}
+				
+				
 				if (Utils.isNothing(newIP))
 				{
 					//edtNewIP.setError("Set an IP");
+					Toast.makeText(IPChangeActivity.this, "Select Valid IP", Toast.LENGTH_LONG).show();
+
 					return;
 				}
 
@@ -127,7 +148,7 @@ public class IPChangeActivity extends Activity
 											public void run()
 											{
 												Toast.makeText(IPChangeActivity.this, "IP change success, exiting app.. ", Toast.LENGTH_LONG).show();
-												
+												//GreatBuyzApplication.getApplication().clearAllData();
 												GreatBuyzApplication.getApplication().resetDatabase();
 
 												setResult(AppConstants.RESULT_EXIT_APP);
@@ -224,18 +245,39 @@ public class IPChangeActivity extends Activity
 		}
 		//System.out.println("sponsorItems ***"+sponsorItems.size());
 		//System.out.println("serverNames  ***"+serverNames.size());
-		ArrayAdapter<String> sponsorsAdapter = new ArrayAdapter<String>(IPChangeActivity.this,
+		final ArrayAdapter<String> sponsorsAdapter = new ArrayAdapter<String>(IPChangeActivity.this,
 				android.R.layout.simple_spinner_item, sponsorItems);
 		sponsorsAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		if (serverSelectionSpinner != null) {
-			serverSelectionSpinner.setAdapter(sponsorsAdapter);
+			
+			IPChangeActivity.this.runOnUiThread(new Runnable() {
+		        @Override
+		        public void run() {
+		        	serverSelectionSpinner.setAdapter(sponsorsAdapter);
+		        }//public void run() {
+		});
+			
+			serverSelectionSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+			    @Override
+			    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+			        // your code here
+			    	edtCurrentIPNew.setText(serverNames.get(position).url);
+			    }
+
+			    @Override
+			    public void onNothingSelected(AdapterView<?> parentView) {
+			        // your code here
+			    }
+
+			});
+			
 			//System.out.println("currentIP  ***"+currentIP);
-			if(currentIP.equalsIgnoreCase("gbtim.turacomobile.com")){
-				serverSelectionSpinner.setSelection(1);
-			}else{
-				serverSelectionSpinner.setSelection(0);
-			}
+//			if(currentIP.equalsIgnoreCase("gbtim.turacomobile.com")){
+//				serverSelectionSpinner.setSelection(1);
+//			}else{
+//				serverSelectionSpinner.setSelection(0);
+//			}
 			
 		}
 		
@@ -252,27 +294,70 @@ public class IPChangeActivity extends Activity
 		@Override
 		protected Void doInBackground(Void... params) {
 			
-			if(serverNames != null){
-				ServerDomain domain = new ServerDomain();
-				domain.name = "GB_QA";
-				domain.url = "103.19.90.82:8080";
-				ServerDomain domain1 = new ServerDomain();
-				domain1.name = "GB_PROD";
-				domain1.url = "gbtim.turacomobile.com";
-				serverNames.add(domain);
-				serverNames.add(domain1);
-				
-			}
+		//	if(serverNames != null){
+//				ServerDomain domain = new ServerDomain();
+//				domain.name = "GB_QA";
+//				domain.url = "103.19.90.82:8080";
+//				ServerDomain domain1 = new ServerDomain();
+//				domain1.name = "GB_PROD";
+//				domain1.url = "gbtim.turacomobile.com";
+//				serverNames.add(domain);
+//				serverNames.add(domain1);
+				try
+				{
+					showOtherDialog(AppConstants.DialogConstants.LOADING_DIALOG, null);
+					GreatBuyzApplication.getServiceDelegate().getServerIps(new IOperationListener()
+					{
+						@Override
+						public void onOperationCompleted(boolean p_OperationComplitionStatus, String p_MessageFromServer)
+						{
+							//{"serverConifgInformation":[{"serverName":"GB_QA","serverUrl":"103.19.90.82:8080"},{"serverName":"GB_PROD","serverUrl":"gbtim.turacomobile.com"},{"serverName":"GB_STAGE","serverUrl":"172.16.2.125"}]}
+							try
+							{
+								serverNames  = new ArrayList<ServerDomain>();
+								JSONObject objectIps = new JSONObject(p_MessageFromServer);
+								JSONArray serverIps = objectIps.getJSONArray("serverConifgInformation");
+								ServerDomain domainDefault = new ServerDomain();
+								domainDefault.name = "Select Server";
+								domainDefault.url = "";	
+								serverNames.add(domainDefault);
+								for(int i =0; i< serverIps.length();i++){
+									ServerDomain domain = new ServerDomain();
+									domain.name = serverIps.getJSONObject(i).getString("serverName");
+									domain.url = serverIps.getJSONObject(i).getString("serverUrl");						
+									serverNames.add(domain);
+								}
+								
+								
+								if(serverNames.size() >0){
+									setSponsorsArrayAdaptor();
+								}
+							}
+							catch (JSONException e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							
+							removeOtherDialog(AppConstants.DialogConstants.LOADING_DIALOG);
+						//	populateKeywords();
+						}
+					});
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+					removeOtherDialog(AppConstants.DialogConstants.LOADING_DIALOG);
+					//populateKeywords();
+				}
+			//}
 			
 			return null;
 		}
 		
 		@Override
 		protected void onPostExecute(Void result) {
-			
-			if(serverNames.size() >0){
-				setSponsorsArrayAdaptor();
-			}
+		
 			
 			
 			super.onPostExecute(result);
@@ -281,5 +366,7 @@ public class IPChangeActivity extends Activity
 		
 		
 	}
+	
+
 	
 }

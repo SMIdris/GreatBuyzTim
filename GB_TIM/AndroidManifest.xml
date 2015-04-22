@@ -3,7 +3,7 @@
     package="it.telecomitalia.timcoupon"
     android:installLocation="auto"
     android:versionCode="1"
-    android:versionName="2.1.12" >
+    android:versionName="2.1.15" >
 
     <uses-sdk android:minSdkVersion="8" />
 
