@@ -37,8 +37,8 @@ public class GreatBuyzApplication extends Application
 	//private String serverIP = "http://182.23.130.181:80/re/gb";// prod
 	//private String serverIP = "103.19.90.82:80";// Test
 	//
-	//private String serverIP = "103.19.90.82";// prod 
-	private String serverIP = "103.19.90.84:8092";
+	private String serverIP = "103.19.90.82";// prod 
+	//private String serverIP = "103.19.90.84:8092";
 	//
 	//private String baseURL = "/greatbuyz-api/v2";
 	private String baseURL = "/re/gb";

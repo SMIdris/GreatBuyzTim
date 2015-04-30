@@ -84,11 +84,11 @@ public class QuickAction extends PopupWindows {
 
 		ImageView img = (ImageView) container.findViewById(R.id.iv_icon);
 		TextView text = (TextView) container.findViewById(R.id.tv_title);
-
-		if (icon != null)
-			img.setImageDrawable(icon);
-		else
-			img.setVisibility(View.GONE);
+		img.setVisibility(View.GONE);
+//		if (icon != null)
+//			img.setImageDrawable(icon);
+//		else
+//			img.setVisibility(View.GONE);
 
 		if (title != null)
 			text.setText(title);
@@ -148,11 +148,11 @@ public class QuickAction extends PopupWindows {
 		}
 
 		showArrow(((onTop) ? R.id.arrow_down : R.id.arrow_up),
-				anchorRect.centerX());
+				anchorRect.centerX() - 100);
 
 		setAnimationStyle(screenWidth, anchorRect.centerX(), onTop);
 
-		mWindow.showAtLocation(anchor, Gravity.NO_GRAVITY, xPos, yPos);
+		mWindow.showAtLocation(anchor, Gravity.NO_GRAVITY, 100, yPos);
 
 		if (animateTrack)
 			mTrack.startAnimation(mTrackAnim);

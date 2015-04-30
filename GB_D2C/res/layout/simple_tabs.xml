@@ -70,20 +70,20 @@
                 </RelativeLayout>
             </RelativeLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/popover"
-                android:layout_width="100dip"
-                android:layout_height="1dip"
+                android:layout_width="fill_parent"
+                android:layout_height="10dip"
                 android:layout_above="@+id/pager"
-                android:layout_alignParentRight="true" >
+                android:orientation="vertical"
+                android:visibility="gone" >
 
                 <TextView
-                     android:id="@+id/popoverText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="" />
-            </RelativeLayout>
+                    android:id="@+id/popoverText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"						 
+                    android:text="ffsdf" />
+            </LinearLayout>
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/pager"

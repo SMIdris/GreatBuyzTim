@@ -3,14 +3,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="20dip">
+   >
         
      <FrameLayout
-  		android:layout_marginTop="10dip"
         android:id="@+id/header2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/quickaction_top_frame"/>
+        android:visibility="gone"
+        android:background="@drawable/quickaction_top_frame" />
         
   	<ImageView
         android:id="@+id/arrow_up"
@@ -24,9 +24,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:fadingEdgeLength="0dip"
-        android:layout_below="@id/header2"
-        android:paddingLeft="1dip"
-        android:background="@drawable/quickaction_slider_background"
+        android:layout_below="@+id/header2"
+         android:layout_marginTop="10dip"
+        android:background="#0075CC"
         android:scrollbars="none">
 
         <LinearLayout
@@ -41,12 +41,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="img"
+                android:visibility="gone"
                 android:src="@drawable/quickaction_slider_grip_left" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="img"
+                android:visibility="gone"
                 android:src="@drawable/quickaction_slider_grip_right" />
                 
         </LinearLayout>
@@ -58,6 +60,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/scroll"
+        android:visibility="gone"
         android:background="@drawable/quickaction_bottom_frame" />
 
     <ImageView
@@ -66,6 +69,7 @@
         android:layout_height="wrap_content"
     	android:layout_marginTop="-1dip"
         android:layout_below="@id/footer"
+            android:visibility="gone"
         android:contentDescription="contentdesc4pic1"
         android:src="@drawable/quickaction_arrow_down" />
 

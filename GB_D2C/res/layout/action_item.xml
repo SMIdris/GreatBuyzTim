@@ -4,13 +4,13 @@
 	android:orientation="vertical"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
-	android:gravity="center_vertical|center_horizontal"
+	android:gravity="center"
 	android:paddingTop="0dip"
 	android:paddingBottom="0dip"
 	android:paddingLeft="20dip"
 	android:paddingRight="20dip" 
 	android:clickable="true"
-	android:background="@drawable/quickaction_slider_btn">
+	android:background="@android:color/transparent">
 
 	<ImageView
 		android:id="@+id/iv_icon" 
@@ -22,8 +22,8 @@
 		android:text="AAA"
 		android:layout_width="fill_parent" 
 		android:layout_height="fill_parent" 
-		android:gravity="center_vertical|center_horizontal"
-		android:textSize="12sp"
-		android:textColor="#666"/>
+		android:gravity="center"
+		android:textSize="22sp"
+		android:textColor="@android:color/black"/>
 		
 </LinearLayout>

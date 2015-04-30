@@ -40,6 +40,8 @@
     <string name="dealsYouMayLike">dealsYouMayLike</string>
     <string name="dealsNearMe">NEAR ME</string>
     <string name="exploreDeals">Search</string>
+    <string name="exploreCoupons">Coupons</string>
+    <string name="exploreDealsResult">Deals</string>
     <string name="myDeals">My Deals</string>
 
     <!-- Deal item -->

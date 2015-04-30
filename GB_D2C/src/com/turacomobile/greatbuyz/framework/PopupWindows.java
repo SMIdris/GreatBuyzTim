@@ -13,7 +13,7 @@ import android.content.Context;
 
 public class PopupWindows {
 	protected Context mContext;
-	protected PopupWindow mWindow;
+	static protected PopupWindow mWindow;
 	protected View mRootView;
 	protected Drawable mBackground = null;
 	protected WindowManager mWindowManager;
@@ -83,7 +83,7 @@ public class PopupWindows {
 		mWindow.setOnDismissListener(listener);
 	}
 
-	public void dismiss() {
+	public static void dismiss() {
 		mWindow.dismiss();
 	}
 }

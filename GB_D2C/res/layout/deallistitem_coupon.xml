@@ -11,7 +11,7 @@
         android:id="@+id/img_deal_new"
         android:layout_width="76dip"
         android:layout_height="76dip"
-        android:layout_centerVertical="true"
+        android:layout_marginBottom="10dip"
         android:background="@drawable/child_item_rect_shape"
         android:focusable="false"
         android:focusableInTouchMode="false"
@@ -22,8 +22,10 @@
         android:id="@+id/txt_new_deal_desc"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="6dip"
-        android:layout_toRightOf="@id/img_deal_new"
+        android:layout_alignTop="@+id/img_deal_new"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="4dp"
+        android:layout_toRightOf="@+id/img_deal_new"
         android:ellipsize="marquee"
         android:focusable="false"
         android:focusableInTouchMode="false"
@@ -32,17 +34,33 @@
         android:textColor="#000000"
         android:textSize="14sp" />
 
+    <Button
+        android:id="@+id/coupon_buy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/img_deal_new"
+        android:layout_alignRight="@+id/txt_new_deal_desc"
+        android:background="@anim/rounded_corners"
+        android:ellipsize="marquee"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="right"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:text="Shop Now"
+        android:textColor="#ffffff"
+        android:textSize="14sp" />
+
     <LinearLayout
         android:id="@+id/layoutDealProContainer"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txt_new_deal_desc"
+        android:layout_below="@+id/img_deal_new"
         android:layout_marginLeft="6dip"
         android:layout_marginRight="6dip"
-        android:layout_toRightOf="@+id/img_deal_new"
         android:background="@drawable/price_item_rect_shape"
         android:baselineAligned="false"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:visibility="gone" >
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -160,12 +178,25 @@
             android:focusable="false"
             android:focusableInTouchMode="false" />
 
+        <Button
+            android:id="@+id/btnDetailGiftCoupon"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_gravity="right"
+            android:background="@drawable/btn_gift_xml"
+            android:paddingLeft="30dp"
+            android:text="@string/btnGiftAFriend"
+            android:textColor="@color/black"
+            android:textSize="@dimen/visit_buy"
+            android:textStyle="bold" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:visibility="gone" >
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -208,7 +239,8 @@
                 android:paddingLeft="3dip"
                 android:textColor="#004C92"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>
 

@@ -294,6 +294,8 @@ public interface AppConstants
 		public static final String dealsYouMayLike = "dealsYouMayLike";
 		public static final String dealsNearMe = "dealsNearMe";
 		public static final String exploreDeals = "exploreDeals";
+		public static final String exploreCoupons = "exploreCoupons";
+		public static final String exploreDealResults = "exploreDealResults";
 		public static final String myDeals = "myDeals";
 
 		public static final String val = "val";
@@ -574,8 +576,9 @@ public interface AppConstants
 		public static final int DEALS_OF_THE_DAY = 2;
 		public static final int CATEGORY_FRAGMENT = 3;
 		//public static final int DEALS_NEAR_ME = 4;
-		public static final int SURPRISE_ME = 4;
-		public static final int EXPLORE_DEALS = 5;
+		public static final int EXPLORE_COUPONS = 4;
+		public static final int SURPRISE_ME = 5;
+		public static final int EXPLORE_DEALS = 6;
 		public static final int MY_DEALS = 7;
 
 		public static final int DEAL_BY_CATEGORY = 8;
