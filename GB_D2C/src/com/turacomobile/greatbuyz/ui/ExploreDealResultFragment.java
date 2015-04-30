@@ -2,6 +2,7 @@ package com.turacomobile.greatbuyz.ui;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,11 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
@@ -33,9 +36,9 @@ public class ExploreDealResultFragment extends Fragment
 	TextView				  emptyView;
 	ViewSwitcher			  viewSwitcher;
 	AmazingListView		   lsComposer;
-	TextView				  dealSearch;
-	TextView				  couponSearch;
-	TextView				  couponDealSearch;
+	LinearLayout				  dealSearch;
+	LinearLayout				  couponSearch;
+	LinearLayout				  couponDealSearch;
 	PaginationComposerAdapter adapter;
 	boolean				   isTaskPending	 = false;
 	public boolean			isCouponClicked   = false;
@@ -134,14 +137,29 @@ public class ExploreDealResultFragment extends Fragment
 		emptyView.setText(msg);
 		lsComposer.setEmptyView(viewSwitcher);
 		// couponsearch
-		dealSearch = (TextView) v.findViewById(R.id.dealsearch);
-		couponSearch = (TextView) v.findViewById(R.id.couponsearch);
-		couponDealSearch = (TextView) v.findViewById(R.id.coupondealsearch);
+		dealSearch = (LinearLayout) v.findViewById(R.id.dealsearch);
+		couponSearch = (LinearLayout) v.findViewById(R.id.couponsearch);
+		couponDealSearch = (LinearLayout) v.findViewById(R.id.coupondealsearch);
+		final View couponBorder = (View) v.findViewById(R.id.bordercoupon);
+		final View dealBorder = (View) v.findViewById(R.id.borderdeal);
+	//	final View searchBorder = (View) v.findViewById(R.id.bordersearch);
+//		
+//		 GradientDrawable gd = new GradientDrawable();
+//	        gd.setColor(0xFF00FF00); // Changes this drawbale to use a single color instead of a gradient
+//	        gd.setCornerRadius(5);
+//	        gd.setStroke(1, 0xFF000000);
+	      //  TextView tv = (TextView)findViewById(R.id.textView1);
+	      //  dealSearch.setBackgroundResource(R.anim.border_bottom);
+		
+		dealBorder.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 12));
 		dealSearch.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
 			{
+				dealBorder.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 12));
+				//dealBorder.setBackgroundColor(Color.BLACK);
+				couponBorder.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 0));
 				isCouponClicked = false;
 				refreshFragment();
 			}
@@ -151,6 +169,8 @@ public class ExploreDealResultFragment extends Fragment
 			@Override
 			public void onClick(View v)
 			{
+				couponBorder.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 12));
+				dealBorder.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 0));
 				isCouponClicked = true;
 				refreshFragment();
 			}
@@ -160,6 +180,7 @@ public class ExploreDealResultFragment extends Fragment
 			@Override
 			public void onClick(View v)
 			{
+				
 				isCouponClicked = false;
 				getActivity().dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK)); 
 			}
