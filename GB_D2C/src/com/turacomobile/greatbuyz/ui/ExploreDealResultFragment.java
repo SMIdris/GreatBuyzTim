@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
@@ -36,9 +37,9 @@ public class ExploreDealResultFragment extends Fragment
 	TextView				  emptyView;
 	ViewSwitcher			  viewSwitcher;
 	AmazingListView		   lsComposer;
-	LinearLayout				  dealSearch;
-	LinearLayout				  couponSearch;
-	LinearLayout				  couponDealSearch;
+	LinearLayout			  dealSearch;
+	LinearLayout			  couponSearch;
+	LinearLayout			  couponDealSearch;
 	PaginationComposerAdapter adapter;
 	boolean				   isTaskPending	 = false;
 	public boolean			isCouponClicked   = false;
@@ -83,14 +84,14 @@ public class ExploreDealResultFragment extends Fragment
 			listDownloader = new MyListDownloader();
 			listDownloader.execute();
 		}
-		lsComposer.setOnItemClickListener(new OnItemClickListener()
-		{
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
-			{
-				if (arg2 < GreatBuyzApplication.getDataController().getExploreDeals().getExploreDealsList().size()) Utils.startDetailsScreenNew(getActivity(), arg2, AppConstants.FramentConstants.EXPLORE_DEALS);
-			}
-		});
+		// lsComposer.setOnItemClickListener(new OnItemClickListener()
+		// {
+		// @Override
+		// public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
+		// {
+		// if (arg2 < GreatBuyzApplication.getDataController().getExploreDeals().getExploreDealsList().size()) Utils.startDetailsScreenNew(getActivity(), arg2, AppConstants.FramentConstants.EXPLORE_DEALS);
+		// }
+		// });
 		// lsComposer.setLoadingView(activity.getLayoutInflater().inflate(R.layout.loading_view,
 		// null));
 		lsComposer.setLoadingView(getActivity().getLayoutInflater().inflate(R.layout.loading_view, null));
@@ -142,15 +143,14 @@ public class ExploreDealResultFragment extends Fragment
 		couponDealSearch = (LinearLayout) v.findViewById(R.id.coupondealsearch);
 		final View couponBorder = (View) v.findViewById(R.id.bordercoupon);
 		final View dealBorder = (View) v.findViewById(R.id.borderdeal);
-	//	final View searchBorder = (View) v.findViewById(R.id.bordersearch);
-//		
-//		 GradientDrawable gd = new GradientDrawable();
-//	        gd.setColor(0xFF00FF00); // Changes this drawbale to use a single color instead of a gradient
-//	        gd.setCornerRadius(5);
-//	        gd.setStroke(1, 0xFF000000);
-	      //  TextView tv = (TextView)findViewById(R.id.textView1);
-	      //  dealSearch.setBackgroundResource(R.anim.border_bottom);
-		
+		// final View searchBorder = (View) v.findViewById(R.id.bordersearch);
+		//
+		// GradientDrawable gd = new GradientDrawable();
+		// gd.setColor(0xFF00FF00); // Changes this drawbale to use a single color instead of a gradient
+		// gd.setCornerRadius(5);
+		// gd.setStroke(1, 0xFF000000);
+		// TextView tv = (TextView)findViewById(R.id.textView1);
+		// dealSearch.setBackgroundResource(R.anim.border_bottom);
 		dealBorder.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 12));
 		dealSearch.setOnClickListener(new OnClickListener()
 		{
@@ -158,7 +158,7 @@ public class ExploreDealResultFragment extends Fragment
 			public void onClick(View v)
 			{
 				dealBorder.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 12));
-				//dealBorder.setBackgroundColor(Color.BLACK);
+				// dealBorder.setBackgroundColor(Color.BLACK);
 				couponBorder.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 0));
 				isCouponClicked = false;
 				refreshFragment();
@@ -180,9 +180,8 @@ public class ExploreDealResultFragment extends Fragment
 			@Override
 			public void onClick(View v)
 			{
-				
 				isCouponClicked = false;
-				getActivity().dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK)); 
+				getActivity().dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
 			}
 		});
 		//
@@ -271,19 +270,21 @@ public class ExploreDealResultFragment extends Fragment
 		
 		class ViewHolder
 		{
-			ImageView img;
-			TextView  txtDealDesc;
-			TextView  txtDealVal;
-			TextView  txtDealDisc;
-			TextView  txtDealPay;
+			ImageView	  img;
+			TextView	   txtDealDesc;
+			TextView	   txtDealVal;
+			TextView	   txtDealDisc;
+			TextView	   txtDealPay;
 			/*
 			 * TextView txtEuroSymbol1; TextView txtEuroSymbol2;
 			 */
-			TextView  txtPercentSymbol;
-			TextView  txtDealPayHeading;
-			TextView  txtDealValHeading;
-			TextView  txtDealDiscHeading;
-			TextView  txtDealLocation;
+			TextView	   txtPercentSymbol;
+			TextView	   txtDealPayHeading;
+			TextView	   txtDealValHeading;
+			TextView	   txtDealDiscHeading;
+			TextView	   txtDealLocation;
+			LinearLayout   layoutDealProContainer;
+			RelativeLayout list_entry_base_new;
 			
 			public ViewHolder(View v)
 			{
@@ -296,6 +297,8 @@ public class ExploreDealResultFragment extends Fragment
 				txtDealPayHeading = (TextView) v.findViewById(R.id.txt_deal_pay_text);
 				txtDealValHeading = (TextView) v.findViewById(R.id.txt_deal_value_text);
 				txtDealDiscHeading = (TextView) v.findViewById(R.id.txt_deal_desc_text);
+				layoutDealProContainer = (LinearLayout) v.findViewById(R.id.layoutDealProContainer);
+				list_entry_base_new = (RelativeLayout) v.findViewById(R.id.list_entry_base_new);
 				Typeface font = GreatBuyzApplication.getApplication().getFont();
 				txtDealVal.setTypeface(font);
 				txtDealDisc.setTypeface(font);
@@ -313,7 +316,7 @@ public class ExploreDealResultFragment extends Fragment
 		}
 		
 		@Override
-		public View getAmazingView(int position, View convertView, ViewGroup parent)
+		public View getAmazingView(final int position, View convertView, ViewGroup parent)
 		{
 			View row = null;
 			ViewHolder holder = null;
@@ -347,12 +350,14 @@ public class ExploreDealResultFragment extends Fragment
 					holder = new ViewHolder(row);
 					row.setTag(holder);
 				}
+				if (isCouponClicked)
+				{
+					holder.layoutDealProContainer.setVisibility(View.GONE);
+				}
 				holder.img.setImageResource(R.drawable.default_category);
 				String imgUrl = item.getImage();
 				holder.img.setTag(imgUrl);
-				if (!Utils.isNothing(imgUrl)) 
-					Picasso.with(activity).load(imgUrl).config(Bitmap.Config.RGB_565).resize(320, 180).centerCrop().placeholder(R.drawable.default_category)
-				    .error(R.drawable.default_category).into(holder.img);
+				if (!Utils.isNothing(imgUrl)) Picasso.with(activity).load(imgUrl).config(Bitmap.Config.RGB_565).resize(320, 180).centerCrop().placeholder(R.drawable.default_category).error(R.drawable.default_category).into(holder.img);
 				holder.txtDealDesc.setText(item.getName());
 				holder.txtDealVal.setText(String.valueOf(item.getPrice()));
 				String discount = item.getDiscount();
@@ -373,6 +378,23 @@ public class ExploreDealResultFragment extends Fragment
 				holder.txtDealDisc.setText(discount);
 				holder.txtDealPay.setText(String.valueOf(item.getCouponPrice()));
 				Utils.setLocationToDealTextView(holder.txtDealLocation, item.get_dealLocation());
+				holder.list_entry_base_new.setOnClickListener(new OnClickListener()
+				{
+					@Override
+					public void onClick(View v)
+					{
+						// holder.layoutDealProContainer.setVisibility(View.GONE);
+						if (isCouponClicked)
+						{
+							if (((ViewGroup) v).getChildAt(3).getVisibility() == View.VISIBLE && position < GreatBuyzApplication.getDataController().getExploreDeals().getExploreDealsList().size()) Utils.startDetailsScreenNew(getActivity(), position, AppConstants.FramentConstants.EXPLORE_DEALS);
+							((ViewGroup) v).getChildAt(3).setVisibility(View.VISIBLE);
+						}
+						else
+						{
+							if (position < GreatBuyzApplication.getDataController().getExploreDeals().getExploreDealsList().size()) Utils.startDetailsScreenNew(getActivity(), position, AppConstants.FramentConstants.EXPLORE_DEALS);
+						}
+					}
+				});
 			}
 			else
 			{

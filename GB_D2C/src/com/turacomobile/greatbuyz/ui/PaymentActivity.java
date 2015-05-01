@@ -445,12 +445,14 @@ public class PaymentActivity extends Activity
 				public void onOperationCompleted(boolean p_OperationComplitionStatus, String p_MessageFromServer)
 				{
 					removeDialog(AppConstants.DialogConstants.LOADING_DIALOG);
+					JSONObject jo = new JSONObject();
 					try
 					{
 						System.out.println("paymentActivity giftAFriend ***" + p_MessageFromServer);
-						JSONObject jo = new JSONObject(p_MessageFromServer);
+						
 						if (p_OperationComplitionStatus )
 						{
+							jo = new JSONObject(p_MessageFromServer);
 							final Bundle bundle = new Bundle();
 							bundle.putString("message", jo.optString("message","Payment is successful. You will receive the voucher in some time"));
 							runOnUiThread(new Runnable()
@@ -477,6 +479,16 @@ public class PaymentActivity extends Activity
 					catch (Exception e)
 					{
 						e.printStackTrace();
+						final Bundle bundle = new Bundle();
+						//TODO : chnage this message when live
+						bundle.putString("message", jo.optString("message","Payment is successful. You will receive the voucher in some time"));
+						runOnUiThread(new Runnable()
+						{
+							public void run()
+							{
+								showDialog(PAYMENT_STATUS_SIMPLE_DIALOG, bundle);
+							}
+						});
 					}
 				}
 			});
