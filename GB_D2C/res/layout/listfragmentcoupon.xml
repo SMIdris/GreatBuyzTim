@@ -4,98 +4,104 @@
     android:layout_height="fill_parent"
     android:background="#ebebeb" >
 
+    <View
+        android:id="@+id/borderlineBlackTop"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/darker_gray" />
+
     <LinearLayout
         android:id="@+id/couponstab"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:baselineAligned="false"
-        android:background="#ebebeb"
+        android:layout_below="@+id/borderlineBlackTop"
+        android:background="#c84d5f"
         android:orientation="horizontal"
         android:weightSum="0" >
 
         <LinearLayout
-             android:id="@+id/dealsearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dip"
-            android:layout_weight="1"
+            android:layout_weight="1"            
             android:gravity="center"
             android:orientation="vertical" >
 
             <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
-               
+            android:id="@+id/dealsearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dip"
-                 android:layout_marginBottom="5dip"
+                android:layout_marginBottom="5dip"
+                android:layout_marginTop="10dip"
                 android:gravity="center"
-                android:text="DEALS"
-                android:textColor="@color/black"
+                android:background="@anim/border_bottom"
+                android:text="@string/searchDeals"
+                android:textColor="@color/white"
                 android:textSize="12sp"
-                android:textStyle="normal" />
+                android:textStyle="bold" />
 
             <View
                 android:id="@+id/borderdeal"
                 android:layout_width="wrap_content"
                 android:layout_height="0dip"
-                android:background="#c84d5f" />
+                android:background="@color/white" />
         </LinearLayout>
 
         <LinearLayout
-              android:id="@+id/couponsearch"
+           
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dip"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical" >
 
             <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
-              
+                 android:id="@+id/couponsearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dip"
-                 android:layout_marginBottom="5dip"
+                android:layout_marginBottom="5dip"
+                android:layout_marginTop="10dip"
+                 android:background="@anim/border_bottom"
                 android:gravity="center"
-                android:text="COUPONS"
-                android:textColor="@color/black"
+                android:text="@string/searchCOUPONS"
+                android:textColor="@color/white"
                 android:textSize="12sp"
-                android:textStyle="normal" />
+                android:textStyle="bold" />
 
             <View
                 android:id="@+id/bordercoupon"
                 android:layout_width="wrap_content"
                 android:layout_height="0dip"
-                android:background="#c84d5f" />
+                android:background="@color/white" />
         </LinearLayout>
 
         <LinearLayout
-               android:id="@+id/coupondealsearch"
+            
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dip"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical" >
 
             <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
-             
+                android:id="@+id/coupondealsearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dip"
-                 android:layout_marginBottom="5dip"
+                android:layout_marginBottom="5dip"
+                android:layout_marginTop="10dip"
                 android:gravity="center"
-                android:text="SEARCH"
-                android:textColor="@color/black"
+                android:text="@string/searchNew"
+                android:drawableRight="@drawable/search_new"
+                android:drawablePadding="5dip"
+                android:textColor="@color/white"
                 android:textSize="12sp"
-                android:textStyle="normal" />
+                android:textStyle="bold" />
 
             <View
                 android:id="@+id/bordersearch"
                 android:layout_width="wrap_content"
                 android:layout_height="0dip"
-                android:background="#c84d5f" />
+                android:background="@color/white" />
         </LinearLayout>
     </LinearLayout>
 
@@ -105,13 +111,14 @@
         android:layout_height="1dip"
         android:layout_below="@+id/couponstab"
         android:layout_marginTop="-1dip"
-        android:background="@android:color/darker_gray" />
+        android:background="@android:color/darker_gray"
+        android:visibility="gone" />
 
     <com.turacomobile.greatbuyz.ui.AmazingListView
         android:id="@+id/lsComposer"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/borderline"
+        android:layout_below="@+id/couponstab"
         android:background="#ebebeb"
         android:divider="@android:color/transparent"
         android:dividerHeight="10dip"

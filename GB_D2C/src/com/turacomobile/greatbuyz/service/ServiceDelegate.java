@@ -1104,7 +1104,14 @@ public class ServiceDelegate
 		try
 		{
 			HttpClient mHttpClient = new DefaultHttpClient(cm, httpParameters);
-			HttpMessage mHttpMessage = createHttpGetRequest(BASE_URL + AppConstants.URIParts.SEARCH + data, getHeaders());
+			//:TODO  change the below when live
+			Map<String, String> searchHeaders = getHeaders();
+			searchHeaders.remove("channel");
+			searchHeaders.remove("key");
+			searchHeaders.put("channel", "ussd");
+			searchHeaders.put("key", "15bdaafc-7890-45fc-8864-f291fnds898e");
+			
+			HttpMessage mHttpMessage = createHttpGetRequest(BASE_URL + AppConstants.URIParts.SEARCH + data, searchHeaders);
 			// Log.d(TAG, BASE_URL + AppConstants.URIParts.SEARCH +
 			// data);
 			HttpResponse responce = mHttpClient.execute((HttpUriRequest) mHttpMessage);
@@ -1131,7 +1138,8 @@ public class ServiceDelegate
 						List<Deal> deals = null;
 						JSONObject dealsObj = new JSONObject(s);
 						isSuggested = dealsObj.optBoolean(AppConstants.JSONKeys.SUGGESTED);
-						JSONArray dealsArray = dealsObj.optJSONArray(AppConstants.JSONKeys.DEAL_DTO);
+					//	JSONArray dealsArray = dealsObj.optJSONArray(AppConstants.JSONKeys.DEAL_DTO);
+						JSONArray dealsArray = dealsObj.optJSONArray("deals");
 						if (isSuggested == false && dealsArray == null)
 						{
 							final List<DealScreenDTO> dtos = new ArrayList<DealScreenDTO>();

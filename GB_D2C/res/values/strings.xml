@@ -43,6 +43,10 @@
     <string name="exploreCoupons">Coupons</string>
     <string name="exploreDealsResult">Deals</string>
     <string name="myDeals">My Deals</string>
+    <string name="searchDeals">DEALS</string>
+    <string name="searchCOUPONS">COUPONS</string>
+    <string name="searchNew">NEW SEARCH</string>
+    
 
     <!-- Deal item -->
     <string name="value">VALUE</string>
