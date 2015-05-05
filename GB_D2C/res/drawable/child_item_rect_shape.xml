@@ -23,8 +23,8 @@
 		android:shape="rectangle">    
 		
 		<gradient        
-				android:startColor="#ffffff"       
-				android:endColor="#ffffff"        
+				android:startColor="#f1f5f8"       
+				android:endColor="#f1f5f8"        
 				android:angle="45"/>    
 		<padding android:left="2dp"        
 				 android:top="2dp"        
@@ -35,7 +35,7 @@
 		 android:topLeftRadius="8dip"        
 		 android:topRightRadius="8dip"/>
 		 
-		  <stroke android:width="2dp" android:color="#ffffff"
+		  <stroke android:width="2dp" android:color="#f1f5f8"
             android:dashWidth="0dp" android:dashGap="0dp" />
 </shape>
     </item>

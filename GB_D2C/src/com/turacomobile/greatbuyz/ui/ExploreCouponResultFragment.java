@@ -151,7 +151,13 @@ public class ExploreCouponResultFragment extends Fragment
 
 		String msg = Utils.getMessageString(AppConstants.Messages.emptyDeal, R.string.emptyDeal);
 		emptyView.setText(msg);
-
+		//
+		RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) lsComposer.getLayoutParams();
+		params.topMargin = 3;
+		lsComposer.setLayoutParams(params);
+		lsComposer.setEmptyView(viewSwitcher);
+		lsComposer.setDividerHeight(10);
+		//
 		lsComposer.setEmptyView(viewSwitcher);
 		return v;
 	}
