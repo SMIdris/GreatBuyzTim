@@ -38,9 +38,9 @@ public class ExploreDealResultFragment extends Fragment
 	TextView				  emptyView;
 	ViewSwitcher			  viewSwitcher;
 	AmazingListView		   lsComposer;
-	GreatBuyzTextView			  dealSearch;
-	GreatBuyzTextView			  couponSearch;
-	GreatBuyzTextView			  couponDealSearch;
+	GreatBuyzTextView		 dealSearch;
+	GreatBuyzTextView		 couponSearch;
+	GreatBuyzTextView		 couponDealSearch;
 	PaginationComposerAdapter adapter;
 	boolean				   isTaskPending	 = false;
 	public boolean			isCouponClicked   = false;
@@ -137,13 +137,14 @@ public class ExploreDealResultFragment extends Fragment
 		emptyView.setTypeface(GreatBuyzApplication.getApplication().getFont());
 		String msg = Utils.getMessageString(AppConstants.Messages.emptyDeal, R.string.emptyDeal);
 		emptyView.setText(msg);
+		lsComposer.setDividerHeight(10);
 		lsComposer.setEmptyView(viewSwitcher);
 		// couponsearch
 		dealSearch = (GreatBuyzTextView) v.findViewById(R.id.dealsearch);
 		couponSearch = (GreatBuyzTextView) v.findViewById(R.id.couponsearch);
 		couponDealSearch = (GreatBuyzTextView) v.findViewById(R.id.coupondealsearch);
-		final View couponBorder = (View) v.findViewById(R.id.bordercoupon);
-		final View dealBorder = (View) v.findViewById(R.id.borderdeal);
+//		final View couponBorder = (View) v.findViewById(R.id.bordercoupon);
+//		final View dealBorder = (View) v.findViewById(R.id.borderdeal);
 		// final View searchBorder = (View) v.findViewById(R.id.bordersearch);
 		//
 		// GradientDrawable gd = new GradientDrawable();
@@ -152,21 +153,29 @@ public class ExploreDealResultFragment extends Fragment
 		// gd.setStroke(1, 0xFF000000);
 		// TextView tv = (TextView)findViewById(R.id.textView1);
 		// dealSearch.setBackgroundResource(R.anim.border_bottom);
-	//	dealBorder.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 12));
-		dealSearch.setBackgroundResource(R.anim.border_bottom);
-		couponSearch.setBackgroundResource(Color.TRANSPARENT);
-		//couponDealSearch.setBackgroundResource(Color.TRANSPARENT);
+		// dealBorder.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 12));
+		// couponDealSearch.setBackgroundResource(Color.TRANSPARENT);
+		if (isCouponClicked)
+		{
+			dealSearch.setBackgroundResource(Color.TRANSPARENT);
+			couponSearch.setBackgroundResource(R.anim.border_bottom);
+		}
+		else
+		{
+			dealSearch.setBackgroundResource(R.anim.border_bottom);
+			couponSearch.setBackgroundResource(Color.TRANSPARENT);
+		}
 		dealSearch.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
 			{
-//				dealBorder.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 12));
-//				// dealBorder.setBackgroundColor(Color.BLACK);
-//				couponBorder.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 0));
+				// dealBorder.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 12));
+				// // dealBorder.setBackgroundColor(Color.BLACK);
+				// couponBorder.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 0));
 				dealSearch.setBackgroundResource(R.anim.border_bottom);
 				couponSearch.setBackgroundResource(Color.TRANSPARENT);
-				//couponDealSearch.setBackgroundResource(Color.TRANSPARENT);
+				// couponDealSearch.setBackgroundResource(Color.TRANSPARENT);
 				isCouponClicked = false;
 				refreshFragment();
 			}
@@ -176,11 +185,11 @@ public class ExploreDealResultFragment extends Fragment
 			@Override
 			public void onClick(View v)
 			{
-//				couponBorder.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 12));
-//				dealBorder.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 0));
+				// couponBorder.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 12));
+				// dealBorder.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 0));
 				dealSearch.setBackgroundResource(Color.TRANSPARENT);
 				couponSearch.setBackgroundResource(R.anim.border_bottom);
-				//couponDealSearch.setBackgroundResource(Color.TRANSPARENT);
+				// couponDealSearch.setBackgroundResource(Color.TRANSPARENT);
 				isCouponClicked = true;
 				refreshFragment();
 			}
@@ -601,6 +610,22 @@ public class ExploreDealResultFragment extends Fragment
 	}
 	
 	public void refreshFragment()
+	{
+		stopDownloader();
+		listDownloader = null;
+		if (GreatBuyzApplication.getDataController().getExploreDeals() != null && GreatBuyzApplication.getDataController().getExploreDeals().getExploreDealsList() != null && GreatBuyzApplication.getDataController().getExploreDeals().getExploreDealsList().size() > 0)
+		{
+			GreatBuyzApplication.getDataController().getExploreDeals().getExploreDealsList().clear();
+		}
+		GreatBuyzApplication.getApplication().setSkipIndexForExploreDeals(0);
+		if (adapter != null) adapter.notifyDataSetChanged();
+		adapter = null;
+		listDownloader = new MyListDownloader();
+		viewSwitcher.setDisplayedChild(0);
+		listDownloader.execute();
+	}
+	
+	public void refreshFragmentCoupons()
 	{
 		stopDownloader();
 		listDownloader = null;

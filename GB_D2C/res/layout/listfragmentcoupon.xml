@@ -23,21 +23,21 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"            
+            android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical" >
 
             <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
-            android:id="@+id/dealsearch"
+                android:id="@+id/dealsearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dip"
-                android:layout_marginTop="10dip"
-                android:gravity="center"
+                android:layout_marginBottom="3dip"
+                android:layout_marginTop="6dip"
                 android:background="@anim/border_bottom"
+                android:gravity="center"
                 android:text="@string/searchDeals"
                 android:textColor="@color/white"
-                android:textSize="12sp"
+                android:textSize="10sp"
                 android:textStyle="bold" />
 
             <View
@@ -48,7 +48,6 @@
         </LinearLayout>
 
         <LinearLayout
-           
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -56,16 +55,16 @@
             android:orientation="vertical" >
 
             <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
-                 android:id="@+id/couponsearch"
+                android:id="@+id/couponsearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dip"
-                android:layout_marginTop="10dip"
-                 android:background="@anim/border_bottom"
+                android:layout_marginBottom="3dip"
+                android:layout_marginTop="6dip"
+                android:background="@android:color/transparent"
                 android:gravity="center"
                 android:text="@string/searchCOUPONS"
                 android:textColor="@color/white"
-                android:textSize="12sp"
+                android:textSize="10sp"
                 android:textStyle="bold" />
 
             <View
@@ -76,7 +75,6 @@
         </LinearLayout>
 
         <LinearLayout
-            
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -87,14 +85,14 @@
                 android:id="@+id/coupondealsearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dip"
-                android:layout_marginTop="10dip"
+                android:layout_marginBottom="3dip"
+                android:layout_marginTop="6dip"
+                android:drawablePadding="5dip"
+                android:drawableRight="@drawable/search_new"
                 android:gravity="center"
                 android:text="@string/searchNew"
-                android:drawableRight="@drawable/search_new"
-                android:drawablePadding="5dip"
                 android:textColor="@color/white"
-                android:textSize="12sp"
+                android:textSize="10sp"
                 android:textStyle="bold" />
 
             <View
