@@ -77,6 +77,11 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
+                <activity
+            android:name="com.turacomobile.greatbuyz.ui.CouponDetailScreen"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
             android:name="com.turacomobile.greatbuyz.ui.MyDealsDetailScreen"
             android:screenOrientation="portrait" >

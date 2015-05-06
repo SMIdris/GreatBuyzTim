@@ -102,7 +102,8 @@ public interface AppConstants
 		public static final String GET_SURPRISE_DEAL = "/random_deal.json?"; // surprise deal 
 		public static final String GET_PURCHASE_DEAL_BY_ID = "/purchasedealbyid/";
 		public static final String BROWSE = "/browsedeals.json?";
-		public static final String FLAGSHIP_DEALS = "/flagshipdeals.json?"; //Exclusive Deals 
+		public static final String FLAGSHIP_DEALS = "/flagshipdeals.json?"; //Exclusive Deals
+		public static final String EXCLUSIVE_DEALS = "/exclusivedeals.json?"; 
 		public static final String TOP_DEALS = "/getTopDeals.json?"; //Top Deals 
 		public static final String DEALS_BY_CATEGORIES = "/deal_by_category.json?";
 		//public static final String DEALS_BY_LOCATION = "/dealsbylocation?";

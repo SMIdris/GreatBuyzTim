@@ -11,12 +11,14 @@ import android.database.Cursor;
 import android.util.Log;
 
 import com.turacomobile.greatbuyz.GreatBuyzApplication;
+import com.turacomobile.greatbuyz.data.CouponScreenDTO;
 import com.turacomobile.greatbuyz.data.Deal;
 import com.turacomobile.greatbuyz.data.DealScreenDTO;
 import com.turacomobile.greatbuyz.data.DealsByCategoriesDTO;
 import com.turacomobile.greatbuyz.data.DealsNearMeDTO;
 import com.turacomobile.greatbuyz.data.DealsOfTheDayDTO;
 import com.turacomobile.greatbuyz.data.DealsYouMayLikeDTO;
+import com.turacomobile.greatbuyz.data.ExclusiveCouponsDTO;
 import com.turacomobile.greatbuyz.data.ExclusiveDealsDTO;
 import com.turacomobile.greatbuyz.data.ExploreDealsDTO;
 import com.turacomobile.greatbuyz.data.MyDealsDTO;
@@ -31,6 +33,7 @@ public class DataController
 	private Deal _dealById;
 	private Deal _purchaseDealById;
 	private ExclusiveDealsDTO _exclusiveDealsDTO;
+	private ExclusiveCouponsDTO _exclusiveCouponsDTO;
 	private DealsYouMayLikeDTO _dealsYouMayLikeDTO;
 	private DealsByCategoriesDTO _dealsByCategoriesDTO;
 	private ExploreDealsDTO _exploreDealsDTO;
@@ -169,6 +172,20 @@ public class DataController
 				_exclusiveDealsDTO.add(dtos);
 		}
 	}
+	
+//	public void exclusiveCouponsReceived(List<CouponScreenDTO> dtos)
+//	{
+//		if (dtos != null)
+//		{
+//			GreatBuyzApplication.getApplication().setSkipIndexForExclusiveCoupons(
+//					GreatBuyzApplication.getApplication().getSkipIndexForExclusiveCoupons() + dtos.size());
+//
+//			if (_exclusiveCouponsDTO == null)
+//				_exclusiveCouponsDTO = new ExclusiveCouponsDTO(dtos);
+//			else
+//				_exclusiveCouponsDTO.add(dtos);
+//		}
+//	}
 
 	public ExclusiveDealsDTO getExclusiveDealsDTO()
 	{
@@ -184,6 +201,36 @@ public class DataController
 	{
 		if (_exclusiveDealsDTO != null)
 			_exclusiveDealsDTO.deleteAll();
+	}
+	
+	public void exclusiveCouponsReceived(List<CouponScreenDTO> dtos)
+	{
+		if (dtos != null)
+		{
+			GreatBuyzApplication.getApplication().setSkipIndexForExclusiveCoupons(
+					GreatBuyzApplication.getApplication().getSkipIndexForExclusiveCoupons() + dtos.size());
+
+			if (_exclusiveCouponsDTO == null)
+				_exclusiveCouponsDTO = new ExclusiveCouponsDTO(dtos);
+			else
+				_exclusiveCouponsDTO.add(dtos);
+		}
+	}
+
+	public ExclusiveCouponsDTO getExclusiveCouponsDTO()
+	{
+		return _exclusiveCouponsDTO;
+	}
+
+	public void setExclusiveCouponsDTO(ExclusiveCouponsDTO dto)
+	{
+		_exclusiveCouponsDTO = dto;
+	}
+
+	public void deleteAllExclusiveCoupons()
+	{
+		if (_exclusiveCouponsDTO != null)
+			_exclusiveCouponsDTO.deleteAll();
 	}
 
 	public DealsYouMayLikeDTO getDealsYouMayLikeDTO()

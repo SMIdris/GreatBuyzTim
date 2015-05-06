@@ -12,8 +12,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -23,9 +21,10 @@ import android.widget.ViewSwitcher;
 import com.squareup.picasso.Picasso;
 import com.turacomobile.greatbuyz.GreatBuyzApplication;
 import com.turacomobile.greatbuyz.R;
+import com.turacomobile.greatbuyz.data.CouponScreenDTO;
 import com.turacomobile.greatbuyz.data.DealScreenDTO;
 import com.turacomobile.greatbuyz.service.ClipResponse;
-import com.turacomobile.greatbuyz.ui.ExclusiveDealsFragment.MyListDownloader;
+import com.turacomobile.greatbuyz.service.CouponClipResponse;
 import com.turacomobile.greatbuyz.utils.AppConstants;
 import com.turacomobile.greatbuyz.utils.Utils;
 
@@ -76,8 +75,8 @@ public class ExploreCouponResultFragment extends Fragment
 
 		activity = getActivity();
 
-		if (GreatBuyzApplication.getDataController().getExclusiveDealsDTO() != null
-				&& GreatBuyzApplication.getDataController().getExclusiveDealsDTO().getExclusiveDealsList().size() > 0)
+		if (GreatBuyzApplication.getDataController().getExclusiveCouponsDTO() != null
+				&& GreatBuyzApplication.getDataController().getExclusiveCouponsDTO().getExclusiveCouponsList().size() > 0)
 		{
 			initialiseList();
 		}
@@ -201,7 +200,7 @@ public class ExploreCouponResultFragment extends Fragment
 		public void reset()
 		{
 			viewSwitcher.setDisplayedChild(1);
-			GreatBuyzApplication.getDataController().getExclusiveDealsDTO().getExclusiveDealsList().clear();
+			GreatBuyzApplication.getDataController().getExclusiveCouponsDTO().getExclusiveCouponsList().clear();
 		}
 
 		@Override
@@ -210,9 +209,9 @@ public class ExploreCouponResultFragment extends Fragment
 			try
 			{
 				if (morePageAvailable())
-					return GreatBuyzApplication.getDataController().getExclusiveDealsDTO().getExclusiveDealsList().size() + 1;
+					return GreatBuyzApplication.getDataController().getExclusiveCouponsDTO().getExclusiveCouponsList().size() + 1;
 				else
-					return GreatBuyzApplication.getDataController().getExclusiveDealsDTO().getExclusiveDealsList().size();
+					return GreatBuyzApplication.getDataController().getExclusiveCouponsDTO().getExclusiveCouponsList().size();
 			}
 			catch (Exception e)
 			{
@@ -221,9 +220,9 @@ public class ExploreCouponResultFragment extends Fragment
 		}
 
 		@Override
-		public DealScreenDTO getItem(int position)
+		public CouponScreenDTO getItem(int position)
 		{
-			return GreatBuyzApplication.getDataController().getExclusiveDealsDTO().getExclusiveDealsList().get(position);
+			return GreatBuyzApplication.getDataController().getExclusiveCouponsDTO().getExclusiveCouponsList().get(position);
 		}
 
 		@Override
@@ -309,9 +308,9 @@ public class ExploreCouponResultFragment extends Fragment
 			View row = null;
 			ViewHolder holder = null;
 			//System.out.println("size of list "+GreatBuyzApplication.getDataController().getExploreDeals().getExploreDealsList().size());
-			if (position < GreatBuyzApplication.getDataController().getExclusiveDealsDTO().getExclusiveDealsList().size())			{
+			if (position < GreatBuyzApplication.getDataController().getExclusiveCouponsDTO().getExclusiveCouponsList().size())			{
 				row = convertView;
-				final DealScreenDTO item = getItem(position);
+				final CouponScreenDTO item = getItem(position);
 
 				boolean createNew = false;
 				if (row == null)
@@ -348,8 +347,8 @@ public class ExploreCouponResultFragment extends Fragment
 					public void onClick(View v)
 					{
 						//holder.layoutDealProContainer.setVisibility(View.GONE);
-						if ( ((ViewGroup) v).getChildAt(3).getVisibility() == View.VISIBLE && position < GreatBuyzApplication.getDataController().getExclusiveDealsDTO().getExclusiveDealsList().size())
-						Utils.startDetailsScreenNew(getActivity(), position, AppConstants.FramentConstants.EXCLUSIVE_DEALS);
+						if ( ((ViewGroup) v).getChildAt(3).getVisibility() == View.VISIBLE && position < GreatBuyzApplication.getDataController().getExclusiveCouponsDTO().getExclusiveCouponsList().size())
+						Utils.startCouponDetailsScreenNew(getActivity(), position, AppConstants.FramentConstants.EXPLORE_COUPONS);
 						((ViewGroup) v).getChildAt(3).setVisibility(View.VISIBLE);
 						
 					}
@@ -474,16 +473,16 @@ public class ExploreCouponResultFragment extends Fragment
 		isTaskPending = false;
 	}
 
-	class MyListDownloader extends AsyncTask<Void, Void, ClipResponse>
+	class MyListDownloader extends AsyncTask<Void, Void, CouponClipResponse>
 	{
 		@Override
-		protected ClipResponse doInBackground(Void... params)
+		protected CouponClipResponse doInBackground(Void... params)
 		{
 			try
 			{
-				ClipResponse clipResponse = GreatBuyzApplication.getServiceDelegate().getExploreDeals(city, locality, selectedCategory,
-						keyword, GreatBuyzApplication.getApplication().getLimitForExploreDeals(),
-						GreatBuyzApplication.getApplication().getSkipIndexForExploreDeals());
+				CouponClipResponse clipResponse = GreatBuyzApplication.getServiceDelegate().getExclusiveCoupons(AppConstants.JSONKeys.WAP,
+						GreatBuyzApplication.getApplication().getLimitForExclusiveCoupons(),
+						GreatBuyzApplication.getApplication().getSkipIndexForExclusiveCoupons());
 				return clipResponse;
 			}
 			catch (Exception e)
@@ -494,7 +493,7 @@ public class ExploreCouponResultFragment extends Fragment
 		}
 
 		@Override
-		protected void onPostExecute(ClipResponse result)
+		protected void onPostExecute(CouponClipResponse result)
 		{
 			try
 			{
@@ -504,7 +503,7 @@ public class ExploreCouponResultFragment extends Fragment
 					{
 						if (GreatBuyzApplication.getDataController() == null)
 							return;
-						GreatBuyzApplication.getDataController().exclusiveDealsReceived(result.getListData());
+						GreatBuyzApplication.getDataController().exclusiveCouponsReceived(result.getListData());
 						currentCount = result.getListData().size();
 						if (adapter == null)
 						{
@@ -526,8 +525,8 @@ public class ExploreCouponResultFragment extends Fragment
 					}
 					else
 					{
-						if (GreatBuyzApplication.getDataController().getExclusiveDealsDTO() == null
-								|| GreatBuyzApplication.getDataController().getExclusiveDealsDTO().getExclusiveDealsList().size() == 0)
+						if (GreatBuyzApplication.getDataController().getExclusiveCouponsDTO() == null
+								|| GreatBuyzApplication.getDataController().getExclusiveCouponsDTO().getExclusiveCouponsList().size() == 0)
 						{
 							viewSwitcher.setDisplayedChild(1);
 						}
@@ -542,8 +541,8 @@ public class ExploreCouponResultFragment extends Fragment
 				}
 				else
 				{
-					if (GreatBuyzApplication.getDataController().getExclusiveDealsDTO() == null
-							|| GreatBuyzApplication.getDataController().getExclusiveDealsDTO().getExclusiveDealsList().size() == 0)
+					if (GreatBuyzApplication.getDataController().getExclusiveCouponsDTO() == null
+							|| GreatBuyzApplication.getDataController().getExclusiveCouponsDTO().getExclusiveCouponsList().size() == 0)
 					{
 						if (emptyView != null)
 						{
@@ -578,8 +577,8 @@ public class ExploreCouponResultFragment extends Fragment
 		boolean morePage = false;
 		try
 		{
-			if (GreatBuyzApplication.getDataController().getExclusiveDealsDTO().getExclusiveDealsList().size() >= totalVisibleItems
-					&& currentCount >= GreatBuyzApplication.getApplication().getLimitForExclusiveDeals())
+			if (GreatBuyzApplication.getDataController().getExclusiveCouponsDTO().getExclusiveCouponsList().size() >= totalVisibleItems
+					&& currentCount >= GreatBuyzApplication.getApplication().getLimitForExclusiveCoupons())
 				morePage = true;
 		}
 		catch (Exception e)
@@ -609,13 +608,13 @@ public class ExploreCouponResultFragment extends Fragment
 	{
 		stopDownloader();
 		listDownloader = null;
-		if (GreatBuyzApplication.getDataController().getExclusiveDealsDTO() != null
-				&& GreatBuyzApplication.getDataController().getExclusiveDealsDTO().getExclusiveDealsList() != null
-				&& GreatBuyzApplication.getDataController().getExclusiveDealsDTO().getExclusiveDealsList().size() > 0)
+		if (GreatBuyzApplication.getDataController().getExclusiveCouponsDTO() != null
+				&& GreatBuyzApplication.getDataController().getExclusiveCouponsDTO().getExclusiveCouponsList() != null
+				&& GreatBuyzApplication.getDataController().getExclusiveCouponsDTO().getExclusiveCouponsList().size() > 0)
 		{
-			GreatBuyzApplication.getDataController().getExclusiveDealsDTO().getExclusiveDealsList().clear();
+			GreatBuyzApplication.getDataController().getExclusiveCouponsDTO().getExclusiveCouponsList().clear();
 		}
-		GreatBuyzApplication.getApplication().setSkipIndexForExclusiveDeals(0);
+		GreatBuyzApplication.getApplication().setSkipIndexForExclusiveCoupons(0);
 		if (adapter != null)
 			adapter.notifyDataSetChanged();
 		adapter = null;

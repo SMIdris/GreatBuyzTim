@@ -23,6 +23,7 @@ import com.turacomobile.greatbuyz.GreatBuyzApplication;
 import com.turacomobile.greatbuyz.R;
 import com.turacomobile.greatbuyz.data.Contact;
 import com.turacomobile.greatbuyz.data.Coupon;
+import com.turacomobile.greatbuyz.data.CouponDeal;
 import com.turacomobile.greatbuyz.data.Deal;
 import com.turacomobile.greatbuyz.data.Location;
 import com.turacomobile.greatbuyz.data.Merchant;
@@ -597,6 +598,191 @@ public class ResponseParser
 		return new Merchant(name, contact);
 	}
 
+	public static CouponDeal parseCoupon(JSONObject dealObject) throws JSONException
+	{
+		String id = dealObject.optString(AppConstants.JSONKeys.ID, null);
+		// String refId = dealObject.optString(AppConstants.JSONKeys.REF_ID,
+		// null);
+		// int promotionPriority =
+		// dealObject.optInt(AppConstants.JSONKeys.PROMOTION_PRIORITY, -1);
+		String name = dealObject.optString(AppConstants.JSONKeys.NAME, null);
+		// String description =
+		// dealObject.optString(AppConstants.JSONKeys.DESCRIPTION, null);
+		String longDescription = dealObject.optString(AppConstants.JSONKeys.LONG_DESCRIPTION, null);
+
+		String image = null;
+		/*image = dealObject.optString(AppConstants.JSONKeys.IMAGES);
+		if (Utils.isNothing(image))
+		{
+			JSONArray images = dealObject.optJSONArray(AppConstants.JSONKeys.IMAGEURL);
+			if (images != null && images.length() > 0)
+				image = images.optString(0);
+		}*/
+		JSONArray images = dealObject.optJSONArray(AppConstants.JSONKeys.IMAGES);
+		if (images != null && images.length() > 0)
+			image = images.optString(0);
+		else
+		{
+			images = dealObject.optJSONArray(AppConstants.JSONKeys.IMAGEURL);
+			if (images != null && images.length() > 0)
+				image = images.optString(0);
+		}
+		String couponPrice = dealObject.optString(AppConstants.JSONKeys.COUPON_PRICE, null);
+		String price = dealObject.optString(AppConstants.JSONKeys.PRICE, null);
+		String discount = dealObject.optString(AppConstants.JSONKeys.DISCOUNT, null);
+		discount = formatDecimalToString(discount);
+
+		/*
+		 * JSONObject contactObject =
+		 * dealObject.optJSONObject(AppConstants.JSONKeys.CONTACT); Contact
+		 * contact = null; if (contactObject != null) contact =
+		 * parseContact(contactObject);
+		 * 
+		 * JSONArray locationsArray =
+		 * dealObject.optJSONArray(AppConstants.JSONKeys.LOCATIONS);
+		 * List<Location> locations = null; if (locationsArray != null &&
+		 * locationsArray.length() > 0) { locations = new ArrayList<Location>();
+		 * for (int i = 0; i < locationsArray.length(); i++) { JSONObject
+		 * aLocationObject = locationsArray.optJSONObject(i); if
+		 * (aLocationObject != null) { Location location =
+		 * parseLocation(aLocationObject); locations.add(location); } } }
+		 * 
+		 * String language =
+		 * dealObject.optString(AppConstants.JSONKeys.LANGUAGE, null); String
+		 * category = dealObject.optString(AppConstants.JSONKeys.CATEGORY,
+		 * null);
+		 */
+		
+		String location= "";
+		try
+		{
+			JSONObject jsonLocation = dealObject.optJSONObject(AppConstants.JSONKeys.LOCATIONS);
+			//System.out.println("jsonLocation "+jsonLocation);
+			if(jsonLocation.has("firstLine")){
+				location = jsonLocation.getString("firstLine");	
+			}
+			
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		TnC tnc = null;
+		/*
+		try
+		{
+			tnc = parseTnC(dealObject.optJSONObject(AppConstants.JSONKeys.TNC));
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}*/
+
+		Date endDate = null;
+		String offer =null;
+		String howToRedeem = null;
+		try
+		{
+			String strEndDate = dealObject.optString(AppConstants.JSONKeys.ENDDATE, AppConstants.EMPTY_STRING);
+			endDate = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss", Locale.ENGLISH).parse(strEndDate);
+			offer =  dealObject.optString(AppConstants.JSONKeys.OFFER, AppConstants.EMPTY_STRING);
+			howToRedeem =  dealObject.optString(AppConstants.JSONKeys.HOW_TO_REDEEM, AppConstants.EMPTY_STRING);
+			
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		if (tnc == null)
+		{
+			if (endDate != null)
+			{
+				System.out.println("tnc is executng ***");
+				tnc = new TnC(null, endDate, 0, 0, offer, howToRedeem);
+			}
+			else
+			{
+				tnc = new TnC(null, null, 0, 0, null, null);
+			}
+		}
+
+		
+		Merchant merchant = null;
+		try
+		{
+			System.out.println("parse merchant object **");
+			merchant = parseMerchant(dealObject);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		if (merchant == null)
+		{
+			String merchantName = dealObject.optString(AppConstants.JSONKeys.MERCHANT, null);
+			merchant = new Merchant(merchantName, null);
+		}
+
+		
+		// getting tags for a deal to know about the type of deal.
+		
+		List<String> tags = null;
+		
+		try {
+			String tag = dealObject.optString(AppConstants.JSONKeys.TAGS);
+			if( tag != null && !tag.equalsIgnoreCase("")){
+				tags = new ArrayList<String>();
+				tags.add(tag);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		/*List<String> tags = null;
+		JSONArray tagsArray = dealObject.optJSONArray(AppConstants.JSONKeys.TAGS);
+		if (tagsArray != null && tagsArray.length() > 0)
+		{
+			tags = new ArrayList<String>();
+			for (int i = 0; i < tagsArray.length(); i++)
+			{
+				String tag = (String) tagsArray.opt(i);
+				tags.add(tag);
+			}
+		}*/
+
+		/*
+		 * List<String> reviews = null; JSONArray reviewsArray =
+		 * dealObject.optJSONArray(AppConstants.JSONKeys.REVIEWS); if
+		 * (reviewsArray != null && reviewsArray.length() > 0) { reviews = new
+		 * ArrayList<String>(); for (int i = 0; i < reviewsArray.length(); i++)
+		 * { String operator = (String) reviewsArray.opt(i);
+		 * reviews.add(operator); } }
+		 */
+
+		// String source = dealObject.optString(AppConstants.JSONKeys.SOURCE,
+		// null);
+
+		/*
+		 * long millis = dealObject.optLong(AppConstants.JSONKeys.RETRIEVED_ON,
+		 * -1); if (millis == -1)
+		 * dealObject.optLong(AppConstants.JSONKeys.RETRIEVEDON, -1); Date
+		 * retrievedOn = null; if (millis != -1) retrievedOn = new Date(millis);
+		 */
+
+		String dealVisitUrl = dealObject.optString(AppConstants.JSONKeys.VISIT_URL, null);
+
+		return new CouponDeal(id, null, 0, name, null, longDescription, image, couponPrice, price, discount, null, location, null, null, tnc, merchant,
+				null, tags, null, null, null, dealVisitUrl);
+
+		// return new Deal(id, refId, promotionPriority, name, description,
+		// longDescription, image, couponPrice, price, discount, contact,
+		// locations, language, category, tnc, merchant, operators, tags,
+		// reviews, source, retrievedOn, dealVisitUrl);
+	}
+	
+	//
 	public static Deal parseDeal(JSONObject dealObject) throws JSONException
 	{
 		String id = dealObject.optString(AppConstants.JSONKeys.ID, null);
@@ -780,6 +966,8 @@ public class ResponseParser
 		// locations, language, category, tnc, merchant, operators, tags,
 		// reviews, source, retrievedOn, dealVisitUrl);
 	}
+	
+	//
 
 	public static List<Deal> parseBrowse(JSONArray dealsArray) throws JSONException
 	{
@@ -794,6 +982,27 @@ public class ResponseParser
 				if (dealObject != null)
 				{
 					Deal deal = parseDeal(dealObject);
+					deals.add(deal);
+				}
+			}
+		}
+
+		return deals;
+	}
+	
+	public static List<CouponDeal> parseBrowseCoupon(JSONArray dealsArray) throws JSONException
+	{
+		List<CouponDeal> deals = null;
+
+		if (dealsArray != null && dealsArray.length() > 0)
+		{
+			deals = new ArrayList<CouponDeal>();
+			for (int i = 0; i < dealsArray.length(); i++)
+			{
+				JSONObject dealObject = dealsArray.optJSONObject(i);
+				if (dealObject != null)
+				{
+					CouponDeal deal = parseCoupon(dealObject);
 					deals.add(deal);
 				}
 			}

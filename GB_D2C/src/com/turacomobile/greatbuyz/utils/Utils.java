@@ -80,6 +80,7 @@ import com.turacomobile.greatbuyz.R;
 import com.turacomobile.greatbuyz.data.NotificationDTO;
 import com.turacomobile.greatbuyz.service.DataController;
 import com.turacomobile.greatbuyz.service.ResponseParser;
+import com.turacomobile.greatbuyz.ui.CouponDetailScreen;
 import com.turacomobile.greatbuyz.ui.DetailScreen;
 import com.turacomobile.greatbuyz.ui.DetailScreenNew;
 import com.turacomobile.greatbuyz.ui.NotificationActivity;
@@ -159,6 +160,16 @@ public final class Utils
 	public static void startDetailsScreenNew(Activity activity, int index, int type)
 	{
 		Intent detailScreen = new Intent(activity, DetailScreenNew.class);
+		detailScreen.putExtra(AppConstants.JSONKeys.TYPE, type);
+		detailScreen.putExtra(AppConstants.JSONKeys.INDEX, index);
+		detailScreen.putExtra(AppConstants.JSONKeys.START_HOME_SCREEN, false);
+		detailScreen.putExtra(AppConstants.DEAL_SCREEN, true);
+		activity.startActivityForResult(detailScreen, AppConstants.RESULT_DEAL_DETAIL_SCREEN);
+	}
+	
+	public static void startCouponDetailsScreenNew(Activity activity, int index, int type)
+	{
+		Intent detailScreen = new Intent(activity, CouponDetailScreen.class);
 		detailScreen.putExtra(AppConstants.JSONKeys.TYPE, type);
 		detailScreen.putExtra(AppConstants.JSONKeys.INDEX, index);
 		detailScreen.putExtra(AppConstants.JSONKeys.START_HOME_SCREEN, false);

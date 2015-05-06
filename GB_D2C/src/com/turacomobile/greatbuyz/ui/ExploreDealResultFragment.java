@@ -496,6 +496,8 @@ public class ExploreDealResultFragment extends Fragment
 		{
 			try
 			{
+				//ClipResponse clipResponse = GreatBuyzApplication.getServiceDelegate().getExploreDeals(city, locality, selectedCategory, keyword, GreatBuyzApplication.getApplication().getLimitForExploreDeals(), GreatBuyzApplication.getApplication().getSkipIndexForExploreDeals());
+				
 				ClipResponse clipResponse = GreatBuyzApplication.getServiceDelegate().getExploreDeals(city, locality, selectedCategory, keyword, GreatBuyzApplication.getApplication().getLimitForExploreDeals(), GreatBuyzApplication.getApplication().getSkipIndexForExploreDeals());
 				return clipResponse;
 			}

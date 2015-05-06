@@ -42,8 +42,6 @@ import com.turacomobile.greatbuyz.GreatBuyzApplication;
 import com.turacomobile.greatbuyz.R;
 import com.turacomobile.greatbuyz.data.Coupon;
 import com.turacomobile.greatbuyz.data.CouponScreenDTO;
-import com.turacomobile.greatbuyz.data.Deal;
-import com.turacomobile.greatbuyz.data.DealScreenDTO;
 import com.turacomobile.greatbuyz.data.SettingItem;
 import com.turacomobile.greatbuyz.hcoe.ui.dialog.GenericDialog;
 import com.turacomobile.greatbuyz.hcoe.ui.dialog.LoadingDialog;
@@ -54,13 +52,10 @@ import com.turacomobile.greatbuyz.utils.GreatBuyzTextView;
 import com.turacomobile.greatbuyz.utils.Utils;
 import com.turacomobile.greatbuyz.utils.settingsArrayAdapter;
 
-public class DetailScreenNew extends Activity
+public class CouponDetailScreen extends Activity
 {
-	List<DealScreenDTO> dealScreenDTOs = null;
-	List<Deal> dealDTOs = null;
-	
 	List<CouponScreenDTO> couponScreenDTOs = null;
-	List<Coupon> couponSDTOs = null;
+	List<Coupon> couponDTOs = null;
 	public final int BUY_CONFIRMATION_DIALOG = 210;
 
 	DataController _data = GreatBuyzApplication.getDataController();
@@ -105,7 +100,6 @@ public class DetailScreenNew extends Activity
 		// ////System.out.println("GreatBuyz: function IN DetailScreen > onCreate");
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		dealScreenDTOs = null;
 		couponScreenDTOs = null;
 		loadNewIntent(getIntent());
 		// ////System.out.println("GreatBuyz: function OUT DetailScreen > onCreate");
@@ -118,8 +112,7 @@ public class DetailScreenNew extends Activity
 		super.onNewIntent(intent);
 
 		setIntent(intent);
-		dealScreenDTOs = null;
-		couponScreenDTOs= null;
+		couponScreenDTOs = null;
 		loadNewIntent(intent);
 		// loadView();
 		// ////System.out.println("GreatBuyz: function OUT DetailScreen > onNewIntent");
@@ -250,53 +243,15 @@ public class DetailScreenNew extends Activity
 
 		try
 		{
-			if (type == AppConstants.FramentConstants.DEALS_OF_THE_DAY)
-			{
-				dealScreenDTOs = _data.getDealsOfTheDayDTO().getDealsOfTheDayList();
-			}
-			else if (type == AppConstants.FramentConstants.DEAL_BY_CATEGORY)
-			{
-				dealScreenDTOs = _data.getDealsByCategoriesDTO().getDeals();
-			}
-			else if (type == AppConstants.FramentConstants.DEALS_YOU_MAY_LIKE)
-			{
-				dealScreenDTOs = _data.getDealsYouMayLikeDTO().getDealsOfTheDayList();
-			}
-			/*else if (type == AppConstants.FramentConstants.DEALS_NEAR_ME)
-			{
-				dealScreenDTOs = _data.getDealsNearMeDTO().getDealsNearMeList();
-			}*/
-			else if (type == AppConstants.FramentConstants.SURPRISE_ME)
-			{
-				Deal dealDTO = _data.getSurpriseDeal();
-				DealScreenDTO dealScreenDTO = GreatBuyzApplication.getServiceDelegate().getDealScreenDTO(dealDTO);
-				dealScreenDTOs = new ArrayList<DealScreenDTO>();
-				dealScreenDTOs.add(dealScreenDTO);
-			}
-			else if (type == AppConstants.FramentConstants.FREE_DEAL)
-			{
-				Deal dealDTO = _data.getFreeDeal();
-				DealScreenDTO dealScreenDTO = GreatBuyzApplication.getServiceDelegate().getDealScreenDTO(dealDTO);
-				dealScreenDTOs = new ArrayList<DealScreenDTO>();
-				dealScreenDTOs.add(dealScreenDTO);
-			}
-			else if (type == AppConstants.FramentConstants.EXCLUSIVE_DEALS)
-			{
-				dealScreenDTOs = _data.getExclusiveDealsDTO().getExclusiveDealsList();
-			}
-			else if (type == AppConstants.FramentConstants.EXPLORE_DEALS)
-			{
-				dealScreenDTOs = _data.getExploreDeals().getExploreDealsList();
-			}
-			else if (type == AppConstants.FramentConstants.EXPLORE_COUPONS)
+			if (type == AppConstants.FramentConstants.EXPLORE_COUPONS)
 			{
 				couponScreenDTOs = _data.getExclusiveCouponsDTO().getExclusiveCouponsList();
 			}
 
-			if (dealScreenDTOs == null)
+			if (couponScreenDTOs == null)
 				return;
 
-			mPager.setAdapter(new DetailScreenPagerAdapter(this, dealScreenDTOs));
+			mPager.setAdapter(new DetailScreenPagerAdapter(this, couponScreenDTOs));
 			mPager.setCurrentItem(selectedIndex);
 			
 			mPager
@@ -307,7 +262,7 @@ public class DetailScreenNew extends Activity
 					System.out.println("in page about deal detai;s &&&");
 					HashMap<String, String> m = new HashMap<String, String>();
 					m.put(AppConstants.Flurry.CLICK, AppConstants.Flurry.SUCCESS);
-					m.put(AppConstants.Flurry.DEALID, dealScreenDTOs.get(position).getDealId());
+					m.put(AppConstants.Flurry.DEALID, couponScreenDTOs.get(position).getDealId());
 					// FlurryAgent.logEvent(AppConstants.Flurry.DealDetail, m);
 					GreatBuyzApplication.getApplication().getAnalyticsAgent().logEvent(AppConstants.Flurry.DealDetails, m);
 				}
@@ -327,10 +282,10 @@ public class DetailScreenNew extends Activity
 	private class DetailScreenPagerAdapter extends PagerAdapter
 	{
 		Activity context;
-		private List<DealScreenDTO> data;
+		private List<CouponScreenDTO> data;
 		LayoutInflater inflater;
 
-		public DetailScreenPagerAdapter(Activity context, List<DealScreenDTO> deals)
+		public DetailScreenPagerAdapter(Activity context, List<CouponScreenDTO> deals)
 		{
 			this.context = context;
 			this.data = deals;
@@ -349,7 +304,7 @@ public class DetailScreenNew extends Activity
 			
 		//	System.out.println("POSITION ******"+position);
 			RelativeLayout view = (RelativeLayout) inflater.inflate(R.layout.detailed_deal_view, null);
-			loadView(view, dealScreenDTOs.get(position), position);
+			loadView(view, couponScreenDTOs.get(position), position);
 			((ViewPager) collection).addView(view);
 			return view;
 		}
@@ -380,12 +335,12 @@ public class DetailScreenNew extends Activity
 			return sdf.format(get_expire);
 		}
 
-		private void loadView(RelativeLayout view, final DealScreenDTO dealScreenDTO, int position)
+		private void loadView(RelativeLayout view, final CouponScreenDTO couponScreenDTO, int position)
 		{
-			if (dealScreenDTO == null)
+			if (couponScreenDTO == null)
 				return;
 
-			String url = dealScreenDTO.getImage();
+			String url = couponScreenDTO.getImage();
 			ImageView img;
 			img = (ImageView) view.findViewById(R.id.imgDetailDeal);
 			img.setTag(url);
@@ -394,14 +349,14 @@ public class DetailScreenNew extends Activity
 				Picasso.with(activity).load(url).config(Bitmap.Config.RGB_565).resize(320, 180).centerCrop().into(img);
 
 			TextView txtDetailDesc = (TextView) view.findViewById(R.id.txtDetailDesc);
-			txtDetailDesc.setText(dealScreenDTO.getName());
+			txtDetailDesc.setText(couponScreenDTO.getName());
 			txtDetailDesc.setTypeface(GreatBuyzApplication.getApplication().getFont());
 
 			TextView txtDetailDealVal = (TextView) view.findViewById(R.id.txt_detail_deal_value);
-			txtDetailDealVal.setText(String.valueOf(dealScreenDTO.getPrice()));
+			txtDetailDealVal.setText(String.valueOf(couponScreenDTO.getPrice()));
 			txtDetailDealVal.setTypeface(GreatBuyzApplication.getApplication().getFont());
 
-			String discount = dealScreenDTO.getDiscount();
+			String discount = couponScreenDTO.getDiscount();
 
 			TextView txtDetailDisc = (TextView) view.findViewById(R.id.txt_detail_deal_desc_val);
 
@@ -423,7 +378,7 @@ public class DetailScreenNew extends Activity
 			txtDetailDisc.setTypeface(GreatBuyzApplication.getApplication().getFont());
 
 			TextView txtDetailDealPay = (TextView) view.findViewById(R.id.txt_detail_deal_pay_val);
-			txtDetailDealPay.setText(String.valueOf(dealScreenDTO.getCouponPrice()));
+			txtDetailDealPay.setText(String.valueOf(couponScreenDTO.getCouponPrice()));
 			txtDetailDealPay.setTypeface(GreatBuyzApplication.getApplication().getFont());
 
 			RelativeLayout expireLayout = (RelativeLayout) view.findViewById(R.id.layout_expire);
@@ -435,11 +390,11 @@ public class DetailScreenNew extends Activity
 			// ImageView seperatorImg = (ImageView)
 			// view.findViewById(R.id.seperator);
 
-			if (dealScreenDTO.get_expire() != null)
+			if (couponScreenDTO.get_expire() != null)
 			{
-				String date = getDate(dealScreenDTO.get_expire());
+				String date = getDate(couponScreenDTO.get_expire());
 				String seperator = getString(R.string.expirydatetimeseperator);
-				String time = getTime(dealScreenDTO.get_expire());
+				String time = getTime(couponScreenDTO.get_expire());
 
 				txtExpireDate.setVisibility(View.VISIBLE);
 				// txtExpireTime.setVisibility(View.VISIBLE);
@@ -474,7 +429,7 @@ public class DetailScreenNew extends Activity
 					{
 						Bundle b = new Bundle();
 						b.putString("message", getResources().getString(R.string.BuyConfirmationMessage));
-						b.putString(AppConstants.JSONKeys.DEAL_ID, dealScreenDTO.getDealId());
+						b.putString(AppConstants.JSONKeys.DEAL_ID, couponScreenDTO.getDealId());
 						b.putString(AppConstants.JSONKeys.LOCATIONS, _data.getUserCity());
 						b.putString(AppConstants.JSONKeys.MDN, _data.getMDN());
 						//b.putString(AppConstants.JSONKeys.NAME, "DealDetail");
@@ -482,7 +437,7 @@ public class DetailScreenNew extends Activity
 					}
 					else
 					{
-						GreatBuyzApplication.getServiceDelegate().purchaseDeal(DetailScreenNew.this, dealScreenDTO.getDealId(), _data.getMDN(), _data.getUserCity() );
+						GreatBuyzApplication.getServiceDelegate().purchaseDeal(CouponDetailScreen.this, couponScreenDTO.getDealId(), _data.getMDN(), _data.getUserCity() );
 					}
 				}
 			});
@@ -494,8 +449,8 @@ public class DetailScreenNew extends Activity
 				@Override
 				public void onClick(View v)
 				{
-					System.out.println("dealScreenDTO.getDealId() ***"+dealScreenDTO.getDealId());
-					giftDeal(dealScreenDTO.getDealId());
+					System.out.println("dealScreenDTO.getDealId() ***"+couponScreenDTO.getDealId());
+					giftDeal(couponScreenDTO.getDealId());
 				}
 			});
 			
@@ -504,7 +459,7 @@ public class DetailScreenNew extends Activity
 			if(position == 0){
 				HashMap<String, String> m = new HashMap<String, String>();
 				m.put(AppConstants.Flurry.CLICK, AppConstants.Flurry.VISIT);
-				m.put(AppConstants.Flurry.DEALID, dealScreenDTO.getDealId());
+				m.put(AppConstants.Flurry.DEALID, couponScreenDTO.getDealId());
 				// FlurryAgent.logEvent(AppConstants.Flurry.DealDetail, m);
 				GreatBuyzApplication.getApplication().getAnalyticsAgent().logEvent(AppConstants.Flurry.DealDetails, m);
 			}
@@ -582,8 +537,10 @@ public class DetailScreenNew extends Activity
 					{
 						try
 						{
-							removeDialog(BUY_CONFIRMATION_DIALOG);
-							GreatBuyzApplication.getServiceDelegate().purchaseDeal(DetailScreenNew.this, did,mdn,location);
+						//	removeDialog(BUY_CONFIRMATION_DIALOG);
+							//GreatBuyzApplication.getServiceDelegate().purchaseDeal(CouponDetailScreen.this, did,mdn,location);
+							//GreatBuyzApplication.getApplication().getAnalyticsAgent().logEvent(AppConstants.Flurry.DealDetails, m);
+							Utils.launchUri(CouponDetailScreen.this, "https://www.google.co.in/");
 						}
 						catch (Exception e)
 						{
@@ -1109,7 +1066,7 @@ public class DetailScreenNew extends Activity
 		settingItems.add(new SettingItem(AppConstants.SettingItems.MY_COUPON, getResources().getString(R.string.settingItemMyCoupon), this
 				.getResources().getDrawable(R.drawable.setting_unsubscribe)));
 		settingItems.add(new SettingItem(AppConstants.SettingItems.NOTIFICATIONS, getResources().getString(
-				R.string.settingItemNotifications), DetailScreenNew.this.getResources().getDrawable(R.drawable.setting_faq)));
+				R.string.settingItemNotifications), CouponDetailScreen.this.getResources().getDrawable(R.drawable.setting_faq)));
 		settingItems.add(new SettingItem(AppConstants.SettingItems.SEARCH, getResources().getString(R.string.settingItemSearch), this
 				.getResources().getDrawable(R.drawable.setting_search)));
 		boolean getEmailIdFromUser = false;

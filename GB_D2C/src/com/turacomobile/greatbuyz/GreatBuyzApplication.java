@@ -70,6 +70,9 @@ public class GreatBuyzApplication extends Application
 
 	private int limitForExclusiveDeals = 20;// 10;
 	private int skipIndexForExclusiveDeals = 0;
+	
+	private int limitForExclusiveCoupons = 20;// 10;
+	private int skipIndexForExclusiveCoupons = 0;
 
 	private Typeface font;
 
@@ -574,5 +577,26 @@ public class GreatBuyzApplication extends Application
 	public void setSkipIndexForExclusiveDeals(int skipIndexForExclusiveDeals)
 	{
 		this.skipIndexForExclusiveDeals = skipIndexForExclusiveDeals;
+	}
+	
+//
+	public int getLimitForExclusiveCoupons()
+	{
+		return limitForExclusiveDeals;
+	}
+
+	public void setLimitForExclusiveCoupons(int limitForExclusiveCoupons)
+	{
+		this.limitForExclusiveCoupons = limitForExclusiveCoupons;
+	}
+
+	public int getSkipIndexForExclusiveCoupons()
+	{
+		return skipIndexForExclusiveCoupons;
+	}
+
+	public void setSkipIndexForExclusiveCoupons(int skipIndexForExclusiveCoupons)
+	{
+		this.skipIndexForExclusiveCoupons = skipIndexForExclusiveCoupons;
 	}
 }
