@@ -288,10 +288,7 @@ public class DetailScreenNew extends Activity
 			{
 				dealScreenDTOs = _data.getExploreDeals().getExploreDealsList();
 			}
-			else if (type == AppConstants.FramentConstants.EXPLORE_COUPONS)
-			{
-				couponScreenDTOs = _data.getExclusiveCouponsDTO().getExclusiveCouponsList();
-			}
+			
 
 			if (dealScreenDTOs == null)
 				return;

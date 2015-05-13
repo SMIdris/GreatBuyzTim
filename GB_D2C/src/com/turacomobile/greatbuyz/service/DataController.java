@@ -20,6 +20,7 @@ import com.turacomobile.greatbuyz.data.DealsOfTheDayDTO;
 import com.turacomobile.greatbuyz.data.DealsYouMayLikeDTO;
 import com.turacomobile.greatbuyz.data.ExclusiveCouponsDTO;
 import com.turacomobile.greatbuyz.data.ExclusiveDealsDTO;
+import com.turacomobile.greatbuyz.data.ExploreCouponsDTO;
 import com.turacomobile.greatbuyz.data.ExploreDealsDTO;
 import com.turacomobile.greatbuyz.data.MyDealsDTO;
 import com.turacomobile.greatbuyz.data.Purchase;
@@ -37,6 +38,7 @@ public class DataController
 	private DealsYouMayLikeDTO _dealsYouMayLikeDTO;
 	private DealsByCategoriesDTO _dealsByCategoriesDTO;
 	private ExploreDealsDTO _exploreDealsDTO;
+	private ExploreCouponsDTO _exploreCouponsDTO;
 	//private MyDealsDTOOLD _myDealsDTO;
 	private MyDealsDTO _myDealsDTO;
 	private DealsOfTheDayDTO _dealsOfTheDayDTO;
@@ -342,6 +344,31 @@ public class DataController
 	{
 		if (_exploreDealsDTO != null)
 			_exploreDealsDTO.deleteAll();
+	}
+	
+	public void exploreCouponsReceived(List<CouponScreenDTO> dtos)
+	{
+		if (dtos != null)
+		{
+			GreatBuyzApplication.getApplication().setSkipIndexForExploreCoupons(
+					GreatBuyzApplication.getApplication().getSkipIndexForExploreCoupons() + dtos.size());
+
+			if (_exploreCouponsDTO == null)
+				_exploreCouponsDTO = new ExploreCouponsDTO(dtos);
+			else
+				_exploreCouponsDTO.add(dtos);
+		}
+	}
+
+	public ExploreCouponsDTO getExploreCoupons()
+	{
+		return _exploreCouponsDTO;
+	}
+
+	public void deleteAllExploreCoupons()
+	{
+		if (_exploreCouponsDTO != null)
+			_exploreCouponsDTO.deleteAll();
 	}
 
 	public void onErrorReceived(int statusCode, String errorMessage)

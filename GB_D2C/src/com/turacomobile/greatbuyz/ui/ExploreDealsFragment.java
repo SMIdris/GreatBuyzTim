@@ -44,6 +44,7 @@ public final class ExploreDealsFragment extends Fragment
 		ExploreDealsFragment fragment = new ExploreDealsFragment();
 		fragment.fm = f;
 		activity = screen;
+		GreatBuyzApplication.isCouponClicked = false;
 		return fragment;
 	}
 

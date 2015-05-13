@@ -104,7 +104,7 @@ public class SampleTabsStyled extends FragmentActivity implements OnCategoryClic
 	private RelativeLayout			mNotificationLayout;
 	private LinearLayout			  mVersionLayout;
 	private Button					mNotifButton;
-	private  LinearLayout ivPicRel = null;
+	private LinearLayout			  ivPicRel			= null;
 	/*
 	 * private CheckBox mInappCheckBox; private Spinner mNotificationSpinner;
 	 */
@@ -124,8 +124,8 @@ public class SampleTabsStyled extends FragmentActivity implements OnCategoryClic
 	GBWebViewClient				   webViewClient;
 	String							mwebUrl;
 	String							mwebTitle;
-	private  TextView ivPop = null;
-	private  QuickAction mQuickAction = null;
+	private TextView				  ivPop			   = null;
+	private QuickAction			   mQuickAction		= null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -234,18 +234,16 @@ public class SampleTabsStyled extends FragmentActivity implements OnCategoryClic
 		mBtnPrevTab.setEnabled(false);
 		// mBtnPrevTab.setVisibility(View.INVISIBLE);
 		mBtnNextTab = (RelativeLayout) findViewById(R.id.btn_indicator_right);
-//		 ivPicRel = (RelativeLayout) this.findViewById(R.id.popover);
-//		RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) ivPicRel.getLayoutParams();
-//		params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-//		ivPicRel.setLayoutParams(params);
-//		
+		// ivPicRel = (RelativeLayout) this.findViewById(R.id.popover);
+		// RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) ivPicRel.getLayoutParams();
+		// params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+		// ivPicRel.setLayoutParams(params);
+		//
 		ivPicRel = (LinearLayout) this.findViewById(R.id.popover);
-		
 		ivPop = (TextView) this.findViewById(R.id.popoverText);
-		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-				params.gravity = Gravity.RIGHT;
-				ivPop.setLayoutParams(params);
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		params.gravity = Gravity.RIGHT;
+		ivPop.setLayoutParams(params);
 		//
 		ActionItem addAction = new ActionItem();
 		addAction.setTitle("Phone");
@@ -258,7 +256,7 @@ public class SampleTabsStyled extends FragmentActivity implements OnCategoryClic
 		ActionItem upAction = new ActionItem();
 		upAction.setTitle("Talk");
 		upAction.setIcon(getResources().getDrawable(R.drawable.talk));
-		 mQuickAction = new QuickAction(this);
+		mQuickAction = new QuickAction(this);
 		mQuickAction.addActionItem(addAction);
 		mQuickAction.addActionItem(accAction);
 		mQuickAction.addActionItem(upAction);
@@ -286,11 +284,8 @@ public class SampleTabsStyled extends FragmentActivity implements OnCategoryClic
 		ivPop.setOnClickListener(new OnClickListener()
 		{
 			public void onClick(View v)
-			{
-				
-			}
+			{}
 		});
-		
 		mBtnNextTab.setOnClickListener(new OnClickListener()
 		{
 			@Override
@@ -304,9 +299,9 @@ public class SampleTabsStyled extends FragmentActivity implements OnCategoryClic
 				// popoverView.setContentSizeForViewInPopover(new Point(320, 340));
 				// popoverView.setDelegate(SampleTabsStyled.this);
 				// popoverView.showPopoverFromRectInViewGroup(rootView, PopoverView.getFrameForView(v), PopoverView.PopoverArrowDirectionAny, true);
-				//ivPop.performClick();
-//				mQuickAction.show(ivPop);
-//				mQuickAction.setAnimStyle(QuickAction.ANIM_GROW_FROM_CENTER);
+				// ivPop.performClick();
+				// mQuickAction.show(ivPop);
+				// mQuickAction.setAnimStyle(QuickAction.ANIM_GROW_FROM_CENTER);
 			}
 		});
 		// ScrollView.getViewTreeObserver().addOnScrollChangedListener(new OnScrollChangedListener() {
@@ -655,8 +650,16 @@ public class SampleTabsStyled extends FragmentActivity implements OnCategoryClic
 				}
 				if (mAdapter.mFragmentForExploreCategory instanceof ExploreDealResultFragment && mAdapter.mFragmentForExploreCategory != null)
 				{
-					if (((ExploreDealResultFragment) mAdapter.mFragmentForExploreCategory).listDownloader != null) ((ExploreDealResultFragment) mAdapter.mFragmentForExploreCategory).listDownloader.cancel(true);
-					if (((ExploreDealResultFragment) mAdapter.mFragmentForExploreCategory).adapter != null) ((ExploreDealResultFragment) mAdapter.mFragmentForExploreCategory).adapter.reset();
+					if (GreatBuyzApplication.isCouponClicked)
+					{
+						if (((ExploreDealResultFragment) mAdapter.mFragmentForExploreCategory).listCouponDownloader != null) ((ExploreDealResultFragment) mAdapter.mFragmentForExploreCategory).listCouponDownloader.cancel(true);
+						if (((ExploreDealResultFragment) mAdapter.mFragmentForExploreCategory).adapterCoupon != null) ((ExploreDealResultFragment) mAdapter.mFragmentForExploreCategory).adapterCoupon.reset();
+					}
+					else
+					{
+						if (((ExploreDealResultFragment) mAdapter.mFragmentForExploreCategory).listDealDownloader != null) ((ExploreDealResultFragment) mAdapter.mFragmentForExploreCategory).listDealDownloader.cancel(true);
+						if (((ExploreDealResultFragment) mAdapter.mFragmentForExploreCategory).adapter != null) ((ExploreDealResultFragment) mAdapter.mFragmentForExploreCategory).adapter.reset();
+					}
 				}
 				/*
 				 * if (((MyDealFragment) mAdapter.mMyDealsFragment) != null) { if (((MyDealFragment) mAdapter.mMyDealsFragment).listDownloader != null) ((MyDealFragment) mAdapter.mMyDealsFragment).listDownloader.cancel(true); if (((MyDealFragment) mAdapter.mMyDealsFragment).adapter != null) ((MyDealFragment) mAdapter.mMyDealsFragment).adapter.reset(); }
@@ -874,7 +877,7 @@ public class SampleTabsStyled extends FragmentActivity implements OnCategoryClic
 					/*
 					 * case AppConstants.FramentConstants.MY_DEALS: mMyDealsFragment = MyDealFragment.newInstance("Hemant7", SampleTabsStyled.this, SampleTabsStyled.this); mMyDealsFragment.setRetainInstance(true); return mMyDealsFragment;
 					 */
-				case AppConstants.FramentConstants.EXPLORE_COUPONS:
+				case AppConstants.FramentConstants.EXCLUSIVE_COUPONS:
 					if (mFragmentForExploreCoupons == null) mFragmentForExploreCoupons = ExploreCouponResultFragment.newInstance(SampleTabsStyled.this, "d", "", "AllIndia", "d", SampleTabsStyled.this);
 					mFragmentForExploreCoupons.setRetainInstance(true);
 					return mFragmentForExploreCoupons;
@@ -1622,7 +1625,7 @@ public class SampleTabsStyled extends FragmentActivity implements OnCategoryClic
 			/*
 			 * case AppConstants.FramentConstants.MY_DEALS: ((MyDealFragment) mAdapter.mMyDealsFragment).refreshFragment(); mAdapter.notifyDataSetChanged(); break;
 			 */
-			case AppConstants.FramentConstants.EXPLORE_COUPONS:
+			case AppConstants.FramentConstants.EXCLUSIVE_COUPONS:
 				((ExploreCouponResultFragment) mAdapter.mFragmentForExploreCoupons).refreshFragment();
 				mAdapter.notifyDataSetChanged();
 				break;
@@ -1632,7 +1635,9 @@ public class SampleTabsStyled extends FragmentActivity implements OnCategoryClic
 				/* for AppConstants.FramentConstants.EXPLORE_DEALS */
 				if (isCategoryAfterExplorDisplayed)
 				{
-					if (((ExploreDealResultFragment) mAdapter.mFragmentForExploreCategory) != null) ((ExploreDealResultFragment) mAdapter.mFragmentForExploreCategory).refreshFragment();
+					if (GreatBuyzApplication.isCouponClicked) if (((ExploreDealResultFragment) mAdapter.mFragmentForExploreCategory) != null)
+						((ExploreDealResultFragment) mAdapter.mFragmentForExploreCategory).refreshFragmentCoupons();
+					else if (((ExploreDealResultFragment) mAdapter.mFragmentForExploreCategory) != null) ((ExploreDealResultFragment) mAdapter.mFragmentForExploreCategory).refreshFragmentDeals();
 				}
 				else
 				{
@@ -2162,18 +2167,16 @@ public class SampleTabsStyled extends FragmentActivity implements OnCategoryClic
 	public void openMyCouponTab()
 	{
 		String name = getString(R.string.myDeals);// Utils.getMessageString(AppConstants.Messages.myDeals, R.string.myDeals);
-//		RelativeLayout.LayoutParams paramss = (RelativeLayout.LayoutParams) ivPicRel.getLayoutParams();
-//		paramss.addRule(RelativeLayout.CENTER_IN_PARENT);
-//		ivPicRel.setLayoutParams(paramss);
-		//ivPop.performClick();
-		
-//		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-//				LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-//				params.gravity = Gravity.CENTER;
-//				ivPop.setLayoutParams(params);
-//		mQuickAction.show(ivPop);
-//		mQuickAction.setAnimStyle(QuickAction.ANIM_GROW_FROM_CENTER);
-		
+		// RelativeLayout.LayoutParams paramss = (RelativeLayout.LayoutParams) ivPicRel.getLayoutParams();
+		// paramss.addRule(RelativeLayout.CENTER_IN_PARENT);
+		// ivPicRel.setLayoutParams(paramss);
+		// ivPop.performClick();
+		// LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+		// LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		// params.gravity = Gravity.CENTER;
+		// ivPop.setLayoutParams(params);
+		// mQuickAction.show(ivPop);
+		// mQuickAction.setAnimStyle(QuickAction.ANIM_GROW_FROM_CENTER);
 		if (!isMyDealsVisible)
 		{
 			CONTENT.add(name);

@@ -104,6 +104,7 @@ public interface AppConstants
 		public static final String BROWSE = "/browsedeals.json?";
 		public static final String FLAGSHIP_DEALS = "/flagshipdeals.json?"; //Exclusive Deals
 		public static final String EXCLUSIVE_DEALS = "/exclusivedeals.json?"; 
+		public static final String EXCLUSIVE_COUPONS = "/getCoupons?"; 
 		public static final String TOP_DEALS = "/getTopDeals.json?"; //Top Deals 
 		public static final String DEALS_BY_CATEGORIES = "/deal_by_category.json?";
 		//public static final String DEALS_BY_LOCATION = "/dealsbylocation?";
@@ -312,6 +313,7 @@ public interface AppConstants
 		public static final String loading = "loading";
 		public static final String emptyDeal = "emptyDeal";
 		public static final String networkProblemMessage = "networkProblemMessage";
+		public static final String emptyMyCouponListMessage = "emptyMyCouponListMessage";
 		public static final String emptyMyDealListMessage = "emptyMyDealListMessage";
 		public static final String emptyViewBackButton = "emptyViewBackButton";
 		public static final String NullFieldMessage = "NullFieldMessage";
@@ -577,10 +579,11 @@ public interface AppConstants
 		public static final int DEALS_OF_THE_DAY = 2;
 		public static final int CATEGORY_FRAGMENT = 3;
 		//public static final int DEALS_NEAR_ME = 4;
-		public static final int EXPLORE_COUPONS = 4;
+		public static final int EXCLUSIVE_COUPONS = 4;
 		public static final int SURPRISE_ME = 5;
 		public static final int EXPLORE_DEALS = 6;
 		public static final int MY_DEALS = 7;
+		public static final int EXPLORE_COUPONS = 10;
 
 		public static final int DEAL_BY_CATEGORY = 8;
 		public static final int DEALS_YOU_MAY_LIKE = 9;

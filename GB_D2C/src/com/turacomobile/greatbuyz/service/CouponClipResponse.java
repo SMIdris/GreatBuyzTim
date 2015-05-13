@@ -4,7 +4,6 @@ package com.turacomobile.greatbuyz.service;
 import java.util.List;
 
 import com.turacomobile.greatbuyz.data.CouponScreenDTO;
-import com.turacomobile.greatbuyz.data.CouponScreenDTO;
 
 
 public class CouponClipResponse

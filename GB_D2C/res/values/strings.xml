@@ -66,6 +66,7 @@
     <string name="emptyDeal">No deals found</string>
     <string name="networkProblemMessage">Can not connect to server at this time, please try later.</string>
     <string name="emptyMyDealListMessage">No Deals purchased,please browse and buy exciting deals.</string>
+    <string name="emptyMyCouponListMessage">No Coupons found</string>
     <string name="emptyViewBackButton">Use the "Back" button on your phone to return to the previous page.</string>
     <string name="NullKeywordMessage">Please enter keyword for search</string>
     <string name="NullFieldMessage">Required field missing</string>

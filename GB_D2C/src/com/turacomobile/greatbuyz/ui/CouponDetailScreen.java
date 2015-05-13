@@ -243,9 +243,12 @@ public class CouponDetailScreen extends Activity
 
 		try
 		{
-			if (type == AppConstants.FramentConstants.EXPLORE_COUPONS)
+			if (type == AppConstants.FramentConstants.EXCLUSIVE_COUPONS)
 			{
 				couponScreenDTOs = _data.getExclusiveCouponsDTO().getExclusiveCouponsList();
+			}
+			else if(type == AppConstants.FramentConstants.EXPLORE_COUPONS){
+				couponScreenDTOs = _data.getExploreCoupons().getExploreCouponsList();
 			}
 
 			if (couponScreenDTOs == null)

@@ -28,6 +28,7 @@ public class GreatBuyzApplication extends Application
 	private static GreatBuyzApplication _application;
 	private static DataController _dataController;
 	private static ServiceDelegate _serviceDelegate;
+	public static boolean			isCouponClicked   = false;
 	private static DB _db;
 	private SharedPreferences _prefs;
 	private static Analytics _analytics;
@@ -37,8 +38,8 @@ public class GreatBuyzApplication extends Application
 	//private String serverIP = "http://182.23.130.181:80/re/gb";// prod
 	//private String serverIP = "103.19.90.82:80";// Test
 	//
-//	private String serverIP = "103.19.90.82";// prod 
-	private String serverIP = "103.19.90.84:8092";
+	private String serverIP = "103.19.90.82";// prod 
+	//private String serverIP = "103.19.90.84:8092";
 	//
 	//private String baseURL = "/greatbuyz-api/v2";
 	private String baseURL = "/re/gb";
@@ -73,6 +74,9 @@ public class GreatBuyzApplication extends Application
 	
 	private int limitForExclusiveCoupons = 20;// 10;
 	private int skipIndexForExclusiveCoupons = 0;
+	
+	private int limitForExploreCoupons = 20;
+	private int skipIndexForExploreCoupons = 0;
 
 	private Typeface font;
 
@@ -537,6 +541,26 @@ public class GreatBuyzApplication extends Application
 	public void setSkipIndexForExploreDeals(int skipIndexForExploreDeals)
 	{
 		this.skipIndexForExploreDeals = skipIndexForExploreDeals;
+	}
+	
+	public int getLimitForExploreCoupons()
+	{
+		return limitForExploreCoupons;
+	}
+
+	public void setLimitForExploreCoupons(int limitForExploreCoupons)
+	{
+		this.limitForExploreCoupons = limitForExploreCoupons;
+	}
+
+	public int getSkipIndexForExploreCoupons()
+	{
+		return skipIndexForExploreCoupons;
+	}
+
+	public void setSkipIndexForExploreCoupons(int skipIndexForExploreCoupons)
+	{
+		this.skipIndexForExploreCoupons = skipIndexForExploreCoupons;
 	}
 
 	/*public void setLimitMyDeals(int limitForMyDeals)
