@@ -594,7 +594,7 @@ public class ResponseParser
 		Contact contact = null;
 		if (contactObject != null)
 			contact = parseContact(contactObject);
-
+		
 		return new Merchant(name, contact);
 	}
 

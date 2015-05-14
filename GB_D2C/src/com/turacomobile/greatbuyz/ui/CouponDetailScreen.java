@@ -436,6 +436,8 @@ public class CouponDetailScreen extends Activity
 						b.putString(AppConstants.JSONKeys.LOCATIONS, _data.getUserCity());
 						b.putString(AppConstants.JSONKeys.MDN, _data.getMDN());
 						//b.putString(AppConstants.JSONKeys.NAME, "DealDetail");
+						b.putString(AppConstants.JSONKeys.URL, couponScreenDTO.getDealVisitUri());
+						
 						showDialog(BUY_CONFIRMATION_DIALOG, b);
 					}
 					else
@@ -523,10 +525,11 @@ public class CouponDetailScreen extends Activity
 			{
 				String message1 = args.getString("message");
 
-				final String did = args.getString(AppConstants.JSONKeys.DEAL_ID);
-				final String mdn = args.getString(AppConstants.JSONKeys.MDN);
-				final String location = args.getString(AppConstants.JSONKeys.LOCATIONS);
+//				final String did = args.getString(AppConstants.JSONKeys.DEAL_ID);
+//				final String mdn = args.getString(AppConstants.JSONKeys.MDN);
+//				final String location = args.getString(AppConstants.JSONKeys.LOCATIONS);
 				//final String activityName = args.getString(AppConstants.JSONKeys.NAME);
+				final String couponUrl = args.getString(AppConstants.JSONKeys.URL);
 
 				final GenericDialog dialog1 = new GenericDialog(this, R.layout.exit_message, R.style.AlertDialogCustom);
 				dialog1.setCancelable(false);
@@ -543,7 +546,8 @@ public class CouponDetailScreen extends Activity
 						//	removeDialog(BUY_CONFIRMATION_DIALOG);
 							//GreatBuyzApplication.getServiceDelegate().purchaseDeal(CouponDetailScreen.this, did,mdn,location);
 							//GreatBuyzApplication.getApplication().getAnalyticsAgent().logEvent(AppConstants.Flurry.DealDetails, m);
-							Utils.launchUri(CouponDetailScreen.this, "https://www.google.co.in/");
+							//couponScreenDTO.getDealVisitUri();
+							Utils.launchUri(CouponDetailScreen.this, couponUrl);
 						}
 						catch (Exception e)
 						{

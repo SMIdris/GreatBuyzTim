@@ -286,8 +286,8 @@ public class ServiceDelegate
 		String imei = Utils.getAndroidId(GreatBuyzApplication.getApplication());
 		if (!Utils.isNothing(imei)) GreatBuyzApplication.getDataController().updateAndroidId(imei);
 		String imsi = _data.getIMSI();
-//		imsi = "89914903040938218617";
-//		imei = "66dc5a19b13cc2d8";
+		imsi = "89914903040938218617";
+		imei = "66dc5a19b13cc2d8";
 		String data = RequestBuilder.getInfoRequest(latitude, longitude, imei, imsi, _data.getGCMId(), _data.getVersions());
 		System.out.println("data &&&" + data);
 		try
@@ -860,7 +860,8 @@ public class ServiceDelegate
 		{
 			isExclusiveDeal = tagList.contains(AppConstants.JSONKeys.EXCLUSIVE_DEALS);
 		}
-		return new CouponScreenDTO(deal.getId(), null, deal.getName(), deal.getImage(), null, deal.getCouponPrice(), deal.getPrice(), deal.getDiscount(), null, deal.getDealVisitUrl(), deal.getTnC().getEnd(), isExclusiveDeal, deal.getLocations());
+		
+		return new CouponScreenDTO(deal.getId(), null, deal.getName(), deal.getImage(), null, deal.getCouponPrice(), deal.getPrice(), deal.getDiscount(), null, deal.getMerchant().getContact().getUrl(), deal.getTnC().getEnd(), isExclusiveDeal, deal.getLocations());
 		// return new DealScreenDTO(deal.getId(), deal.getMerchant().getName(),
 		// deal.getName(), deal.getImage(), details.toString(),
 		// deal.getCouponPrice(), deal.getPrice(), deal.getDiscount(),
@@ -1114,198 +1115,7 @@ public class ServiceDelegate
 		}
 		return clipResponce;
 	}
-	
-	public ClipResponse getExploreDeals(String location, String locality, String categories, String keyWords, int limit, int skip)
-	{
-		ClipResponse clipResponce = null;
-		String data = RequestBuilder.searchRequest(location, locality, categories, keyWords, skip, limit);
-		HttpParams httpParameters = new BasicHttpParams();
-		// Set the timeout in milliseconds until a connection is established.
-		HttpConnectionParams.setConnectionTimeout(httpParameters, AppConstants.CONNECTION_TIMEOUT_MILLIS);
-		// Set the default socket timeout (SO_TIMEOUT)
-		// in milliseconds which is the timeout for waiting for data.
-		HttpConnectionParams.setSoTimeout(httpParameters, AppConstants.CONNECTION_TIMEOUT_MILLIS);
-		// Thread Safe Client Connection Manager to be added to the
-		// DefaultHttpClient to
-		// enable MultiThreaded functioning of the Client.
-		SchemeRegistry schemeRegistry = new SchemeRegistry();
-		schemeRegistry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
-		ClientConnectionManager cm = new ThreadSafeClientConnManager(httpParameters, schemeRegistry);
-		// //----------------------
-		// Use the client defaults and create a client.
-		// this.mHttpClient = createHttpClient();//new DefaultHttpClient();
-		// Client made using the Connection Manager. Safe across threads
-		int statusCode = 10000;
-		try
-		{
-			HttpClient mHttpClient = new DefaultHttpClient(cm, httpParameters);
-			//:TODO  change the below when live
-			Map<String, String> searchHeaders = getHeaders();
-//			searchHeaders.remove("channel");
-//			searchHeaders.remove("key");
-//			searchHeaders.put("channel", "ussd");
-//			searchHeaders.put("key", "15bdaafc-7890-45fc-8864-f291fnds898e");
-			//
-			String totalUrl = BASE_URL + AppConstants.URIParts.SEARCH + data;
-//			String totalUrl = BASE_URL + AppConstants.URIParts.DEALS_BY_CATEGORIES  +"category=Mixed Bag&isCoupon=false";
-//			totalUrl=totalUrl.replaceAll(" ", "%20");
-			//
-			HttpMessage mHttpMessage = createHttpGetRequest(totalUrl, searchHeaders);
-			// Log.d(TAG, BASE_URL + AppConstants.URIParts.SEARCH +
-			// data);
-			HttpResponse responce = mHttpClient.execute((HttpUriRequest) mHttpMessage);
-			statusCode = responce.getStatusLine().getStatusCode();
-			// Log.e(TAG, "getExploreDeals -- response : " + responce);
-			{
-				HeaderIterator t_HeaderIterator = responce.headerIterator();
-				HashMap<String, String> t_HeaderMap = new HashMap<String, String>();
-				while (t_HeaderIterator.hasNext())
-				{
-					Header t_ResponneHeader = (Header) t_HeaderIterator.next();
-					t_HeaderMap.put(t_ResponneHeader.getName(), t_ResponneHeader.getValue());
-				}
-				String s = EntityUtils.toString(responce.getEntity(), "UTF-8");
-				// //Log.e(TAG, "getExploreDeals -- response : s : " + s);
-				/*
-				 * System.out.print("########################## : " + s + "##########################" + statusCode);
-				 */
-				if (s != null && statusCode == 200)
-				{
-					try
-					{
-						boolean isSuggested = false;
-						List<Deal> deals = null;
-						JSONObject dealsObj = new JSONObject(s);
-						isSuggested = dealsObj.optBoolean(AppConstants.JSONKeys.SUGGESTED);
-						JSONArray dealsArray = dealsObj.optJSONArray(AppConstants.JSONKeys.DEAL_DTO);
-					//	JSONArray dealsArray = dealsObj.optJSONArray("deals");
-						if (isSuggested == false && dealsArray == null)
-						{
-							final List<DealScreenDTO> dtos = new ArrayList<DealScreenDTO>();
-							clipResponce = new ClipResponse(statusCode, s, dtos);
-							return clipResponce;
-						}
-						if (dealsArray.length() > 0) deals = (List<Deal>) ResponseParser.parseBrowse(dealsArray);
-						final List<DealScreenDTO> dtos = getDealScreenDTOs(deals);
-						clipResponce = new ClipResponse(statusCode, s, dtos);
-					}
-					catch (OutOfMemoryError oome)
-					{
-						System.gc();
-						clipResponce = new ClipResponse(statusCode, httpErrorString, null);
-					}
-					catch (Exception e)
-					{
-						e.printStackTrace();
-						clipResponce = new ClipResponse(statusCode, httpErrorString, null);
-					}
-				}
-				else
-				{
-					clipResponce = new ClipResponse(statusCode, httpErrorString, null);
-				}
-			}
-		}
-		catch (OutOfMemoryError oome)
-		{
-			System.gc();
-			clipResponce = new ClipResponse(statusCode, httpErrorString, null);
-		}
-		catch (Exception e)
-		{
-			clipResponce = new ClipResponse(statusCode, httpErrorString, null);
-		}
-		return clipResponce;
-	}
-	
-	
-	public CouponClipResponse getExploreCoupons(String location, String locality, String categories, String keyWords, int limit, int skip)
-	{
-		CouponClipResponse clipResponce = null;
-		//String data = RequestBuilder.browseRequest(AppConstants.JSONKeys.WAP, null, null, limit, skip);
-		HttpParams httpParameters = new BasicHttpParams();
-		// Set the timeout in milliseconds until a connection is established.
-		HttpConnectionParams.setConnectionTimeout(httpParameters, AppConstants.CONNECTION_TIMEOUT_MILLIS);
-		// Set the default socket timeout (SO_TIMEOUT)
-		// in milliseconds which is the timeout for waiting for data.
-		HttpConnectionParams.setSoTimeout(httpParameters, AppConstants.CONNECTION_TIMEOUT_MILLIS);
-		// Thread Safe Client Connection Manager to be added to the
-		// DefaultHttpClient to
-		// enable MultiThreaded functioning of the Client.
-		SchemeRegistry schemeRegistry = new SchemeRegistry();
-		schemeRegistry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
-		ClientConnectionManager cm = new ThreadSafeClientConnManager(httpParameters, schemeRegistry);
-		// //----------------------
-		// Use the client defaults and create a client.
-		// this.mHttpClient = createHttpClient();//new DefaultHttpClient();
-		// Client made using the Connection Manager. Safe across threads
-		int statusCode = 10000;
-		try
-		{
-			HttpClient mHttpClient = new DefaultHttpClient(cm, httpParameters);
-			// Log.e(TAG, "GetExclusiveDeals -- url : " + BASE_URL
-			// + AppConstants.URIParts.GET_EXCLUSIVE_DEALS + data);
-			// Log.e(TAG, "GetExclusiveDeals -- limit : " + limit + " skip " +
-			// skip);
-			//String totalUrl = BASE_URL + AppConstants.URIParts.EXCLUSIVE_DEALS  +"&isCoupon=true";
-			String totalUrl = BASE_URL + AppConstants.URIParts.EXCLUSIVE_COUPONS  +"&isCoupon=true";
-
-			HttpMessage mHttpMessage = createHttpGetRequest(totalUrl, getHeaders());
-			HttpResponse responce = mHttpClient.execute((HttpUriRequest) mHttpMessage);
-			statusCode = responce.getStatusLine().getStatusCode();
-			// Log.e(TAG, "GetExclusiveDeals -- response : " + responce);
-			{
-				HeaderIterator t_HeaderIterator = responce.headerIterator();
-				HashMap<String, String> t_HeaderMap = new HashMap<String, String>();
-				while (t_HeaderIterator.hasNext())
-				{
-					Header t_ResponneHeader = (Header) t_HeaderIterator.next();
-					t_HeaderMap.put(t_ResponneHeader.getName(), t_ResponneHeader.getValue());
-				}
-				String s = EntityUtils.toString(responce.getEntity(), "UTF-8");
-				Log.e(TAG, "GetExclusiveDeals -- response : s : " + s);
-				// System.out.print("########################## : " + s +
-				// "##########################" + statusCode);
-				if (s != null && statusCode == 200)
-				{
-					try
-					{
-						List<CouponDeal> deals = null;
-						JSONObject dealsObj = new JSONObject(s);
-						JSONArray dealsArray = dealsObj.optJSONArray(AppConstants.JSONKeys.DEAL_DTO);
-						if (dealsArray.length() > 0) deals = (List<CouponDeal>) ResponseParser.parseBrowseCoupon(dealsArray);
-						final List<CouponScreenDTO> dtos = getCouponScreenDTOs(deals);
-						clipResponce = new CouponClipResponse(statusCode, s, dtos);
-					}
-					catch (OutOfMemoryError oome)
-					{
-						System.gc();
-						clipResponce = new CouponClipResponse(statusCode, httpErrorString, null);
-					}
-					catch (Exception e)
-					{
-						e.printStackTrace();
-						clipResponce = new CouponClipResponse(statusCode, httpErrorString, null);
-					}
-				}
-				else
-				{
-					clipResponce = new CouponClipResponse(statusCode, httpErrorString, null);
-				}
-			}
-		}
-		catch (OutOfMemoryError oome)
-		{
-			System.gc();
-			clipResponce = new CouponClipResponse(statusCode, httpErrorString, null);
-		}
-		catch (Exception e)
-		{
-			clipResponce = new CouponClipResponse(statusCode, httpErrorString, null);
-		}
-		return clipResponce;
-	}
-	
+	//
 	public MyDealsClipResponse getMyDeals(String mdn)
 	{
 		// JSONObject json = new JSONObject();
@@ -1402,6 +1212,221 @@ public class ServiceDelegate
 		return clipResponse;
 	}
 	//
+	public ClipResponse getExploreDeals(String location, String locality, String categories, String keyWords, int limit, int skip)
+	{
+		ClipResponse clipResponce = null;
+		String data = RequestBuilder.searchRequest(location, locality, categories, keyWords, skip, limit);
+		HttpParams httpParameters = new BasicHttpParams();
+		// Set the timeout in milliseconds until a connection is established.
+		HttpConnectionParams.setConnectionTimeout(httpParameters, AppConstants.CONNECTION_TIMEOUT_MILLIS);
+		// Set the default socket timeout (SO_TIMEOUT)
+		// in milliseconds which is the timeout for waiting for data.
+		HttpConnectionParams.setSoTimeout(httpParameters, AppConstants.CONNECTION_TIMEOUT_MILLIS);
+		// Thread Safe Client Connection Manager to be added to the
+		// DefaultHttpClient to
+		// enable MultiThreaded functioning of the Client.
+		SchemeRegistry schemeRegistry = new SchemeRegistry();
+		schemeRegistry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
+		ClientConnectionManager cm = new ThreadSafeClientConnManager(httpParameters, schemeRegistry);
+		// //----------------------
+		// Use the client defaults and create a client.
+		// this.mHttpClient = createHttpClient();//new DefaultHttpClient();
+		// Client made using the Connection Manager. Safe across threads
+		int statusCode = 10000;
+		try
+		{
+			HttpClient mHttpClient = new DefaultHttpClient(cm, httpParameters);
+			//:TODO  change the below when live
+			Map<String, String> searchHeaders = getHeaders();
+//			searchHeaders.remove("channel");
+//			searchHeaders.remove("key");
+//			searchHeaders.put("channel", "ussd");
+//			searchHeaders.put("key", "15bdaafc-7890-45fc-8864-f291fnds898e");
+			//
+			String totalUrl = BASE_URL + AppConstants.URIParts.SEARCH + data + "&isCoupon=false";
+//			String totalUrl = BASE_URL + AppConstants.URIParts.DEALS_BY_CATEGORIES  +"category=Mixed Bag&isCoupon=false";
+//			totalUrl=totalUrl.replaceAll(" ", "%20");
+			//
+			HttpMessage mHttpMessage = createHttpGetRequest(totalUrl, searchHeaders);
+			// Log.d(TAG, BASE_URL + AppConstants.URIParts.SEARCH +
+			// data);
+			HttpResponse responce = mHttpClient.execute((HttpUriRequest) mHttpMessage);
+			statusCode = responce.getStatusLine().getStatusCode();
+			// Log.e(TAG, "getExploreDeals -- response : " + responce);
+			{
+				HeaderIterator t_HeaderIterator = responce.headerIterator();
+				HashMap<String, String> t_HeaderMap = new HashMap<String, String>();
+				while (t_HeaderIterator.hasNext())
+				{
+					Header t_ResponneHeader = (Header) t_HeaderIterator.next();
+					t_HeaderMap.put(t_ResponneHeader.getName(), t_ResponneHeader.getValue());
+				}
+				String s = EntityUtils.toString(responce.getEntity(), "UTF-8");
+				// //Log.e(TAG, "getExploreDeals -- response : s : " + s);
+				/*
+				 * System.out.print("########################## : " + s + "##########################" + statusCode);
+				 */
+				if (s != null && statusCode == 200)
+				{
+					try
+					{
+						boolean isSuggested = false;
+						List<Deal> deals = null;
+						JSONObject dealsObj = new JSONObject(s);
+						isSuggested = dealsObj.optBoolean(AppConstants.JSONKeys.SUGGESTED);
+						JSONArray dealsArray = dealsObj.optJSONArray(AppConstants.JSONKeys.DEAL_DTO);
+					//	JSONArray dealsArray = dealsObj.optJSONArray("deals");
+						if (isSuggested == false && dealsArray == null)
+						{
+							final List<DealScreenDTO> dtos = new ArrayList<DealScreenDTO>();
+							clipResponce = new ClipResponse(statusCode, s, dtos);
+							return clipResponce;
+						}
+						if (dealsArray.length() > 0) deals = (List<Deal>) ResponseParser.parseBrowse(dealsArray);
+						final List<DealScreenDTO> dtos = getDealScreenDTOs(deals);
+						clipResponce = new ClipResponse(statusCode, s, dtos);
+					}
+					catch (OutOfMemoryError oome)
+					{
+						System.gc();
+						clipResponce = new ClipResponse(statusCode, httpErrorString, null);
+					}
+					catch (Exception e)
+					{
+						e.printStackTrace();
+						clipResponce = new ClipResponse(statusCode, httpErrorString, null);
+					}
+				}
+				else
+				{
+					clipResponce = new ClipResponse(statusCode, httpErrorString, null);
+				}
+			}
+		}
+		catch (OutOfMemoryError oome)
+		{
+			System.gc();
+			clipResponce = new ClipResponse(statusCode, httpErrorString, null);
+		}
+		catch (Exception e)
+		{
+			clipResponce = new ClipResponse(statusCode, httpErrorString, null);
+		}
+		return clipResponce;
+	}
+	
+	
+	public CouponClipResponse getExploreCoupons(String location, String locality, String categories, String keyWords, int limit, int skip)
+	{
+		CouponClipResponse clipResponce = null;
+		String data = RequestBuilder.searchRequest(location, locality,categories,keyWords, skip, limit);
+		HttpParams httpParameters = new BasicHttpParams();
+		// Set the timeout in milliseconds until a connection is established.
+		HttpConnectionParams.setConnectionTimeout(httpParameters, AppConstants.CONNECTION_TIMEOUT_MILLIS);
+		// Set the default socket timeout (SO_TIMEOUT)
+		// in milliseconds which is the timeout for waiting for data.
+		HttpConnectionParams.setSoTimeout(httpParameters, AppConstants.CONNECTION_TIMEOUT_MILLIS);
+		// Thread Safe Client Connection Manager to be added to the
+		// DefaultHttpClient to
+		// enable MultiThreaded functioning of the Client.
+		SchemeRegistry schemeRegistry = new SchemeRegistry();
+		schemeRegistry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
+		ClientConnectionManager cm = new ThreadSafeClientConnManager(httpParameters, schemeRegistry);
+		// //----------------------
+		// Use the client defaults and create a client.
+		// this.mHttpClient = createHttpClient();//new DefaultHttpClient();
+		// Client made using the Connection Manager. Safe across threads
+		int statusCode = 10000;
+		try
+		{
+			HttpClient mHttpClient = new DefaultHttpClient(cm, httpParameters);
+			// Log.e(TAG, "GetExclusiveDeals -- url : " + BASE_URL
+			// + AppConstants.URIParts.GET_EXCLUSIVE_DEALS + data);
+			// Log.e(TAG, "GetExclusiveDeals -- limit : " + limit + " skip " +
+			// skip);
+			//String totalUrl = BASE_URL + AppConstants.URIParts.EXCLUSIVE_DEALS  +"&isCoupon=true";
+			//String totalUrl = BASE_URL + AppConstants.URIParts.EXCLUSIVE_COUPONS; //  +"&isCoupon=true";
+			String totalUrl = BASE_URL + AppConstants.URIParts.SEARCH + data + "&isCoupon=true";
+			Map<String, String> searchHeaders = getHeaders();
+			HttpMessage mHttpMessage = createHttpGetRequest(totalUrl, searchHeaders);
+			// Log.d(TAG, BASE_URL + AppConstants.URIParts.SEARCH +
+			// data);
+			HttpResponse responce = mHttpClient.execute((HttpUriRequest) mHttpMessage);
+			statusCode = responce.getStatusLine().getStatusCode();
+			// Log.e(TAG, "getExploreDeals -- response : " + responce);
+			{
+				HeaderIterator t_HeaderIterator = responce.headerIterator();
+				HashMap<String, String> t_HeaderMap = new HashMap<String, String>();
+				while (t_HeaderIterator.hasNext())
+				{
+					Header t_ResponneHeader = (Header) t_HeaderIterator.next();
+					t_HeaderMap.put(t_ResponneHeader.getName(), t_ResponneHeader.getValue());
+				}
+				String s = EntityUtils.toString(responce.getEntity(), "UTF-8");
+				// //Log.e(TAG, "getExploreDeals -- response : s : " + s);
+				/*
+				 * System.out.print("########################## : " + s + "##########################" + statusCode);
+				 */
+				if (s != null && statusCode == 200)
+				{
+					try
+					{
+						//
+						boolean isSuggested = false;
+						List<CouponDeal> deals = null;
+						JSONObject dealsObj = new JSONObject(s);
+						isSuggested = dealsObj.optBoolean(AppConstants.JSONKeys.SUGGESTED);
+						JSONArray dealsArray = dealsObj.optJSONArray(AppConstants.JSONKeys.DEAL_DTO);
+					//	JSONArray dealsArray = dealsObj.optJSONArray("deals");
+						if (isSuggested == false && dealsArray == null)
+						{
+							final List<CouponScreenDTO> dtos = new ArrayList<CouponScreenDTO>();
+							clipResponce = new CouponClipResponse(statusCode, s, dtos);
+							return clipResponce;
+						}
+						if (dealsArray.length() > 0) deals = (List<CouponDeal>) ResponseParser.parseBrowseCoupon(dealsArray);
+						final List<CouponScreenDTO> dtos = getCouponScreenDTOs(deals);
+						clipResponce = new CouponClipResponse(statusCode, s, dtos);
+//						
+//						//
+//						List<CouponDeal> deals = null;
+//						JSONObject dealsObj = new JSONObject(s);
+//						JSONArray dealsArray = dealsObj.optJSONArray(AppConstants.JSONKeys.DEAL_DTO);
+//						if (dealsArray.length() > 0) deals = (List<CouponDeal>) ResponseParser.parseBrowseCoupon(dealsArray);
+//						final List<CouponScreenDTO> dtos = getCouponScreenDTOs(deals);
+//						clipResponce = new CouponClipResponse(statusCode, s, dtos);
+					}
+					catch (OutOfMemoryError oome)
+					{
+						System.gc();
+						clipResponce = new CouponClipResponse(statusCode, httpErrorString, null);
+					}
+					catch (Exception e)
+					{
+						e.printStackTrace();
+						clipResponce = new CouponClipResponse(statusCode, httpErrorString, null);
+					}
+				}
+				else
+				{
+					clipResponce = new CouponClipResponse(statusCode, httpErrorString, null);
+				}
+			}
+		}
+		catch (OutOfMemoryError oome)
+		{
+			System.gc();
+			clipResponce = new CouponClipResponse(statusCode, httpErrorString, null);
+		}
+		catch (Exception e)
+		{
+			clipResponce = new CouponClipResponse(statusCode, httpErrorString, null);
+		}
+		return clipResponce;
+	}
+	
+
+	//
 	
 	public CouponClipResponse getExclusiveCoupons(String channel, int limit, int skip)
 	{
@@ -1432,7 +1457,7 @@ public class ServiceDelegate
 			// Log.e(TAG, "GetExclusiveDeals -- limit : " + limit + " skip " +
 			// skip);
 			//String totalUrl = BASE_URL + AppConstants.URIParts.EXCLUSIVE_DEALS  +"&isCoupon=true";
-			String totalUrl = BASE_URL + AppConstants.URIParts.EXCLUSIVE_COUPONS  +"&isCoupon=true";
+			String totalUrl = BASE_URL + AppConstants.URIParts.EXCLUSIVE_COUPONS;//  +"&isCoupon=true";
 
 			HttpMessage mHttpMessage = createHttpGetRequest(totalUrl, getHeaders());
 			HttpResponse responce = mHttpClient.execute((HttpUriRequest) mHttpMessage);
@@ -1523,7 +1548,7 @@ public class ServiceDelegate
 			// skip);
 			//
 			//String totalUrl = BASE_URL + AppConstants.URIParts.FLAGSHIP_DEALS + data;
-			String totalUrl = BASE_URL + AppConstants.URIParts.EXCLUSIVE_DEALS  +"&isCoupon=false";
+			String totalUrl = BASE_URL + AppConstants.URIParts.EXCLUSIVE_DEALS ;// +"&isCoupon=false";
 			
 			HttpMessage mHttpMessage = createHttpGetRequest(totalUrl, getHeaders());
 			HttpResponse responce = mHttpClient.execute((HttpUriRequest) mHttpMessage);
