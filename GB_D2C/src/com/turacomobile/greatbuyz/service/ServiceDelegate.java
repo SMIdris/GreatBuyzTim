@@ -861,7 +861,7 @@ public class ServiceDelegate
 			isExclusiveDeal = tagList.contains(AppConstants.JSONKeys.EXCLUSIVE_DEALS);
 		}
 		
-		return new CouponScreenDTO(deal.getId(), null, deal.getName(), deal.getImage(), null, deal.getCouponPrice(), deal.getPrice(), deal.getDiscount(), null, deal.getMerchant().getContact().getUrl(), deal.getTnC().getEnd(), isExclusiveDeal, deal.getLocations());
+		return new CouponScreenDTO(deal.getId(), null, deal.getName(), deal.getImage(), null, deal.getCouponPrice(), deal.getPrice(), deal.getDiscount(), null, deal.getMerchant().getContact().getUrl(), deal.getTnC().getEnd(), isExclusiveDeal, deal.getLocations(),deal.getCouponCode());
 		// return new DealScreenDTO(deal.getId(), deal.getMerchant().getName(),
 		// deal.getName(), deal.getImage(), details.toString(),
 		// deal.getCouponPrice(), deal.getPrice(), deal.getDiscount(),
@@ -1458,7 +1458,8 @@ public class ServiceDelegate
 			// skip);
 			//String totalUrl = BASE_URL + AppConstants.URIParts.EXCLUSIVE_DEALS  +"&isCoupon=true";
 			String totalUrl = BASE_URL + AppConstants.URIParts.EXCLUSIVE_COUPONS;//  +"&isCoupon=true";
-
+//			String totalUrl = BASE_URL + AppConstants.URIParts.DEALS_BY_CATEGORIES  +"category=Mixed Bag&isCoupon=false";
+//			totalUrl=totalUrl.replaceAll(" ", "%20");
 			HttpMessage mHttpMessage = createHttpGetRequest(totalUrl, getHeaders());
 			HttpResponse responce = mHttpClient.execute((HttpUriRequest) mHttpMessage);
 			statusCode = responce.getStatusLine().getStatusCode();
@@ -1548,7 +1549,7 @@ public class ServiceDelegate
 			// skip);
 			//
 			//String totalUrl = BASE_URL + AppConstants.URIParts.FLAGSHIP_DEALS + data;
-			String totalUrl = BASE_URL + AppConstants.URIParts.EXCLUSIVE_DEALS ;// +"&isCoupon=false";
+			String totalUrl = BASE_URL + AppConstants.URIParts.PROMOTION_DEALS ;// +"&isCoupon=false";
 			
 			HttpMessage mHttpMessage = createHttpGetRequest(totalUrl, getHeaders());
 			HttpResponse responce = mHttpClient.execute((HttpUriRequest) mHttpMessage);

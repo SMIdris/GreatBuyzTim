@@ -104,6 +104,7 @@ public interface AppConstants
 		public static final String BROWSE = "/browsedeals.json?";
 		public static final String FLAGSHIP_DEALS = "/flagshipdeals.json?"; //Exclusive Deals
 		public static final String EXCLUSIVE_DEALS = "/exclusivedeals.json?"; 
+		public static final String PROMOTION_DEALS = "/promoteddeals.json?"; 
 		public static final String EXCLUSIVE_COUPONS = "/getCoupons?"; 
 		public static final String TOP_DEALS = "/getTopDeals.json?"; //Top Deals 
 		public static final String DEALS_BY_CATEGORIES = "/deal_by_category.json?";
@@ -275,6 +276,7 @@ public interface AppConstants
 		public static final String cancel = "cancel";
 		public static final String upgrade = "upgrade";
 		public static final String btnVisitText = "btnVisitText";
+		public static final String btnCouponVisitText = "btnCouponVisitText";
 		public static final String titleInfo = "titleInfo";
 		public static final String error = "error";
 		public static final String btnNotifVisitText = "btnNotifVisitText";
@@ -422,6 +424,7 @@ public interface AppConstants
 		public static final String IMGURL_MEDIUM = "imgurlmedium";
 		public static final String IMGURL_LARGE = "imgurllarge";
 		public static final String COUPON_PRICE = "couponPrice";
+		public static final String COUPON_CODE = "couponCode";
 		public static final String SORT = "sort";
 		public static final String PRICE = "price";
 		public static final String ORDER = "order";
@@ -562,7 +565,7 @@ public interface AppConstants
 		public static final int UPGRADE_DIALOG = 108;
 		public static final int FAILED_SEARCH_DIALOG = 109;
 		public static final int REG_MESSAGE_DIALOG_WITH_EXIT = 110;
-
+		public static final  int BUY_CONFIRMATION_DIALOG = 220;
 		// Settings
 		public static final int CHANGE_LOCATION_DIALOG = 202;
 		public static final int CHANGE_SETTINGS_LOCATION_DIALOG = 205;
@@ -571,6 +574,7 @@ public interface AppConstants
 		public static final int UNSUBSCRIBE_PENDING_DIALOG = 208;
 		public static final int EMAIL_DIALOG = 209;
 		public static final int KEYWORDS_DIALOG = 210;
+		
 	}
 
 	public interface FramentConstants

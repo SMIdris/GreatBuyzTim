@@ -45,7 +45,7 @@
             android:textAlignment="gravity" >
         </Spinner>
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/edtLocation"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -56,8 +56,10 @@
             android:paddingLeft="10dip"
             android:paddingTop="10dip"
             android:textColorHint="@color/darkgray"
+            android:completionThreshold="1"
             android:textSize="@dimen/heading" >
-        </EditText>
+        </AutoCompleteTextView>
+
 
         <EditText
             android:id="@+id/edtItemName"

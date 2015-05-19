@@ -1,5 +1,6 @@
 package com.turacomobile.greatbuyz.ui;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -18,6 +19,8 @@ import android.view.View.OnFocusChangeListener;
 import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -28,14 +31,15 @@ import com.turacomobile.greatbuyz.service.DataController;
 import com.turacomobile.greatbuyz.utils.AppConstants;
 import com.turacomobile.greatbuyz.utils.Utils;
 
-public final class ExploreDealsFragment extends Fragment
+public final class ExploreDealsFragment extends Fragment  
 {
 
-	EditText edtLocation;
+	AutoCompleteTextView edtLocation;
 	EditText edtSearchItem;
 	Spinner sprCategory;
 	ExplorePageFragmentListener fm;
 	static Activity activity;
+	 AutoCompleteTextView textView;
 	boolean validate = false;
 	DataController _data = GreatBuyzApplication.getDataController();
 
@@ -98,6 +102,8 @@ public final class ExploreDealsFragment extends Fragment
 			edtSearchItem.setError(null);
 		}
 	}
+ 
+
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -116,7 +122,7 @@ public final class ExploreDealsFragment extends Fragment
 		mySpinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		sprCategory.setAdapter(mySpinnerArrayAdapter);
 
-		edtLocation = (EditText) layout.findViewById(R.id.edtLocation);
+		edtLocation = (AutoCompleteTextView) layout.findViewById(R.id.edtLocation);
 		edtLocation.setHint(Utils.getMessageString(AppConstants.Messages.localityHintText, R.string.localityHintText));
 		edtLocation.setOnFocusChangeListener(new OnFocusChangeListener()
 		{
@@ -129,8 +135,21 @@ public final class ExploreDealsFragment extends Fragment
 					edtSearchItem.setHint(Utils.getMessageString(AppConstants.Messages.keywordHintText, R.string.keywordHintText));
 			}
 		});
-		edtLocation.setTypeface(GreatBuyzApplication.getApplication().getFont());
 		String strLength = _data.getConstant(AppConstants.Constants.exploreMaxLimit);
+		
+		
+		List<String> stockList = _data.getCitiesList();
+
+
+		String[] stockArr = new String[stockList.size()];
+		stockArr = stockList.toArray(stockArr);
+
+		
+		 ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity,android.R.layout.simple_dropdown_item_1line, stockArr);
+//        textView = (AutoCompleteTextView)
+//        		 layout.findViewById(R.id.states_list);
+         edtLocation.setAdapter(adapter);
+      //   edtLocation.addTextChangedListener(this);
 		if (!Utils.isNothing(strLength))
 		{
 			try
@@ -142,6 +161,7 @@ public final class ExploreDealsFragment extends Fragment
 			{
 			}
 		}
+		
 		edtLocation.setOnKeyListener(new OnKeyListener()
 		{
 
@@ -299,6 +319,8 @@ public final class ExploreDealsFragment extends Fragment
 		
 		return layout;
 	}
+	
+	
 
 	@Override
 	public void onSaveInstanceState(Bundle outState)

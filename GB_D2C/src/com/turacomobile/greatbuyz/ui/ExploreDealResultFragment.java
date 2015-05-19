@@ -14,6 +14,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -33,24 +34,24 @@ import com.turacomobile.greatbuyz.utils.Utils;
 
 public class ExploreDealResultFragment extends Fragment
 {
-	OnDealItemClick		   onDealItemClick;
-	TextView				  emptyView;
-	ViewSwitcher			  viewSwitcher;
-	AmazingListView		   lsComposer;
-	GreatBuyzTextView		 dealSearch;
-	GreatBuyzTextView		 couponSearch;
-	GreatBuyzTextView		 couponDealSearch;
-	PaginationComposerAdapter adapter;
+	OnDealItemClick				 onDealItemClick;
+	TextView						emptyView;
+	ViewSwitcher					viewSwitcher;
+	AmazingListView				 lsComposer;
+	GreatBuyzTextView			   dealSearch;
+	GreatBuyzTextView			   couponSearch;
+	GreatBuyzTextView			   couponDealSearch;
+	PaginationComposerAdapter	   adapter;
 	CouponPaginationComposerAdapter adapterCoupon;
-	boolean				   isTaskPending	 = false;
-	//public boolean			GreatBuyzApplication.isCouponClicked   = false;
-	String					keyword;
-	String					selectedCategory;
-	String					city;
-	String					locality;
-	static Activity		   activity;
-	int					   totalVisibleItems = 0;
-	int					   currentCount	  = 0;
+	boolean						 isTaskPending	 = false;
+	// public boolean GreatBuyzApplication.isCouponClicked = false;
+	String						  keyword;
+	String						  selectedCategory;
+	String						  city;
+	String						  locality;
+	static Activity				 activity;
+	int							 totalVisibleItems = 0;
+	int							 currentCount	  = 0;
 	
 	public static ExploreDealResultFragment newInstance(Activity screen, String keyword, String selectedCategory, String city, String locality, OnDealItemClick dealItemClick)
 	{
@@ -76,7 +77,8 @@ public class ExploreDealResultFragment extends Fragment
 	{
 		super.onActivityCreated(savedInstanceState);
 		activity = getActivity();
-		if(GreatBuyzApplication.isCouponClicked){
+		if (GreatBuyzApplication.isCouponClicked)
+		{
 			if (GreatBuyzApplication.getDataController().getExploreCoupons() != null && GreatBuyzApplication.getDataController().getExploreCoupons().getExploreCouponsList().size() > 0)
 			{
 				initialiseListCoupon();
@@ -89,15 +91,15 @@ public class ExploreDealResultFragment extends Fragment
 		}
 		else
 		{
-		if (GreatBuyzApplication.getDataController().getExploreDeals() != null && GreatBuyzApplication.getDataController().getExploreDeals().getExploreDealsList().size() > 0)
-		{
-			initialiseListDeal();
-		}
-		else
-		{
-			listDealDownloader = new MyDealListDownloader();
-			listDealDownloader.execute();
-		}
+			if (GreatBuyzApplication.getDataController().getExploreDeals() != null && GreatBuyzApplication.getDataController().getExploreDeals().getExploreDealsList().size() > 0)
+			{
+				initialiseListDeal();
+			}
+			else
+			{
+				listDealDownloader = new MyDealListDownloader();
+				listDealDownloader.execute();
+			}
 		}
 		// lsComposer.setOnItemClickListener(new OnItemClickListener()
 		// {
@@ -130,7 +132,7 @@ public class ExploreDealResultFragment extends Fragment
 		super.onCreate(savedInstanceState);
 	}
 	
-	MyDealListDownloader listDealDownloader;
+	MyDealListDownloader   listDealDownloader;
 	MyCouponListDownloader listCouponDownloader;
 	
 	@Override
@@ -158,8 +160,8 @@ public class ExploreDealResultFragment extends Fragment
 		dealSearch = (GreatBuyzTextView) v.findViewById(R.id.dealsearch);
 		couponSearch = (GreatBuyzTextView) v.findViewById(R.id.couponsearch);
 		couponDealSearch = (GreatBuyzTextView) v.findViewById(R.id.coupondealsearch);
-//		final View couponBorder = (View) v.findViewById(R.id.bordercoupon);
-//		final View dealBorder = (View) v.findViewById(R.id.borderdeal);
+		// final View couponBorder = (View) v.findViewById(R.id.bordercoupon);
+		// final View dealBorder = (View) v.findViewById(R.id.borderdeal);
 		// final View searchBorder = (View) v.findViewById(R.id.bordersearch);
 		//
 		// GradientDrawable gd = new GradientDrawable();
@@ -227,7 +229,8 @@ public class ExploreDealResultFragment extends Fragment
 	{
 		super.onSaveInstanceState(outState);
 	}
-	//initialiseListCoupon
+	
+	// initialiseListCoupon
 	public void initialiseListCoupon()
 	{
 		// activity.runOnUiThread(new Runnable()
@@ -238,13 +241,12 @@ public class ExploreDealResultFragment extends Fragment
 			{
 				try
 				{
-					//lsComposer.invalidateViews();
-				//	lsComposer.
+					// lsComposer.invalidateViews();
+					// lsComposer.
 					lsComposer.setAdapter(adapterCoupon = new CouponPaginationComposerAdapter());
 					totalVisibleItems = lsComposer.getLastVisiblePosition() - lsComposer.getFirstVisiblePosition();
 					adapterCoupon.notifyDataSetChanged();
-					if (moreCouponPageAvailable())
-						adapterCoupon.notifyMayHaveMorePages();
+					if (moreCouponPageAvailable()) adapterCoupon.notifyMayHaveMorePages();
 				}
 				catch (Exception e)
 				{
@@ -253,6 +255,7 @@ public class ExploreDealResultFragment extends Fragment
 			}
 		});
 	}
+	
 	//
 	public void initialiseListDeal()
 	{
@@ -276,6 +279,7 @@ public class ExploreDealResultFragment extends Fragment
 			}
 		});
 	}
+	
 	//
 	class CouponPaginationComposerAdapter extends AmazingAdapter
 	{
@@ -285,9 +289,7 @@ public class ExploreDealResultFragment extends Fragment
 		public void reset()
 		{
 			viewSwitcher.setDisplayedChild(1);
-			
-				GreatBuyzApplication.getDataController().getExploreCoupons().getExploreCouponsList().clear();
-			
+			GreatBuyzApplication.getDataController().getExploreCoupons().getExploreCouponsList().clear();
 		}
 		
 		@Override
@@ -295,12 +297,10 @@ public class ExploreDealResultFragment extends Fragment
 		{
 			try
 			{
-				
 				if (moreCouponPageAvailable())
 					return GreatBuyzApplication.getDataController().getExploreCoupons().getExploreCouponsList().size() + 1;
 				else
 					return GreatBuyzApplication.getDataController().getExploreCoupons().getExploreCouponsList().size();
-				
 			}
 			catch (Exception e)
 			{}
@@ -310,9 +310,7 @@ public class ExploreDealResultFragment extends Fragment
 		@Override
 		public CouponScreenDTO getItem(int position)
 		{
-			
-				return GreatBuyzApplication.getDataController().getExploreCoupons().getExploreCouponsList().get(position);
-			
+			return GreatBuyzApplication.getDataController().getExploreCoupons().getExploreCouponsList().get(position);
 		}
 		
 		@Override
@@ -351,6 +349,7 @@ public class ExploreDealResultFragment extends Fragment
 			TextView	   txtDealLocation;
 			LinearLayout   layoutDealProContainer;
 			RelativeLayout list_entry_base_new;
+			Button		 coupon_buy;
 			
 			public ViewHolder(View v)
 			{
@@ -365,6 +364,7 @@ public class ExploreDealResultFragment extends Fragment
 				txtDealDiscHeading = (TextView) v.findViewById(R.id.txt_deal_desc_text);
 				layoutDealProContainer = (LinearLayout) v.findViewById(R.id.layoutDealProContainer);
 				list_entry_base_new = (RelativeLayout) v.findViewById(R.id.list_entry_base_new);
+				coupon_buy = (Button) v.findViewById(R.id.coupon_buy);
 				Typeface font = GreatBuyzApplication.getApplication().getFont();
 				txtDealVal.setTypeface(font);
 				txtDealDisc.setTypeface(font);
@@ -373,9 +373,9 @@ public class ExploreDealResultFragment extends Fragment
 				txtDealDiscHeading.setTypeface(font);
 				txtDealPayHeading.setTypeface(font);
 				txtDealDesc.setTypeface(font);
-				/*
-				 * txtEuroSymbol1 = (TextView) v.findViewById(R.id.txt_euro_symbol_1); txtEuroSymbol1.setTypeface(font); txtEuroSymbol2 = (TextView) v.findViewById(R.id.txt_euro_symbol_2); txtEuroSymbol2.setTypeface(font);
-				 */
+				coupon_buy.setTypeface(font);
+				Utils.setMessageToButton(coupon_buy, Utils.getMessageString(AppConstants.Messages.btnCouponVisitText, R.string.btnVisitCoupon));
+				
 				txtPercentSymbol = (TextView) v.findViewById(R.id.txt_percent_symbol);
 				txtPercentSymbol.setTypeface(font);
 			}
@@ -404,23 +404,10 @@ public class ExploreDealResultFragment extends Fragment
 				if (createNew)
 				{
 					row = (View) getActivity().getLayoutInflater().inflate(R.layout.deallistitem_coupon, null);
-//					if (Utils.useExpandedImageDealLayout() && !GreatBuyzApplication.isCouponClicked)
-//						// row = (View)
-//						// activity.getLayoutInflater().inflate(R.layout.deallistitemtim,
-//						// null);
-//						row = (View) getActivity().getLayoutInflater().inflate(R.layout.deallistitemimageexpand, null);
-//					else
-//						// row = (View)
-//						// activity.getLayoutInflater().inflate(R.layout.deallistitem,
-//						// null);
-//						row = (View) getActivity().getLayoutInflater().inflate(R.layout.deallistitem_coupon, null);
 					holder = new ViewHolder(row);
 					row.setTag(holder);
 				}
-//				if (GreatBuyzApplication.isCouponClicked)
-//				{
-					holder.layoutDealProContainer.setVisibility(View.GONE);
-				//}
+				holder.layoutDealProContainer.setVisibility(View.GONE);
 				holder.img.setImageResource(R.drawable.default_category);
 				String imgUrl = item.getImage();
 				holder.img.setTag(imgUrl);
@@ -450,26 +437,28 @@ public class ExploreDealResultFragment extends Fragment
 					@Override
 					public void onClick(View v)
 					{
-						// holder.layoutDealProContainer.setVisibility(View.GONE);
-//						if (GreatBuyzApplication.isCouponClicked)
-//						{
-							if (((ViewGroup) v).getChildAt(3).getVisibility() == View.VISIBLE && position < GreatBuyzApplication.getDataController().getExploreCoupons().getExploreCouponsList().size()) 
-								Utils.startCouponDetailsScreenNew(getActivity(), position, AppConstants.FramentConstants.EXPLORE_COUPONS);
-							((ViewGroup) v).getChildAt(3).setVisibility(View.VISIBLE);
-//						}
-//						else
-//						{
-//							if (position < GreatBuyzApplication.getDataController().getExploreDeals().getExploreDealsList().size()) 
-//								Utils.startDetailsScreenNew(getActivity(), position, AppConstants.FramentConstants.EXPLORE_DEALS);
-//						}
+						if (((ViewGroup) v).getChildAt(3).getVisibility() == View.VISIBLE && position < GreatBuyzApplication.getDataController().getExploreCoupons().getExploreCouponsList().size()) Utils.startCouponDetailsScreenNew(getActivity(), position, AppConstants.FramentConstants.EXPLORE_COUPONS);
+						((ViewGroup) v).getChildAt(3).setVisibility(View.VISIBLE);
+					}
+				});
+				holder.coupon_buy.setOnClickListener(new OnClickListener()
+				{
+					@Override
+					public void onClick(View v)
+					{
+						Bundle b = new Bundle();
+						b.putString("message", "");
+						b.putString(AppConstants.JSONKeys.DEAL_ID, item.getDealId());
+						b.putString(AppConstants.JSONKeys.LOCATIONS, item.getDetails());
+						b.putString(AppConstants.JSONKeys.MDN, "");
+						b.putString(AppConstants.JSONKeys.URL, item.getDealVisitUri());
+						b.putString(AppConstants.JSONKeys.COUPON, item.getCouponCode());
+						showOtherDialog(AppConstants.DialogConstants.BUY_CONFIRMATION_DIALOG, b);
 					}
 				});
 			}
 			else
 			{
-				// row =
-				// activity.getLayoutInflater().inflate(R.layout.loading_view,
-				// null);
 				row = getActivity().getLayoutInflater().inflate(R.layout.searching_deals_view, null);
 			}
 			return row;
@@ -499,7 +488,6 @@ public class ExploreDealResultFragment extends Fragment
 	}
 	
 	//
-	
 	class PaginationComposerAdapter extends AmazingAdapter
 	{
 		public PaginationComposerAdapter()
@@ -516,12 +504,10 @@ public class ExploreDealResultFragment extends Fragment
 		{
 			try
 			{
-				
-					if (moreDealPageAvailable())
-						return GreatBuyzApplication.getDataController().getExploreDeals().getExploreDealsList().size() + 1;
-					else
-						return GreatBuyzApplication.getDataController().getExploreDeals().getExploreDealsList().size();
-				
+				if (moreDealPageAvailable())
+					return GreatBuyzApplication.getDataController().getExploreDeals().getExploreDealsList().size() + 1;
+				else
+					return GreatBuyzApplication.getDataController().getExploreDeals().getExploreDealsList().size();
 			}
 			catch (Exception e)
 			{}
@@ -531,7 +517,6 @@ public class ExploreDealResultFragment extends Fragment
 		@Override
 		public DealScreenDTO getItem(int position)
 		{
-			
 			return GreatBuyzApplication.getDataController().getExploreDeals().getExploreDealsList().get(position);
 		}
 		
@@ -623,16 +608,16 @@ public class ExploreDealResultFragment extends Fragment
 				}
 				if (createNew)
 				{
-					//if (Utils.useExpandedImageDealLayout() && !GreatBuyzApplication.isCouponClicked)
-						// row = (View)
-						// activity.getLayoutInflater().inflate(R.layout.deallistitemtim,
-						// null);
-						row = (View) getActivity().getLayoutInflater().inflate(R.layout.deallistitemimageexpand, null);
-					//else
-						// row = (View)
-						// activity.getLayoutInflater().inflate(R.layout.deallistitem,
-						// null);
-					//	row = (View) getActivity().getLayoutInflater().inflate(R.layout.deallistitem_coupon, null);
+					// if (Utils.useExpandedImageDealLayout() && !GreatBuyzApplication.isCouponClicked)
+					// row = (View)
+					// activity.getLayoutInflater().inflate(R.layout.deallistitemtim,
+					// null);
+					row = (View) getActivity().getLayoutInflater().inflate(R.layout.deallistitemimageexpand, null);
+					// else
+					// row = (View)
+					// activity.getLayoutInflater().inflate(R.layout.deallistitem,
+					// null);
+					// row = (View) getActivity().getLayoutInflater().inflate(R.layout.deallistitem_coupon, null);
 					holder = new ViewHolder(row);
 					row.setTag(holder);
 				}
@@ -670,17 +655,16 @@ public class ExploreDealResultFragment extends Fragment
 					public void onClick(View v)
 					{
 						// holder.layoutDealProContainer.setVisibility(View.GONE);
-//						if (GreatBuyzApplication.isCouponClicked)
-//						{
-//							if (((ViewGroup) v).getChildAt(3).getVisibility() == View.VISIBLE && position < GreatBuyzApplication.getDataController().getExploreCoupons().getExploreCouponsList().size()) 
-//								Utils.startCouponDetailsScreenNew(getActivity(), position, AppConstants.FramentConstants.EXPLORE_COUPONS);
-//							((ViewGroup) v).getChildAt(3).setVisibility(View.VISIBLE);
-//						}
-//						else
-//						{
-							if (position < GreatBuyzApplication.getDataController().getExploreDeals().getExploreDealsList().size()) 
-								Utils.startDetailsScreenNew(getActivity(), position, AppConstants.FramentConstants.EXPLORE_DEALS);
-				//		}
+						// if (GreatBuyzApplication.isCouponClicked)
+						// {
+						// if (((ViewGroup) v).getChildAt(3).getVisibility() == View.VISIBLE && position < GreatBuyzApplication.getDataController().getExploreCoupons().getExploreCouponsList().size())
+						// Utils.startCouponDetailsScreenNew(getActivity(), position, AppConstants.FramentConstants.EXPLORE_COUPONS);
+						// ((ViewGroup) v).getChildAt(3).setVisibility(View.VISIBLE);
+						// }
+						// else
+						// {
+						if (position < GreatBuyzApplication.getDataController().getExploreDeals().getExploreDealsList().size()) Utils.startDetailsScreenNew(getActivity(), position, AppConstants.FramentConstants.EXPLORE_DEALS);
+						// }
 					}
 				});
 			}
@@ -745,13 +729,12 @@ public class ExploreDealResultFragment extends Fragment
 			catch (Exception e)
 			{}
 			//
-		
-				try
-				{
-					listDealDownloader.cancel(true);
-				}
-				catch (Exception e)
-				{}
+			try
+			{
+				listDealDownloader.cancel(true);
+			}
+			catch (Exception e)
+			{}
 			// adapter = null;
 			// listDownloader = null;
 			isTaskPending = true;
@@ -775,15 +758,15 @@ public class ExploreDealResultFragment extends Fragment
 			try
 			{
 				ClipResponse clipResponse = null;
-				//ClipResponse clipResponse = GreatBuyzApplication.getServiceDelegate().getExploreDeals(city, locality, selectedCategory, keyword, GreatBuyzApplication.getApplication().getLimitForExploreDeals(), GreatBuyzApplication.getApplication().getSkipIndexForExploreDeals());
-//				if(GreatBuyzApplication.isCouponClicked){
-//					clipResponse = GreatBuyzApplication.getServiceDelegate().getExploreCoupons(city, locality, selectedCategory, keyword, GreatBuyzApplication.getApplication().getLimitForExploreDeals(), GreatBuyzApplication.getApplication().getSkipIndexForExploreDeals());
-//
-//				}
-//				else
-//				{
-				 clipResponse = GreatBuyzApplication.getServiceDelegate().getExploreDeals(city, locality, selectedCategory, keyword, GreatBuyzApplication.getApplication().getLimitForExploreDeals(), GreatBuyzApplication.getApplication().getSkipIndexForExploreDeals());
-//				}
+				// ClipResponse clipResponse = GreatBuyzApplication.getServiceDelegate().getExploreDeals(city, locality, selectedCategory, keyword, GreatBuyzApplication.getApplication().getLimitForExploreDeals(), GreatBuyzApplication.getApplication().getSkipIndexForExploreDeals());
+				// if(GreatBuyzApplication.isCouponClicked){
+				// clipResponse = GreatBuyzApplication.getServiceDelegate().getExploreCoupons(city, locality, selectedCategory, keyword, GreatBuyzApplication.getApplication().getLimitForExploreDeals(), GreatBuyzApplication.getApplication().getSkipIndexForExploreDeals());
+				//
+				// }
+				// else
+				// {
+				clipResponse = GreatBuyzApplication.getServiceDelegate().getExploreDeals(city, locality, selectedCategory, keyword, GreatBuyzApplication.getApplication().getLimitForExploreDeals(), GreatBuyzApplication.getApplication().getSkipIndexForExploreDeals());
+				// }
 				return clipResponse;
 			}
 			catch (Exception e)
@@ -826,10 +809,10 @@ public class ExploreDealResultFragment extends Fragment
 					{
 						if (GreatBuyzApplication.getDataController().getExploreDeals() == null || GreatBuyzApplication.getDataController().getExploreDeals().getExploreDealsList().size() == 0)
 						{
-//							viewSwitcher.setDisplayedChild(1);
-//							Bundle b = new Bundle();
-//							b.putString(AppConstants.JSONKeys.MESSAGE, getString(R.string.failed_search_dialog_message));
-//							showOtherDialog(AppConstants.DialogConstants.FAILED_SEARCH_DIALOG, b);
+							// viewSwitcher.setDisplayedChild(1);
+							// Bundle b = new Bundle();
+							// b.putString(AppConstants.JSONKeys.MESSAGE, getString(R.string.failed_search_dialog_message));
+							// showOtherDialog(AppConstants.DialogConstants.FAILED_SEARCH_DIALOG, b);
 							if (adapter == null)
 							{
 								initialiseListDeal();
@@ -837,8 +820,7 @@ public class ExploreDealResultFragment extends Fragment
 							viewSwitcher.setDisplayedChild(1);
 							if (emptyView != null)
 							{
-								String err = Utils
-										.getMessageString(AppConstants.Messages.emptyDeal, R.string.emptyDeal);
+								String err = Utils.getMessageString(AppConstants.Messages.emptyDeal, R.string.emptyDeal);
 								emptyView.setText(err);
 							}
 						}
@@ -853,15 +835,15 @@ public class ExploreDealResultFragment extends Fragment
 				{
 					if (GreatBuyzApplication.getDataController().getExploreDeals() == null || GreatBuyzApplication.getDataController().getExploreDeals().getExploreDealsList().size() == 0)
 					{
-//						String err = Utils.getMessageString(AppConstants.Messages.networkProblemMessage, R.string.networkProblemMessage);
-//						if (emptyView != null)
-//						{
-//							emptyView.setText(err);
-//						}
-//						viewSwitcher.setDisplayedChild(1);
-//						Bundle b = new Bundle();
-//						b.putString(AppConstants.JSONKeys.MESSAGE, err);
-//						showOtherDialog(AppConstants.DialogConstants.FAILED_SEARCH_DIALOG, b);
+						// String err = Utils.getMessageString(AppConstants.Messages.networkProblemMessage, R.string.networkProblemMessage);
+						// if (emptyView != null)
+						// {
+						// emptyView.setText(err);
+						// }
+						// viewSwitcher.setDisplayedChild(1);
+						// Bundle b = new Bundle();
+						// b.putString(AppConstants.JSONKeys.MESSAGE, err);
+						// showOtherDialog(AppConstants.DialogConstants.FAILED_SEARCH_DIALOG, b);
 						if (adapter == null)
 						{
 							initialiseListDeal();
@@ -869,8 +851,7 @@ public class ExploreDealResultFragment extends Fragment
 						viewSwitcher.setDisplayedChild(1);
 						if (emptyView != null)
 						{
-							String err = Utils
-									.getMessageString(AppConstants.Messages.networkProblemMessage, R.string.networkProblemMessage);
+							String err = Utils.getMessageString(AppConstants.Messages.networkProblemMessage, R.string.networkProblemMessage);
 							emptyView.setText(err);
 						}
 					}
@@ -888,6 +869,7 @@ public class ExploreDealResultFragment extends Fragment
 			}
 		}
 	}
+	
 	//
 	class MyCouponListDownloader extends AsyncTask<Void, Void, CouponClipResponse>
 	{
@@ -896,8 +878,7 @@ public class ExploreDealResultFragment extends Fragment
 		{
 			try
 			{
-				//ClipResponse clipResponse = GreatBuyzApplication.getServiceDelegate().getExploreDeals(city, locality, selectedCategory, keyword, GreatBuyzApplication.getApplication().getLimitForExploreDeals(), GreatBuyzApplication.getApplication().getSkipIndexForExploreDeals());
-				
+				// ClipResponse clipResponse = GreatBuyzApplication.getServiceDelegate().getExploreDeals(city, locality, selectedCategory, keyword, GreatBuyzApplication.getApplication().getLimitForExploreDeals(), GreatBuyzApplication.getApplication().getSkipIndexForExploreDeals());
 				CouponClipResponse clipResponse = GreatBuyzApplication.getServiceDelegate().getExploreCoupons(city, locality, selectedCategory, keyword, GreatBuyzApplication.getApplication().getLimitForExploreDeals(), GreatBuyzApplication.getApplication().getSkipIndexForExploreDeals());
 				return clipResponse;
 			}
@@ -941,10 +922,10 @@ public class ExploreDealResultFragment extends Fragment
 					{
 						if (GreatBuyzApplication.getDataController().getExploreCoupons() == null || GreatBuyzApplication.getDataController().getExploreCoupons().getExploreCouponsList().size() == 0)
 						{
-//							viewSwitcher.setDisplayedChild(1);
-//							Bundle b = new Bundle();
-//							b.putString(AppConstants.JSONKeys.MESSAGE, getString(R.string.failed_search_dialog_message));
-//							showOtherDialog(AppConstants.DialogConstants.FAILED_SEARCH_DIALOG, b);
+							// viewSwitcher.setDisplayedChild(1);
+							// Bundle b = new Bundle();
+							// b.putString(AppConstants.JSONKeys.MESSAGE, getString(R.string.failed_search_dialog_message));
+							// showOtherDialog(AppConstants.DialogConstants.FAILED_SEARCH_DIALOG, b);
 							if (adapterCoupon == null)
 							{
 								initialiseListCoupon();
@@ -952,34 +933,32 @@ public class ExploreDealResultFragment extends Fragment
 							viewSwitcher.setDisplayedChild(1);
 							if (emptyView != null)
 							{
-								String err = Utils
-										.getMessageString(AppConstants.Messages.emptyMyCouponListMessage, R.string.emptyMyCouponListMessage);
+								String err = Utils.getMessageString(AppConstants.Messages.emptyMyCouponListMessage, R.string.emptyMyCouponListMessage);
 								emptyView.setText(err);
 							}
-							
 						}
 						else
 						{
 							if (adapterCoupon != null) adapterCoupon.notifyNoMorePages();
-							//if (adapter != null) adapter.notifyDataSetChanged();
+							// if (adapter != null) adapter.notifyDataSetChanged();
 						}
 						if (adapterCoupon != null) adapterCoupon.notifyDataSetChanged();
-						//if (adapter != null) adapter.notifyDataSetChanged();
+						// if (adapter != null) adapter.notifyDataSetChanged();
 					}
 				}
 				else
 				{
 					if (GreatBuyzApplication.getDataController().getExploreCoupons() == null || GreatBuyzApplication.getDataController().getExploreCoupons().getExploreCouponsList().size() == 0)
 					{
-//						String err = Utils.getMessageString(AppConstants.Messages.networkProblemMessage, R.string.networkProblemMessage);
-//						if (emptyView != null)
-//						{
-//							emptyView.setText(err);
-//						}
-//						viewSwitcher.setDisplayedChild(1);
-//						Bundle b = new Bundle();
-//						b.putString(AppConstants.JSONKeys.MESSAGE, err);
-//						showOtherDialog(AppConstants.DialogConstants.FAILED_SEARCH_DIALOG, b);
+						// String err = Utils.getMessageString(AppConstants.Messages.networkProblemMessage, R.string.networkProblemMessage);
+						// if (emptyView != null)
+						// {
+						// emptyView.setText(err);
+						// }
+						// viewSwitcher.setDisplayedChild(1);
+						// Bundle b = new Bundle();
+						// b.putString(AppConstants.JSONKeys.MESSAGE, err);
+						// showOtherDialog(AppConstants.DialogConstants.FAILED_SEARCH_DIALOG, b);
 						if (adapterCoupon == null)
 						{
 							initialiseListCoupon();
@@ -987,8 +966,7 @@ public class ExploreDealResultFragment extends Fragment
 						viewSwitcher.setDisplayedChild(1);
 						if (emptyView != null)
 						{
-							String err = Utils
-									.getMessageString(AppConstants.Messages.networkProblemMessage, R.string.networkProblemMessage);
+							String err = Utils.getMessageString(AppConstants.Messages.networkProblemMessage, R.string.networkProblemMessage);
 							emptyView.setText(err);
 						}
 					}
@@ -1006,7 +984,8 @@ public class ExploreDealResultFragment extends Fragment
 			}
 		}
 	}
-	//moreCouponPageAvailable
+	
+	// moreCouponPageAvailable
 	public boolean moreCouponPageAvailable()
 	{
 		if (lsComposer == null) return false;
@@ -1020,6 +999,7 @@ public class ExploreDealResultFragment extends Fragment
 		{}
 		return morePage;
 	}
+	
 	//
 	public boolean moreDealPageAvailable()
 	{
@@ -1048,13 +1028,11 @@ public class ExploreDealResultFragment extends Fragment
 			catch (Exception e)
 			{}
 		}
-
 	}
 	
 	public void stopCouponDownloader()
 	{
 		boolean isTaskRunning = false;
-
 		if (listCouponDownloader != null) isTaskRunning = listCouponDownloader.getStatus() == AsyncTask.Status.FINISHED ? false : true;
 		if (isTaskRunning)
 		{

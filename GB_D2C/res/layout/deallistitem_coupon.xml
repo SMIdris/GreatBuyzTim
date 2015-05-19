@@ -114,7 +114,7 @@
                     android:gravity="center"
                     android:paddingBottom="2dip"
                     android:paddingLeft="3dip"
-                    android:textColor="#004C92"
+                    android:textColor="#D06D7E"
                     android:textSize="15sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -175,7 +175,7 @@
                     android:gravity="center"
                     android:paddingBottom="2dip"
                     android:paddingLeft="3dip"
-                    android:textColor="#004C92"
+                    android:textColor="#D06D7E"
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -198,6 +198,7 @@
                 android:paddingLeft="30dp"
                 android:text="@string/btnGiftAFriend"
                 android:textColor="@color/black"
+                android:visibility="invisible"
                 android:textSize="@dimen/visit_buy"
                 android:textStyle="bold" />
 

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/deal_detail_screen_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/btnlayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <RelativeLayout
+            android:id="@+id/layout_expire"
+            android:layout_width="fill_parent"
+            android:layout_height="25dip"
+            android:background="@color/deal_detail_screen_exp_time_bg" >
+
+            <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
+                android:id="@+id/txt_expire_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dip"
+                android:drawableLeft="@drawable/expired_icon"
+                android:drawablePadding="5dip"
+                android:focusable="false"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="11sp" />
+        </RelativeLayout>
+
+        <RelativeLayout 
+            android:id="@+id/btLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:padding="5dp"
+            android:orientation="horizontal"
+	        android:layout_below="@+id/layout_expire"
+            >
+        <Button
+            android:id="@+id/btnDetailVisitDealSingle"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:background="@drawable/buybt"
+            android:focusable="false"
+            android:layout_alignParentLeft="true"
+            android:focusableInTouchMode="true"
+            android:shadowColor="@color/visitnbuyshadow"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:text="@string/btnVisitCoupon"
+            android:textColor="@color/black"
+            android:textSize="@dimen/visit_buy"
+            android:textStyle="bold"
+            android:visibility="visible" />
+         <Button
+                android:id="@+id/btnDetailGiftDeal"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:paddingLeft="30dp"
+                android:visibility="invisible"
+                android:text="@string/btnGiftAFriend"
+                android:textColor="@color/black"
+                android:textSize="@dimen/visit_buy"
+            android:textStyle="bold"
+                android:background="@drawable/btn_gift_xml" />
+         </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_below="@+id/btLayout" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/btnlayout"
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="15dip" >
+
+        <RelativeLayout
+            android:id="@+id/detailedScrollChild"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:focusable="false"
+            android:focusableInTouchMode="true" >
+
+            <LinearLayout
+                android:id="@+id/imgBtnContainer"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+<!--                 <ImageView
+                    android:id="@+id/imgDetailDeal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="180dip"
+                    android:background="@drawable/default_deal_display"
+                    android:scaleType="centerCrop" />
+ -->
+				
+				<include layout="@layout/detailed_deal_image"/>
+
+
+                <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
+                    android:id="@+id/txtDetailDesc"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:padding="15dip"
+                    android:textColor="@color/deal_detail_screen_text_col"
+                    android:textSize="14sp" />
+               
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutDetailDealProContainer"
+                android:layout_width="fill_parent"
+                android:layout_height="52dip"
+                android:layout_below="@+id/imgBtnContainer"
+                android:layout_marginLeft="15dip"
+                android:layout_marginRight="15dip"
+                android:layout_marginTop="10dip"
+                android:background="@drawable/deal_detail_bg"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
+                        android:id="@+id/txt_deal_value_text"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingLeft="3dip"
+                        android:text="@string/value"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal" >
+
+                        <!-- <com.onmobile.utils.GreatBuyzTextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:focusable="false"
+                            android:gravity="center"
+                            android:paddingLeft="3dip"
+                            android:text="@string/euro"
+                            android:textColor="#000000"
+                            android:textSize="12sp" /> -->
+                            <ImageView 
+                                android:layout_width="8dp"
+                            android:layout_height="10dp"
+                            android:layout_marginTop="2dp"
+                            android:background="@drawable/rupee"
+                                />
+                        <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
+                            android:id="@+id/txt_detail_deal_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingLeft="3dip"
+                             android:paddingTop="2dp"
+                            android:textColor="@color/deal_detail_screen_price_txt_peach"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
+                    android:layout_width="1dip"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/price_box_devider" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
+                        android:id="@+id/txt_deal_desc_text"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingLeft="3dip"
+                        android:text="@string/discount"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal" >
+
+                        <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
+                            android:id="@+id/txt_detail_deal_desc_val"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:gravity="center"
+                            android:paddingLeft="3dip"
+                            android:textColor="@color/deal_detail_screen_price_txt_peach"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
+                            android:id="@+id/percentage_txt"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:focusable="false"
+                            android:gravity="center"
+                            android:paddingLeft="3dip"
+                            android:text="@string/percent"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
+                    android:layout_width="1dip"
+                    android:layout_height="fill_parent"
+                    android:visibility="gone"
+                    android:background="@drawable/price_box_devider" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:orientation="vertical" >
+
+                    <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
+                        android:id="@+id/txt_deal_pay_text"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingLeft="3dip"
+                        android:text="@string/pay"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal" >
+
+                         <!-- <com.onmobile.utils.GreatBuyzTextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:focusable="false"
+                            android:gravity="center"
+                            android:paddingLeft="3dip"
+                            android:text="@string/euro"
+                            android:textColor="#000000"
+                            android:textSize="12sp" /> -->
+                            <ImageView 
+                                android:layout_width="8dp"
+                            android:layout_height="10dp"
+                            android:layout_marginTop="2dp"
+                            android:background="@drawable/rupee"
+                                />
+                        <com.turacomobile.greatbuyz.utils.GreatBuyzTextView
+                            android:id="@+id/txt_detail_deal_pay_val"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingLeft="3dip"
+                             android:paddingTop="2dp"
+                             android:text="100"
+                            android:textColor="@color/deal_detail_screen_price_txt_peach"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

@@ -31,13 +31,13 @@
                 android:id="@+id/dealsearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="3dip"
-                android:layout_marginTop="6dip"
+                android:layout_marginBottom="4dip"
+                android:layout_marginTop="8dip"
                 android:background="@anim/border_bottom"
                 android:gravity="center"
                 android:text="@string/searchDeals"
                 android:textColor="@color/white"
-                android:textSize="10sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <View
@@ -58,13 +58,13 @@
                 android:id="@+id/couponsearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="3dip"
-                android:layout_marginTop="6dip"
+                android:layout_marginBottom="4dip"
+                android:layout_marginTop="8dip"
                 android:background="@android:color/transparent"
                 android:gravity="center"
                 android:text="@string/searchCOUPONS"
                 android:textColor="@color/white"
-                android:textSize="10sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <View
@@ -85,14 +85,14 @@
                 android:id="@+id/coupondealsearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="3dip"
-                android:layout_marginTop="6dip"
+                android:layout_marginBottom="4dip"
+                android:layout_marginTop="8dip"
                 android:drawablePadding="5dip"
                 android:drawableRight="@drawable/search_new"
                 android:gravity="center"
                 android:text="@string/searchNew"
                 android:textColor="@color/white"
-                android:textSize="10sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <View

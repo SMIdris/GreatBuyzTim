@@ -22,7 +22,7 @@ public class AuthDialogListener implements DialogListener
 	public void onComplete(Receipt receipt)
 	{
 		// Fetch values from receipt
-		Toast.makeText(context, "Transaction ID:: " + receipt.getTransactionId() + "\nStatus=" + receipt.getStatus(), Toast.LENGTH_LONG).show();
+		Toast.makeText(context, "Transaction ID: " + receipt.getTransactionId() + "\nStatus=" + receipt.getStatus(), Toast.LENGTH_LONG).show();
 		Acknowledgement auth = new Acknowledgement(receipt.getTransactionId());
 		auth.execute("");
 		// PaymentActivity.dialogConfirm(context);
@@ -31,20 +31,21 @@ public class AuthDialogListener implements DialogListener
 	@Override
 	public void onCCBError(CCBError e)
 	{
-		Toast.makeText(context, "CCB Error ! " + e.getMessage(), Toast.LENGTH_LONG).show();
+		Toast.makeText(context, "Payment Error ! " + e.getMessage(), Toast.LENGTH_LONG).show();
 		e.printStackTrace();
 	}
 	
 	@Override
 	public void onError(DialogError e)
 	{
-		Toast.makeText(context, "Dialog error !", Toast.LENGTH_LONG).show();
+		Toast.makeText(context, "Payment error !", Toast.LENGTH_LONG).show();
 	}
 	
 	@Override
 	public void onCancel()
 	{
-		Toast.makeText(context, "Dialog cancelled !", Toast.LENGTH_LONG).show();
+		Toast.makeText(context, "Payment cancelled !", Toast.LENGTH_LONG).show();
 		// PaymentActivity.dialogConfirm(context);
 	}
+	
 }

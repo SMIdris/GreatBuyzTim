@@ -628,6 +628,8 @@ public class ResponseParser
 				image = images.optString(0);
 		}
 		String couponPrice = dealObject.optString(AppConstants.JSONKeys.COUPON_PRICE, null);
+		String couponCode = dealObject.optString(AppConstants.JSONKeys.COUPON_CODE, null);
+		
 		String price = dealObject.optString(AppConstants.JSONKeys.PRICE, null);
 		String discount = dealObject.optString(AppConstants.JSONKeys.DISCOUNT, null);
 		discount = formatDecimalToString(discount);
@@ -774,7 +776,7 @@ public class ResponseParser
 		String dealVisitUrl = dealObject.optString(AppConstants.JSONKeys.VISIT_URL, null);
 
 		return new CouponDeal(id, null, 0, name, null, longDescription, image, couponPrice, price, discount, null, location, null, null, tnc, merchant,
-				null, tags, null, null, null, dealVisitUrl);
+				null, tags, null, null, null, dealVisitUrl,couponCode);
 
 		// return new Deal(id, refId, promotionPriority, name, description,
 		// longDescription, image, couponPrice, price, discount, contact,

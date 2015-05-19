@@ -18,9 +18,10 @@ public class CouponScreenDTO
 	private Date _expire;
 	private boolean _isExclusiveDeal;
 	private String _dealLocation;
+	private String _couponCode;
 
 	public CouponScreenDTO(String dealId, String merchantName, String name, String image, String details, String couponPrice, String price,
-			String discount, String category, String dealVisitUrl, Date expire, boolean isExclusiveDeal, String dealLocation)
+			String discount, String category, String dealVisitUrl, Date expire, boolean isExclusiveDeal, String dealLocation, String couponCode)
 	{
 		_dealId = dealId;
 		_merchantName = merchantName;
@@ -35,11 +36,22 @@ public class CouponScreenDTO
 		_expire = expire;
 		_isExclusiveDeal = isExclusiveDeal;
 		_dealLocation = dealLocation;
+		_couponCode = couponCode;
 	}
 
 	public String getDealId()
 	{
 		return _dealId;
+	}
+	
+	public String getCouponCode()
+	{
+		return _couponCode;
+	}
+
+	public void setCouponCode(String couponCode)
+	{
+		 _couponCode = couponCode ;
 	}
 
 	public String getName()

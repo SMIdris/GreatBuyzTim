@@ -25,6 +25,7 @@ public class CouponDeal
 	private Date _retrievedOn;
 
 	private String _couponPrice;
+	private String _couponCode;
 	private String _price;
 	private String _discount;
 
@@ -36,7 +37,7 @@ public class CouponDeal
 	public CouponDeal(String id, String refId, int promotionPriority, String name, String description, String longDescription, String image,
 			String couponPrice, String price, String discount, Contact contact, String locations, String language, String category,
 			TnC tnc, Merchant merchant, List<String> operators, List<String> tags, List<String> reviews, String source, Date retrievedOn,
-			String dealVisitUrl)
+			String dealVisitUrl,String couponCode)
 	{
 		_id = id;
 		_refId = refId;
@@ -60,6 +61,7 @@ public class CouponDeal
 		_tnc = tnc;
 		_merchant = merchant;
 		_dealVisitUrl = dealVisitUrl;
+		_couponCode = couponCode;
 	}
 
 	public String getId()
@@ -70,6 +72,16 @@ public class CouponDeal
 	public String getRefId()
 	{
 		return _refId;
+	}
+	
+	public String getCouponCode()
+	{
+		return _couponCode;
+	}
+
+	public void setCouponCode(String couponCode)
+	{
+		 _couponCode = couponCode ;
 	}
 
 	public String getName()

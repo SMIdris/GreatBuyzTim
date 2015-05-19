@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -244,6 +245,7 @@ public class ExploreCouponResultFragment extends Fragment
 			TextView	   txtDealLocation;
 			LinearLayout   layoutDealProContainer;
 			RelativeLayout list_entry_base_new;
+			Button	   coupon_buy;
 			
 			public ViewHolder(View v)
 			{
@@ -258,6 +260,7 @@ public class ExploreCouponResultFragment extends Fragment
 				txtDealDiscHeading = (TextView) v.findViewById(R.id.txt_deal_desc_text);
 				layoutDealProContainer = (LinearLayout) v.findViewById(R.id.layoutDealProContainer);
 				list_entry_base_new = (RelativeLayout) v.findViewById(R.id.list_entry_base_new);
+				coupon_buy = (Button)v.findViewById(R.id.coupon_buy);
 				Typeface font = GreatBuyzApplication.getApplication().getFont();
 				txtDealVal.setTypeface(font);
 				txtDealDisc.setTypeface(font);
@@ -266,6 +269,9 @@ public class ExploreCouponResultFragment extends Fragment
 				txtDealDiscHeading.setTypeface(font);
 				txtDealPayHeading.setTypeface(font);
 				txtDealDesc.setTypeface(font);
+				coupon_buy.setTypeface(font);
+				Utils.setMessageToButton(coupon_buy, Utils.getMessageString(AppConstants.Messages.btnCouponVisitText, R.string.btnVisitCoupon));
+
 				/*
 				 * txtEuroSymbol1 = (TextView) v.findViewById(R.id.txt_euro_symbol_1); txtEuroSymbol1.setTypeface(font); txtEuroSymbol2 = (TextView) v.findViewById(R.id.txt_euro_symbol_2); txtEuroSymbol2.setTypeface(font);
 				 */
@@ -318,6 +324,22 @@ public class ExploreCouponResultFragment extends Fragment
 						// holder.layoutDealProContainer.setVisibility(View.GONE);
 						if (((ViewGroup) v).getChildAt(3).getVisibility() == View.VISIBLE && position < GreatBuyzApplication.getDataController().getExclusiveCouponsDTO().getExclusiveCouponsList().size()) Utils.startCouponDetailsScreenNew(getActivity(), position, AppConstants.FramentConstants.EXCLUSIVE_COUPONS);
 						((ViewGroup) v).getChildAt(3).setVisibility(View.VISIBLE);
+					}
+				});
+				holder.coupon_buy.setOnClickListener(new OnClickListener()
+				{
+					@Override
+					public void onClick(View v)
+					{
+						Bundle b = new Bundle();
+						b.putString("message", "");
+						b.putString(AppConstants.JSONKeys.DEAL_ID, item.getDealId());
+						b.putString(AppConstants.JSONKeys.LOCATIONS, item.getDetails());
+						b.putString(AppConstants.JSONKeys.MDN, "");
+						// b.putString(AppConstants.JSONKeys.NAME, "DealDetail");
+						b.putString(AppConstants.JSONKeys.URL, item.getDealVisitUri());
+						b.putString(AppConstants.JSONKeys.COUPON, item.getCouponCode());
+						showOtherDialog(AppConstants.DialogConstants.BUY_CONFIRMATION_DIALOG, b);
 					}
 				});
 				// holder.layoutDealProContainer.setOnClickListener(new OnClickListener()

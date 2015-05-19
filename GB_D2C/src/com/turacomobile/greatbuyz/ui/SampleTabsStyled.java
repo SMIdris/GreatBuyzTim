@@ -5,15 +5,19 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.ActionBar.LayoutParams;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -950,7 +954,7 @@ public class SampleTabsStyled extends FragmentActivity implements OnCategoryClic
 	boolean isCategoryChange   = false;
 	String  modifiedEmailValue = null;
 	
-	@Override
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB) @Override
 	protected Dialog onCreateDialog(int id, Bundle args)
 	{
 		String message = null;
@@ -1380,6 +1384,75 @@ public class SampleTabsStyled extends FragmentActivity implements OnCategoryClic
 				});
 				TextView msgText1 = (TextView) dialog1.findViewById(R.id.msg);
 				msgText1.setText(message);
+				msgText1.setTypeface(GreatBuyzApplication.getApplication().getFont());
+				TextView titleText11 = (TextView) dialog1.findViewById(R.id.title);
+				titleText11.setText(AppConstants.EMPTY_STRING);
+				titleText11.setTypeface(GreatBuyzApplication.getApplication().getFont());
+				return dialog1;
+			}
+			case AppConstants.DialogConstants.BUY_CONFIRMATION_DIALOG:
+			{
+				String message1 = args.getString("message");
+				// final String did = args.getString(AppConstants.JSONKeys.DEAL_ID);
+				// final String mdn = args.getString(AppConstants.JSONKeys.MDN);
+				// final String location = args.getString(AppConstants.JSONKeys.LOCATIONS);
+				// final String activityName = args.getString(AppConstants.JSONKeys.NAME);
+				final String couponUrl = args.getString(AppConstants.JSONKeys.URL);
+				int sdk = android.os.Build.VERSION.SDK_INT;
+				if (sdk < android.os.Build.VERSION_CODES.HONEYCOMB)
+				{
+					android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+					clipboard.setText(args.getString(AppConstants.JSONKeys.COUPON));
+				}
+				else
+				{
+					ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+					ClipData clip = ClipData.newPlainText(AppConstants.JSONKeys.COUPON, args.getString(AppConstants.JSONKeys.COUPON));
+					clipboard.setPrimaryClip(clip);
+				}
+				//
+				final GenericDialog dialog1 = new GenericDialog(this, R.layout.exit_message, R.style.AlertDialogCustom);
+				dialog1.setCancelable(false);
+				Button btn1 = (Button) dialog1.findViewById(R.id.yes_btn);
+				btn1.setText(getString(R.string.yes));
+				btn1.setOnClickListener(new OnClickListener()
+				{
+					@Override
+					public void onClick(View v)
+					{
+						try
+						{
+							// removeDialog(BUY_CONFIRMATION_DIALOG);
+							// GreatBuyzApplication.getServiceDelegate().purchaseDeal(CouponDetailScreen.this, did,mdn,location);
+							// GreatBuyzApplication.getApplication().getAnalyticsAgent().logEvent(AppConstants.Flurry.DealDetails, m);
+							// couponScreenDTO.getDealVisitUri();
+							Utils.launchUri(SampleTabsStyled.this, couponUrl);
+						}
+						catch (Exception e)
+						{
+							e.printStackTrace();
+						}
+					}
+				});
+				Button noBtn = (Button) dialog1.findViewById(R.id.no_btn);
+				noBtn.setText(getString(R.string.no));
+				noBtn.setOnClickListener(new OnClickListener()
+				{
+					@Override
+					public void onClick(View v)
+					{
+						try
+						{
+							removeDialog(AppConstants.DialogConstants.BUY_CONFIRMATION_DIALOG);
+						}
+						catch (Exception e)
+						{
+							e.printStackTrace();
+						}
+					}
+				});
+				TextView msgText1 = (TextView) dialog1.findViewById(R.id.msg);
+				msgText1.setText("Coupon code \""+ args.getString(AppConstants.JSONKeys.COUPON) +"\" is copied to clipboard. Click Yes to Redeem at " + couponUrl);
 				msgText1.setTypeface(GreatBuyzApplication.getApplication().getFont());
 				TextView titleText11 = (TextView) dialog1.findViewById(R.id.title);
 				titleText11.setText(AppConstants.EMPTY_STRING);

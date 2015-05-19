@@ -562,7 +562,7 @@ public class PaymentActivity extends Activity
 						}
 						catch (Exception e)
 						{
-							Log.e("PaymentActivity Error message Ok button onClick() ", "Application is crashed due to exception --> " + e.toString());
+							//Log.e("PaymentActivity Error message Ok button onClick() ", "Application is crashed due to exception --> " + e.toString());
 							e.printStackTrace();
 						}
 					}
@@ -933,14 +933,14 @@ public class PaymentActivity extends Activity
 		public void onCCBError(CCBError e)
 		{
 			finish();
-			//Toast.makeText(context, "CCB Error ! " + e.getMessage(), Toast.LENGTH_LONG).show();
+			Toast.makeText(context, "Payment Error ! " + e.getMessage(), Toast.LENGTH_LONG).show();
 			e.printStackTrace();
 		}
 		
 		@Override
 		public void onError(DialogError e)
 		{
-			//Toast.makeText(context, "Dialog error !", Toast.LENGTH_LONG).show();
+			Toast.makeText(context, "Payment error !", Toast.LENGTH_LONG).show();
 			finish();
 		}
 		
@@ -948,7 +948,7 @@ public class PaymentActivity extends Activity
 		public void onCancel()
 		{
 			finish();
-		//	Toast.makeText(context, "Dialog cancelled !", Toast.LENGTH_LONG).show();
+			Toast.makeText(context, "Payment cancelled !", Toast.LENGTH_LONG).show();
 			// PaymentActivity.dialogConfirm(context);
 //			final Bundle bundle = new Bundle();
 //			bundle.putString("message", "message");
